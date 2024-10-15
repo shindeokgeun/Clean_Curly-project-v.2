@@ -1,0 +1,12 @@
+<h2>{{ category.name }} 카테고리 상품</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'shop:product_detail' product.id %}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <p>{{ product.name }}</p>
+                <p>{{ product.price }}원</p>
+            </a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,271 @@
+.review-section {
+    display: flex;
+    flex-direction: column; /* 내부 요소들을 세로로 배열 */
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1000px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.review-section .review-title {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.review-section .review-images {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.review-section .review-image-button {
+    width: 100px;
+    height: 100px;
+    border: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+.review-section .review-image-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review-section .review-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.review-section .review-item {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.review-section .review-item:last-child {
+    border-bottom: 1px solid #eee;
+}
+
+.review-section .reviewer-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.review-section .reviewer-info {
+    flex: 0 0 200px;
+    min-width: 200px;
+}
+
+.review-section .reviewer-badge {
+    background-color: #5f0080;
+    color: white;
+    padding: 2px 5px;
+    font-size: 12px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.review-section .reviewer-name {
+    font-weight: bold;
+}
+
+.review-section .review-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.review-section .review-content .review-images {
+    justify-content: flex-start; /* 사용자 리뷰의 이미지를 왼쪽 정렬 */
+}
+
+.review-section .review-content .review-image-button {
+    width: 80px; /* 크기 조정 */
+    height: 80px;
+}
+
+.review-section .review-product-name {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.review-section .rating {
+    color: #FFD700;  /* 금색 */
+    font-size: 15px;  /* 별 크기 조절 */
+    margin-left: 10px;  /* 제품명과의 간격 */
+    display: inline-block;
+}
+
+.review-section .star {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
+
+.review-section .star.filled {
+    color: #FFD700;  /* 금색 */
+}
+
+.review-section .star.empty {
+    color: #ccc;  /* 회색 */
+}
+
+.review-section .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.review-section .review-header .reviewer-info {
+    margin-right: 20px;
+}
+
+.review-section .review-header .review-product-name {
+    flex: 1;
+    margin: 0;
+}
+
+.review-section .review-text {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.review-section .review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.review-section .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.review-section .page-button {
+    padding: 5px 10px;
+    background: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.review-section .page-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* '이전' 버튼의 disabled 상태에서 왼쪽 화살표 이미지 적용 */
+.review-section .page-button.prev:disabled {
+    background-image: url(https://res.kurly.com/kurly/ico/2021/paging-prev-disabled.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: default;
+    color: transparent;
+    text-shadow: none;
+    border: none;
+}
+
+/* '다음' 버튼의 disabled 상태에서 오른쪽 화살표 이미지 적용 */
+.review-section .page-button.next:disabled {
+    background-image: url(https://res.kurly.com/kurly/ico/2021/paging-next-disabled.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: default;
+    color: transparent;
+    text-shadow: none;
+    border: none;
+}
+
+
+/* 도움돼요 버튼 스타일 */
+.review-section .css-g3a39p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 88px;
+    height: 32px;
+    padding: 0px 13px 0px 11px;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgb(153, 153, 153);
+    background-color: white; /* 버튼의 배경 색 설정 */
+    cursor: pointer;
+}
+
+/* 엄지 아이콘 부분 스타일 */
+.review-section .css-xdee1z {
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoCiAgICBkPSJNNC4wNDgzNyAxMi45OTk4SDIuMjE5MzVDMS41NDU5MiAxMi45OTk4IDEgMTIuNDYyNiAxIDExLjc5OTlWNy41OTk5MkMxIDYuOTM3MTggMS41NDU5MiA2LjM5OTkzIDIuMjE5MzUgNi4zOTk5M0g0LjA0ODM3TTguMzE2MDggNS4xOTk5NVYyLjc5OTk4QzguMzE2MDggMS44MDU4OCA3LjQ5NzIgMSA2LjQ4NzA2IDFMNC4wNDgzNyA2LjM5OTkzVjEyLjk5OTlIMTAuOTI1NUMxMS41MzM1IDEzLjAwNjYgMTIuMDUzNyAxMi41NzE1IDEyLjE0NDggMTEuOTc5OUwxMi45ODYyIDYuNTc5OTNDMTMuMDM5OSA2LjIzMTg1IDEyLjkzNTUgNS44NzgxMiAxMi43MDA4IDUuNjEyNDVDMTIuNDY2IDUuMzQ2NzggMTIuMTI0NiA1LjE5NTk2IDExLjc2NjggNS4xOTk5NUg4LjMxNjA4WiIKICAgIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIxLjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==) center center no-repeat;
+    background-size: contain; /* 이미지 크기를 버튼 크기에 맞게 조정 */
+}
+
+/* 도움돼요 텍스트 부분 스타일 */
+.review-section .css-g3a39p span {
+    color: #999999; /* 텍스트 색상 설정 */
+    font-weight: normal;
+    font-size: 12px;
+}
+
+
+
+/* 버튼 컨테이너 */
+.review-section .css-xz598r {
+    display: flex;
+    align-items: center;
+}
+
+/* 추천순 버튼 */
+.review-section .css-1wutd8j {
+    position: relative;
+    font-weight: 500; /* 선택된 버튼 굵은 글씨 */
+    font-size: 12px;
+    color: rgb(51, 51, 51); /* 활성화된 버튼 색상 */
+    padding: 0 8px; /* 좌우 간격 */
+    background: none;
+    border: none;
+}
+
+/* 최근등록순 버튼 */
+.review-section .css-1vdyl7k {
+    position: relative;
+    font-weight: 400; /* 기본 글씨 */
+    font-size: 12px;
+    color: rgb(153, 153, 153); /* 비활성화된 버튼 색상 */
+    padding: 0 8px; /* 좌우 간격 */
+    background: none;
+    border: none;
+}
+
+/* 추천순 버튼의 오른쪽에 세로줄 추가 */
+.review-section .css-1wutd8j::after {
+    content: "|"; /* 세로줄 기호 */
+    position: absolute;
+    top: 50%;
+    right: 0px; /* 버튼과 세로줄 사이의 간격 */
+    transform: translateY(-50%); /* 세로줄을 버튼 중앙에 위치시킴 */
+    font-weight: 400;
+    color: rgb(153, 153, 153); /* 세로줄 색상 */
+}
+
+/* 최근등록순 버튼에 추가 스타일 없음 */

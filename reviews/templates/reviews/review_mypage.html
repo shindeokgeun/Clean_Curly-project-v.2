@@ -1,0 +1,76 @@
+
+<div class="table-wrap mypage-review">
+    <h6 class="review-title">
+        <span>구매평</span>
+    </h6>
+    <div class="tab-container">
+        <a href="#writeable" class="tab">작성 가능한 리뷰</a>
+        <a href="#written" class="tab">내가 작성한 리뷰</a>
+    </div>
+    <div class="content">
+        <div id="writeable" class="content-pane">
+            {% if review_data.writeable_items %}
+                <h3 class="review-count">{{ review_data.writeable_items|length }}개의 리뷰를 작성할 수 있습니다</h3>
+                {% for item in review_data.writeable_items %}
+                    <div class="review-item">
+                        <div class="review-image product-image">
+                            <img src="{{ item.product.image.url }}" alt="제품 이미지">
+                        </div>
+                        <div class="review-content">
+                            <h4>{{ item.product.name }}</h4>
+                            <a href="{% url 'reviews:review_entry_form' item.product.id %}" class="write-review-btn">리뷰 작성하기</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="main-message">현재 작성 가능한 리뷰가 없습니다.</p>
+                <p class="sub-message">배송이 완료된 상품만 목록에 노출됩니다.</p>
+            {% endif %}
+        </div>
+        <div id="written" class="content-pane">
+            <h3 class="review-count">{{ review_data.written_reviews|length }}개의 리뷰를 작성하였습니다</h3>
+            <hr class="review-separator">
+            <div class="review-list">
+                {% for review in review_data.written_reviews %}
+                    <div class="review-item">
+                        <div class="review-image product-image">
+                            <img src="{{ review.product.image.url }}" alt="제품 이미지">
+                        </div>
+                        <div class="review-content">
+                            <h4>{{ review.product.name }}</h4>
+                            <!-- 별점 표시 -->
+                            <div class="rating">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <span class="star filled">★</span>
+                                    {% else %}
+                                        <span class="star empty">☆</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <p class="review-text">
+                                {{ review.text|truncatechars:100 }}
+                            </p>
+                            <!-- 수정 및 삭제 버튼 추가 -->
+                            <div class="review-actions">
+                                <a href="{% url 'reviews:edit_review' review.id %}" class="btn btn-edit">수정</a>
+                                <form method="post" action="{% url 'reviews:delete_review' review.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-delete" onclick="return confirm('정말로 이 리뷰를 삭제하시겠습니까?');">삭제</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="review-user-info">
+                            <span class="review-date">{{ review.created_at|date:"Y. m. d" }}</span>
+                            {% if review.image %}
+                                <div class="review-image user-image">
+                                    <img src="{{ review.image.url }}" alt="리뷰 이미지">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

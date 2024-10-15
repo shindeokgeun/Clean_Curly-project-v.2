@@ -1,0 +1,26 @@
+<div class="review-form-container">
+    <h2>리뷰 수정</h2>
+    <form method="post" enctype="multipart/form-data" class="review-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.rating.id_for_label }}">평점:</label>
+            {{ form.rating }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.text.id_for_label }}">리뷰 내용:</label>
+            {{ form.text }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">이미지:</label>
+            {{ form.image }}
+            {% if review.image %}
+                <p>현재 이미지: <img src="{{ review.image.url }}" alt="현재 리뷰 이미지" style="max-width: 200px;"></p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="submit-button">리뷰 수정</button>
+    </form>
+</div>

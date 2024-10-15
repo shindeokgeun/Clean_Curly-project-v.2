@@ -1,0 +1,56 @@
+{% load static %}
+<div id="review" class="review-section product-reviews-container">
+    <section class="review-container">
+        <h2 class="review-title">상품 후기</h2>
+        <div class="review-images">
+            {% for review in reviews %}
+                {% if review.image %}
+                    <button class="review-image-button">
+                        <img src="{{ review.image.url }}" alt="상품 후기 이미지">
+                    </button>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="review-summary">
+            <span class="review-count">총 {{ reviews.count }}개</span>
+        </div>
+        <div class="review-list">
+            {% for review in reviews %}
+                <div class="review-item">
+                    <div class="reviewer-container">
+                        <div class="reviewer-info">
+                            <div class="reviewer-badge">멤버스</div>
+                            <span class="reviewer-name">{{ review.user.username|slice:":2" }}**</span>
+                        </div>
+                        <div class="review-content">
+                            <div class="review-header">
+                                <h3 class="review-product-name">{{ review.product.name }}</h3>
+                                <div class="rating">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= review.rating %}
+                                            <span class="star filled">★</span>
+                                        {% else %}
+                                            <span class="star empty">☆</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <p class="review-text">{{ review.text }}</p>
+                            {% if review.image %}
+                                <div class="review-images">
+                                    <button class="review-image-button">
+                                        <img src="{{ review.image.url }}" alt="리뷰 이미지">
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <footer class="review-footer">
+                                <span class="review-date">{{ review.created_at|date:"Y.m.d" }}</span>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+

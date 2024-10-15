@@ -1,0 +1,329 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="{% static 'USERS_마켓_로그인.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="link_text">{{ user.username }} 님</a>
+                <a href="{% url 'logout' %}" class="link_text">로그아웃</a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="link_text">회원가입</a>
+                <a href="{% url 'login' %}" class="link_text">로그인</a>
+            {% endif %}
+            <a href="{% url 'cs_index' %}" class="link_text">고객센터</a>
+        </div>
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="{% static 'images/마켓로고.png' %}" alt="마켓로고">
+            </a>
+            
+            <form class="search-form">
+                <div class="search_box">
+                    <input type="text" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요">
+                    <button type="submit" tabindex="2">
+                        <img src="{% static 'images/돋보기 로고.png' %}" alt="검색">
+                    </button>
+                </div>
+            </form>
+            
+            <div class="icons">
+                <a href="#"><img src="{% static 'images/위치.png' %}" alt="위치"></a>
+                <a href="#"><img src="{% static 'images/좋아요.png' %}" alt="좋아요"></a>
+                <a href="/cart/"><img src="{% static 'images/장바구니.png' %}" alt="장바구니"></a>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav_items">
+                <div class="category-link">
+                    <ul>
+                      <li>
+                        <a href="/">
+                            <img src="{% static 'images/카테고리앞.svg' %}"> 카테고리 
+                        </a>
+                    </ul>                   
+                </div>
+                <ul>
+                    <li><a href="/">신상품</a></li>
+                    <li><a href="/">베스트</a></li>
+                    <li><a href="/">알뜰쇼핑</a></li>
+                    <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
+                </ul>
+                    <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" class="bnr_delivery_img">
+            </div>
+
+        </nav>
+    </header>
+    
+    <main>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if not request.GET.password_confirmed %}
+            <!-- 비밀번호 확인 폼 -->
+            <div class="password-confirmation">
+                <div class="confirmation-field">
+                    <h3 class="title">비밀번호 재확인</h3>
+                    <p class="description">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</p>
+        
+                    <form action="" name="confirmForm" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="password_confirmed" value="true">
+                        <table class="info-table">
+                            <tbody>
+                                <tr class="username-row">
+                                    <th>아이디</th>
+                                    <td>
+                                        <input type="text" name="id" value="{{ user.username }}" readonly class="readonly-input">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        비밀번호
+                                        <span class="required">
+                                            *
+                                            <span class="hidden">필수항목</span>
+                                        </span>
+                                    </th>
+                                    <td>
+                                        <input type="password" name="confirm_password" id="confirm_password" class="password-input">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+        
+                        <button type="submit" class="submit-button">확인</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <!-- 개인정보 표시 -->
+            <section>
+                <h2>개인 정보</h2>
+                <p><strong>아이디:</strong> {{ user.username }}</p>
+                <p><strong>이메일:</strong> {{ user.email }}</p>
+                <p><strong>전화번호:</strong> {{ user.phone_number }}</p>
+                <p><strong>주소:</strong> {{ user.address }}</p>
+                <p><strong>생년월일:</strong> {{ user.date_of_birth }}</p>
+            </section>
+        {% endif %}
+    
+        <!-- 로그아웃 버튼 -->
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">로그아웃</button>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__contents">
+        <div class="footer__cs" role="complementary">
+            <h2 class="footer__cs__title">고객행복센터</h2>
+            <div class="footer__cs__info">
+            <span class="cs__infoNumber">1644-1107</span
+            ><span class="cs__infoTime">월~토요일 오전 7시 - 오후 6시</span>
+            </div>
+            <div class="footer__cs__inquiry">
+            <div class="cs__inquiryKaKao">
+                <button class="cs__inquiry__button" type="button">
+                카카오톡 문의
+                </button>
+                <div class="cs__inquiry__description">
+                <span> 월~토요일 | 오전 7시 - 오후 6시 </span>
+                <span>일/공휴일 | 오전 7시 - 오후 1시</span>
+                </div>
+            </div>
+            <div class="cs__inquiry1to1">
+                <button class="cs__inquiry__button" type="button">
+                1:1 문의
+                </button>
+                <div class="cs__inquiry__description">
+                <span>365일</span>
+                <span>고객센터 운영시간에 순차적으로 답변드리겠습니다.</span>
+                </div>
+            </div>
+            <div class="cs__inquiryBulk">
+                <button class="cs__inquiry__button" type="button">
+                대량주문 문의
+                </button>
+                <div class="cs__inquiry__description">
+                <span>월~금요일 | 오전9시 - 오후 6시</span>
+                <span>점심시간 | 낮 12시 - 오후 1시</span>
+                </div>
+            </div>
+            </div>
+            <div class="footer__cs__nonMember">
+            <span>
+                비회원 문의:
+                <a href="mailto:help@karlycorp.com" class="primary"
+                >help@karlycorp.com</a
+                >
+            </span>
+            <span>
+                비회원 대량주문 문의:
+                <a href="mailto:help@karlycorp.com" class="primary"
+                >help@karlycorp.com</a
+                >
+            </span>
+            </div>
+        </div>
+        <div class="footer__about" role="complementary">
+            <ul class="footer__about__list">
+            <li class="about__item">
+                <a href="#" class="about__link">칼리소개</a>
+            </li>
+            <li class="about__item">
+                <a href="#" class="about__link">칼리소개영상</a>
+            </li>
+            <li class="about__item">
+                <a href="#" class="about__link">인재채용</a>
+            </li>
+            <li class="about__item">
+                <a href="#" class="about__link">이용약관</a>
+            </li>
+            <li class="about__item">
+                <a href="#" class="about__link">개인정보처리방침</a>
+            </li>
+            <li class="about__item">
+                <a href="#" class="about__link">이용안내</a>
+            </li>
+            </ul>
+            <address class="footer__companyInfo">
+            <p class="footer__companyInfo__description">
+                <span>법인명 (상호) : 주식회사 컬리</span>
+                <span>|</span>
+                <span>사업자등록번호 : 261-81-23567</span>
+                <span>|</span>
+                <span
+                ><a
+                    href="#"
+                    class="primary"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    >사업자정보 확인</a
+                ></span
+                >
+            </p>
+            <p class="footer__companyInfo__description">
+                <span>통신판매업 : 제 2018-서울강남-01646 호</span>
+                <span>|</span>
+                <span>개인정보보호책임자 : 이원준</span>
+            </p>
+            <p class="footer__companyInfo__description">
+                <span>주소 : 서울특별시 강남구 테헤란로 133, 18층(역삼동)</span>
+                <span>|</span>
+                <span>대표이사 : 김슬아</span>
+            </p>
+            <p class="footer__companyInfo__description">
+                <span>입점문의 : <span class="primary">입점문의하기</span></span>
+                <span>|</span>
+                <span
+                >제휴문의 :
+                <a href="mailto:business@karlycorp.com" class="primary"
+                    >business@karlycorp.com</a
+                ></span
+                >
+            </p>
+            <p class="footer__companyInfo__description">
+                <span
+                >채용문의 :
+                <a href="mailto:recruit@karlycorp.com" class="primary"
+                    >recruit@karlycorp.com</a
+                ></span
+                >
+            </p>
+            <p class="footer__companyInfo__description">
+                <span>팩스 : 070 - 7500 - 6098</span>
+            </p>
+            </address>
+            <div class="footer__sns">
+            <ul class="footer__snsList">
+                <li id="blogLink">
+                <a href="https://helloworld.kurly.com/" target="_blank" rel="noreferrer noopener">
+                    <img src="https://res.kurly.com/pc/ico/1810/ico_blog.png" alt="블로그">
+                </a>
+                </li>
+                <li id="facebookLink">
+                <a href="https://www.facebook.com/Marketkurly" target="_blank" rel="noreferrer noopener">
+                    <img src="https://res.kurly.com/pc/ico/1810/ico_fb.png" alt="Facebook">
+                </a>
+                </li>
+                <li id="instagramLink">
+                <a href="https://www.instagram.com/marketkurly/" target="_blank" rel="noreferrer noopener">
+                    <img src="https://res.kurly.com/pc/ico/1810/ico_instagram.png" alt="Instagram">
+                </a>
+                </li>
+                <li id="snsLink">
+                <a href="https://www.kurly.com/main?NaPm=ct%3Dm0omntk7%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3D7b5393f6daa681496ec2f843cab9f51dac56d618" target="_blank" rel="noreferrer noopener">
+                    <img src="https://res.kurly.com/pc/ico/1810/ico_naverpost.png" alt="Naver Post">
+                </a>
+                </li>
+                <li id="youtubeLink">
+                <a href="https://www.youtube.com/channel/UCfpdjL5pl-1qKT7Xp4UQzQg" target="_blank" rel="noreferrer noopener">
+                    <img src="https://res.kurly.com/pc/ico/1810/ico_youtube.png" alt="YouTube">
+                </a>
+                </li>
+            </ul>
+            </div>
+            
+        </div>
+        <div class="footer__mark" role="complementary">
+            <button type="button" class="footer__mark__button">
+            <img src="https://res.kurly.com/pc/ico/2001/logo_isms.png" alt="isms 로고" class="logo" width="100" height="auto">
+            <span class="mark__description">
+                <span>
+                [인증범위] 마켓칼리 쇼핑몰 서비스 개발 운영(심사받지 않은 물리적
+                인프라 제외)
+                </span>
+                <span> [유효기간] 2022.01.19 ~ 2025.01.18 </span>
+            </span>
+            </button>
+            <button type="button" class="footer__mark__button">
+            <img src="https://res.kurly.com/pc/ico/2001/logo_eprivacyplus.png" alt="eprivacy plus 로고" class="logo" width="100" height="auto">
+            <span class="mark__description">
+                <span>개인정보보호 우수 웹사이트</span>
+                <span> 개인정보처리시스템 인증 (ePRIVACY PLUS) </span>
+            </span>
+            </button>
+            <button type="button" class="footer__mark__button">
+            <img src="https://res.kurly.com/pc/service/main/2009/logo_payments.png" alt="payments 로고" class="logo" width="100" height="auto">
+            <span class="mark__description">
+                토스페이먼츠 구매안전(에스크로) 서비스를 이용하실 수 있습니다.
+            </span>
+            </button>
+            <button type="button" class="footer__mark__button">
+            <img src="https://res.kurly.com/pc/ico/2208/logo_wooriBank.svg" alt="wooriBank 로고" class="logo" width="100" height="auto">
+            <span class="mark__description"
+                >고객님이 현금으로 결제한 금액에 대해 우리은행과 채무지급보증
+                계약을 체결하여 안전거래를 보장하고 있습니다.</span
+            >
+            </button>
+        </div>
+        </div>
+        <div class="footer__copyright" role="complementary">
+        <span class="footer__copyright__info">
+            마켓칼리에서 판매되는 상품 중에는 마켓칼리에 입점한 개별 판매자가
+            판매하는 마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.
+        </span>
+        <span class="footer__copyright__info"
+            >마켓플레이스(오픈마켓) 상품의 경우 칼리는 통신판매중개자로서
+            통신판매의 당사자가 아닙니다. 칼리는 해당 상품의 주문, 품질, 교환/환불
+            등 의무와 책임을 부담하지 않습니다.</span
+        >
+        <em class="footer__copyright__notice">
+            &copy; KARLY CORP. ALL RIGHTS RESERVED
+        </em>
+        </div>
+    </footer>
+    </body>
+</html>
