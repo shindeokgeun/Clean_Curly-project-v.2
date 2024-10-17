@@ -1,0 +1,57 @@
+<!-- templates/product_register.html -->
+<h1>상품 등록</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- 필수 필드 
+    <label for="name">상품명:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="price">가격:</label>
+    <input type="number" step="0.01" id="price" name="price" required><br>
+
+    <label for="discount_price">할인가격 (선택):</label>
+    <input type="number" step="0.01" id="discount_price" name="discount_price"><br>
+
+    <label for="image">상품 이미지:</label>
+    <input type="file" id="image" name="image" required><br>
+
+    <label for="category">카테고리:</label>
+    <select id="category" name="category">
+        <option value="">카테고리 선택</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select><br>
+
+     필수 정보 필드 
+    <label for="shipping_info">배송 정보:</label>
+    <input type="text" id="shipping_info" name="shipping_info" value="배송 정보 입력" required><br>
+
+    <label for="seller">판매자:</label>
+    <input type="text" id="seller" name="seller" value="판매자 입력" required><br>
+
+    <label for="packaging_type">포장 타입:</label>
+    <input type="text" id="packaging_type" name="packaging_type" value="포장 타입 입력" required><br>
+
+     선택적 정보 필드 
+    <label for="sales_unit">판매 단위 (선택):</label>
+    <input type="text" id="sales_unit" name="sales_unit"><br>
+
+    <label for="weight_volume">중량/용량 (선택):</label>
+    <input type="text" id="weight_volume" name="weight_volume"><br>
+
+    <label for="expiration_date">소비기한 또는 유통기한 (선택):</label>
+    <textarea id="expiration_date" name="expiration_date"></textarea><br>
+
+    <label for="notice_info">안내 사항 (선택):</label>
+    <textarea id="notice_info" name="notice_info"></textarea><br>
+
+    <label for="allergy_info">알레르기 정보 (선택):</label>
+    <textarea id="allergy_info" name="allergy_info"></textarea><br>
+
+    <label for="livestock_trace_info">축산물 이력 정보 (선택):</label>
+    <input type="text" id="livestock_trace_info" name="livestock_trace_info"><br> -->
+
+    <button type="submit">등록하기</button>
+</form>

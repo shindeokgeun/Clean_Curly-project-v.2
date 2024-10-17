@@ -4,6 +4,7 @@ from .models import Product, Category
 from .forms import QuantityForm
 from carts.forms import CartAddProductForm
 from reviews.models import Review 
+from .forms import ProductForm
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -39,3 +40,31 @@ def product_by_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     products = Product.objects.filter(category=category)
     return render(request, 'shop/product_list.html', {'category': category, 'products': products})
+
+
+
+########## 고객센터 -> 상품 등록 기능 구현 ##########
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect
+
+# 판매자 여부를 확인하는 함수
+def is_seller(user):
+    return user.groups.filter(name='판매자').exists()
+
+# 상품 등록 페이지 뷰
+@user_passes_test(is_seller)
+def product_register(request):
+    categories = Category.objects.all()  # 모든 카테고리를 가져옴
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)  # 폼 데이터와 파일 데이터 처리
+        if form.is_valid():
+            form.save()  # 폼 데이터가 유효하면 저장
+            return redirect('/shop/success/')  # 성공 시 리디렉션 (적절한 URL로 수정 필요)
+    else:
+        form = ProductForm()
+
+    return render(request, 'shop/product_register.html', {'categories': categories, 'form': form})
+
+
+def success_page(request):
+    return redirect('index')

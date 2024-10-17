@@ -14,7 +14,7 @@ class CustomUserAdmin(BaseUserAdmin):
     # 사용자 정보 수정 시 보여줄 필드셋 구성
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}), # 기본 필드
-        ('Permissions', {'fields': ('is_staff', 'is_active')}), # 권한 관련 필드
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'groups')}), # 권한 관련 필드
         ('Additional Info', {'fields': ('phone_number', 'address', 'date_of_birth', 'profile_picture')}),
     )
     
@@ -28,6 +28,7 @@ class CustomUserAdmin(BaseUserAdmin):
 
     search_fields = ('email', 'username') # 사용자 리스트 정렬 기준
     ordering = ('email',) # 사용자 리스트 정렬 기준
-    filter_horizontal = () # 필터 옵션
+    
+    filter_horizontal = ('groups', 'user_permissions')
 
 admin.site.register(CustomUser, CustomUserAdmin) # CustomUser 모델을 관리자 사이트에 등록
