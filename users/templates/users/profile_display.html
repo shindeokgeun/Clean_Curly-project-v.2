@@ -85,12 +85,41 @@
                 <p><strong>생년월일:</strong> {{ user.date_of_birth }}</p>
             </div>
         </section>
+
+        <div class="mileage-section">
+            <h4>반가워요! {{ user.username }}님</h4>
+            <p>최초 1회 무료배송</p>
+            <div class="mileage-details">
+                <div class="mileage">
+                    <p>적립금</p>
+                    <span>
+                        {{ user.mileage|floatformat:0 }}원
+                    </span>
+                </div>
+                <div class="karly-cash">
+                    <p>칼리캐시</p>
+                    <span>
+                        {{ user.karly_cash|floatformat:0 }}원
+                    </span>
+                </div>
+            </div>
+            <div class="update-buttons">
+                <a href="{% url 'update_mileage' %}" class="update-miles-button add-miles-button">적립금/캐시 추가</a>
+                <a href="{% url 'delete_mileage' %}" class="update-miles-button delete-miles-button">적립금/캐시 삭제</a>
+            </div>
+        </div>
         
-        <!-- 로그아웃 버튼 -->
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="logout-button">로그아웃</button>
-        </form>
+        <div class="user-controls-new"> <!-- 새로운 사용자 컨트롤 클래스 이름 -->
+            <!-- 로그아웃 버튼 -->
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">로그아웃</button>
+            </form>
+        
+            <!-- 회원정보 수정 버튼 -->
+            <a href="{% url 'profile_edit' %}" class="profile-edit-button">회원정보 수정</a>
+        </div>
+
   
         {% include 'reviews/review_mypage.html' %}
  

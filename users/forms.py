@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from .models import CustomUser
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(
@@ -74,3 +76,36 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = CustomUser
         fields = ('username', 'email', 'first_name', 'last_name', 'phone_number', 'address', 'date_of_birth', 'profile_picture', 'is_active', 'is_staff', 'is_superuser')
+
+from django import forms
+from django.core.exceptions import ValidationError
+from .models import CustomUser
+
+class ProfileUpdateForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(), required=False, label='새 비밀번호')  # 비밀번호 필드
+    confirm_password = forms.CharField(widget=forms.PasswordInput(), required=False, label='새 비밀번호 확인')  # 확인 비밀번호
+
+    class Meta:
+        model = CustomUser
+        fields = ['phone_number', 'address', 'date_of_birth', 'profile_picture', 'password', 'confirm_password']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password and password != confirm_password:
+            raise ValidationError('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.')
+
+        return cleaned_data
+    
+
+class MileageUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['mileage', 'karly_cash']
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['mileage'].label = '적립금 추가'
+        self.fields['karly_cash'].label = '칼리캐시 추가'
