@@ -1,57 +1,91 @@
-<!-- templates/product_register.html -->
-<h1>상품 등록</h1>
-<form method="post" enctype="multipart/form-data">
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록 페이지</title>
+    <link rel="stylesheet" href="{% static 'SHOP_product_register.css' %}">
+    
+</head>
+<body>
+    <!--<h1 class="form-title">상품 등록</h1>-->
     {% csrf_token %}
-    {{ form.as_p }}
-    <!-- 필수 필드 
-    <label for="name">상품명:</label>
-    <input type="text" id="name" name="name" required><br>
 
-    <label for="price">가격:</label>
-    <input type="number" step="0.01" id="price" name="price" required><br>
+    <!-- 폼 필드를 감싸는 div -->
+    <form method="post" enctype="multipart/form-data" class="product-form">
+        {% csrf_token %}
+    
+        <div class="form-group">
+            {{ form.name.label_tag }}  <!-- 상품명 -->
+            {{ form.name }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.price.label_tag }}  <!-- 가격 -->
+            {{ form.price }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.discount_price.label_tag }}  <!-- 할인 가격 -->
+            {{ form.discount_price }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.image.label_tag }}  <!-- 이미지 -->
+            {{ form.image }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.category.label_tag }}  <!-- 카테고리 -->
+            {{ form.category }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.shipping_info.label_tag }}  <!-- 배송 정보 -->
+            {{ form.shipping_info }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.seller.label_tag }}  <!-- 판매자 -->
+            {{ form.seller }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.packaging_type.label_tag }}  <!-- 포장 타입 -->
+            {{ form.packaging_type }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.sales_unit.label_tag }}  <!-- 판매 단위 -->
+            {{ form.sales_unit }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.weight_volume.label_tag }}  <!-- 중량/용량 -->
+            {{ form.weight_volume }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.expiration_date.label_tag }}  <!-- 유통기한 -->
+            {{ form.expiration_date }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.Notice_info.label_tag }}  <!-- 안내 사항 -->
+            {{ form.Notice_info }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.allergy_info.label_tag }}  <!-- 알레르기 정보 -->
+            {{ form.allergy_info }}
+        </div>
+    
+        <div class="form-group">
+            {{ form.livestock_trace_info.label_tag }}  <!-- 축산물 이력 정보 -->
+            {{ form.livestock_trace_info }}
+        </div>
 
-    <label for="discount_price">할인가격 (선택):</label>
-    <input type="number" step="0.01" id="discount_price" name="discount_price"><br>
-
-    <label for="image">상품 이미지:</label>
-    <input type="file" id="image" name="image" required><br>
-
-    <label for="category">카테고리:</label>
-    <select id="category" name="category">
-        <option value="">카테고리 선택</option>
-        {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
-        {% endfor %}
-    </select><br>
-
-     필수 정보 필드 
-    <label for="shipping_info">배송 정보:</label>
-    <input type="text" id="shipping_info" name="shipping_info" value="배송 정보 입력" required><br>
-
-    <label for="seller">판매자:</label>
-    <input type="text" id="seller" name="seller" value="판매자 입력" required><br>
-
-    <label for="packaging_type">포장 타입:</label>
-    <input type="text" id="packaging_type" name="packaging_type" value="포장 타입 입력" required><br>
-
-     선택적 정보 필드 
-    <label for="sales_unit">판매 단위 (선택):</label>
-    <input type="text" id="sales_unit" name="sales_unit"><br>
-
-    <label for="weight_volume">중량/용량 (선택):</label>
-    <input type="text" id="weight_volume" name="weight_volume"><br>
-
-    <label for="expiration_date">소비기한 또는 유통기한 (선택):</label>
-    <textarea id="expiration_date" name="expiration_date"></textarea><br>
-
-    <label for="notice_info">안내 사항 (선택):</label>
-    <textarea id="notice_info" name="notice_info"></textarea><br>
-
-    <label for="allergy_info">알레르기 정보 (선택):</label>
-    <textarea id="allergy_info" name="allergy_info"></textarea><br>
-
-    <label for="livestock_trace_info">축산물 이력 정보 (선택):</label>
-    <input type="text" id="livestock_trace_info" name="livestock_trace_info"><br> -->
-
-    <button type="submit">등록하기</button>
+    <button type="submit" class="submit-btn">등록하기</button>
 </form>
+</html>

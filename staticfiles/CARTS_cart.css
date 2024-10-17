@@ -1,0 +1,562 @@
+/* General Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Body Style */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 가로 스크롤 제거 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Main Content Style */
+main {
+  width: 820px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+/* Header Styles */
+header {
+  width: 100%;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 20px;
+}
+
+.top-links {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+}
+
+.link_text {
+  margin-left: 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  max-width: 150px;
+}
+
+.search-form {
+  flex-grow: 1;
+  max-width: 400px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.search_box {
+  position: relative;
+  width: 100%;
+}
+
+.search_box input {
+  width: 100%;
+  padding-right: 40px;
+  padding-left: 10px;
+  height: 35px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search_box button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search_box img {
+  width: 20px;
+  height: 20px;
+}
+
+.icons a {
+  margin-left: 15px;
+}
+
+.icons img {
+  width: 30px;
+  height: 30px;
+}
+
+nav {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  justify-content: space-between; /* 항목들을 양 끝으로 배치 */
+  align-items: center; /* 수직 정렬 */
+  padding: 10px 0;
+}
+
+nav .nav_items {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  flex-grow: 1; /* 가로 공간을 최대한 차지하도록 설정 */
+  justify-content: center; /* 가운데 정렬 */
+  margin-left:auto;
+  margin-right:auto;  
+}
+
+nav .category-link{
+  display: flex;
+  margin-right:auto;
+}
+
+nav ul {
+  display: flex;
+  gap: 150px; /* 항목 간의 간격 설정 */
+  margin-left:auto;
+  margin-right:auto;
+}
+
+nav ul li a {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  font-weight: bold;
+}
+
+.bnr_delivery_img {
+  max-width: 150px; /* 원하는 최대 너비로 설정 */
+  height: auto; /* 비율 유지 */
+  margin-left: auto; /* 오른쪽 끝으로 정렬 */
+}
+
+/* Footer Styles */
+#footer {
+  background-color: #ffffff;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.inner_footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cc_footer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.cc_view {
+  flex: 1;
+}
+
+.cc_view h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.cc_view .list dt {
+  font-weight: bold;
+}
+
+.company_info {
+  padding-bottom: 20px;
+}
+
+.company_info .list {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 10px;
+}
+
+.spec_info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.bar {
+  margin: 0 5px;
+}
+
+.copy {
+  font-weight: bold;
+}
+
+.sns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sns li {
+  list-style: none;
+}
+
+.sns a {
+  display: inline-block;
+}
+
+.sns img {
+  width: 24px;
+  height: 24px;
+}
+
+.link_footer {
+  padding: 20px 0;
+  background-color: #ffffff;
+}
+
+.authentication {
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.authentication .mark {
+  display: flex;
+  align-items: center;
+}
+
+.authentication .logo {
+  width: 50px; /* 로고 크기 조정 */
+  height: auto;
+  margin-right: 10px;
+}
+
+.authentication .txt {
+  font-size: 9px;
+}
+
+/* Ensure footer always stays at the bottom */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+.footer {
+  width: 100vw;
+  height: 39.3125rem;
+
+}
+.footer__contents {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: inherit;
+  gap: 0;
+}
+.footer__cs {
+  flex-basis: 50%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer__cs__title {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 140%;
+  color: #333333;
+}
+.footer__cs__inquiry {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer__cs__nonMember {
+  vertical-align: top;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer__about {
+  flex-basis: 50%;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 2.25rem;
+}
+.footer__about__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0;
+}
+.footer__companyInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer__snsList {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+.footer__snsLink {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.footer__mark {
+  margin-top: 1.25rem;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+.footer__mark__button {
+  background: transparent;
+  border: none;
+  padding: 1.5rem 0rem 2rem 0rem;
+  min-width: 14.375rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+}
+.footer__mark__button:nth-child(3) {
+  width: 360px;
+  height: auto;
+}
+.footer__copyright {
+  background: var(--gray-50, #f9f9f9);
+  padding: 1.25rem 0 2rem 0;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #898989;
+}
+.footer__copyright__notice {
+  margin-top: 8px;
+}
+.footer__companyInfo__description span:nth-child(even) {
+  margin-left: 0.3125rem;
+  margin-right: 0.3125rem;
+}
+.footer .cs__infoNumber {
+  font-size: 2.3125rem;
+  font-weight: 700;
+  line-height: 140%;
+  color: #333333;
+}
+.footer .cs__infoTime {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #333333;
+}
+.footer .cs__inquiryKaKao, .footer .cs__inquiry1to1, .footer .cs__inquiryBulk {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer .cs__inquiry__button {
+  border: 1px solid #c4c4c4;
+  background: white;
+  width: 8.75rem;
+  height: 2.5rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.footer .cs__inquiry__description {
+  margin-top: -3px;
+  vertical-align: top;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer .about__link {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer .mark__description {
+  display: block;
+  margin-left: 8px;
+  text-align: left;
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+}
+.footer #blogLink {
+  background-image: url("/src/assets/icons/");
+}
+.footer #facebookLink {
+  background-image: url("./../../assets/icons/FaceBook.svg");
+}
+.footer #instagramLink {
+  background-image: url("./../../assets/icons/Instagram.svg");
+}
+.footer #snsLink {
+  background-image: url("./../../assets/icons/sns.svg");
+}
+.footer #youtubeLink {
+  background-image: url("./../../assets/icons/Youtube.svg");
+}
+.footer .primary {
+  color: #5f0080;
+}
+
+.cart {
+  width: 70%;
+  margin: 50px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.cart_title {
+  font-size: 30px;
+  color: #070707;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* 테이블 스타일 */
+.cart_table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  margin: 0 auto; /* 자동으로 좌우 여백 설정 */
+}
+
+.cart_table th, .cart_table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart_table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cart_table td {
+  text-align: center;
+}
+
+.cart_table td img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* 총 가격 스타일 */
+.cart_table .total {
+  font-weight: bold;
+}
+
+.cart_table .total td {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+}
+/* 버튼 스타일 */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.button.light {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.button.light:hover {
+  background-color: #e0e0e0;
+}
+
+/* 텍스트 오른쪽 정렬 */
+.text-right {
+  text-align: center;
+  margin-top: 20px;
+}
