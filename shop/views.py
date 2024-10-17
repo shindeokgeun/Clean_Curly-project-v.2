@@ -2,9 +2,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Category
 from .forms import QuantityForm
-from carts.forms import CartAddProductForm
 from reviews.models import Review 
 from .forms import ProductForm
+from django.http import HttpResponseForbidden
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -52,8 +52,11 @@ def is_seller(user):
     return user.groups.filter(name='판매자').exists()
 
 # 상품 등록 페이지 뷰
-@user_passes_test(is_seller)
+
 def product_register(request):
+    if not is_seller(request.user):  # 권한이 없으면 403 페이지 렌더링
+        return HttpResponseForbidden(render(request, 'shop/403.html'))
+    
     categories = Category.objects.all()  # 모든 카테고리를 가져옴
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)  # 폼 데이터와 파일 데이터 처리

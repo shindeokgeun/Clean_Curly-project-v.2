@@ -172,3 +172,5 @@ LOGGING = {
     },
 }
 
+# 403 에러 핸들러를 커스텀 페이지로 설정
+HANDLER403 = 'your_project.views.custom_permission_denied_view'
