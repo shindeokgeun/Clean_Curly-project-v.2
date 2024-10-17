@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     product = models.ForeignKey('shop.Product', on_delete=models.CASCADE, related_name='reviews')
@@ -9,6 +10,10 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='review_images/', blank=True, null=True)
     verified_purchase = models.BooleanField(default=False)
+    helpful_count = models.PositiveIntegerField(default=0)
+    unhelpful_count = models.PositiveIntegerField(default=0)
+    helpful_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='helpful_reviews', blank=True)
+    unhelpful_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='unhelpful_reviews', blank=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -32,14 +37,3 @@ class Review(models.Model):
     def verify_purchase(user, product):
         # 이 메서드는 나중에 실제 구매 확인 로직으로 대체될 수 있습니다.
         return Purchase.objects.filter(user=user, product=product).exists()
-
-class Purchase(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='purchases')
-    product = models.ForeignKey('shop.Product', on_delete=models.CASCADE, related_name='purchases')
-    purchase_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Purchase of {self.product.name} by {self.user.username}"
-
-    class Meta:
-        unique_together = ['user', 'product']

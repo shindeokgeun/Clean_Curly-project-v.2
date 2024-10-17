@@ -1,0 +1,1057 @@
+/* General Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Body Style */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 가로 스크롤 제거 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Main Content Style */
+main {
+  flex: 1;
+}
+
+/* Header Styles */
+header {
+  width: 100%;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 20px;
+  margin-bottom: 30px; /* 하단에 마진 추가 */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.top-links {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+}
+
+.link_text {
+  margin-left: 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  max-width: 150px;
+}
+
+.search-form {
+  flex-grow: 1;
+  max-width: 400px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.search_box {
+  position: relative;
+  width: 100%;
+}
+
+.search_box input {
+  width: 100%;
+  padding-right: 40px;
+  padding-left: 10px;
+  height: 35px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search_box button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search_box img {
+  width: 20px;
+  height: 20px;
+}
+
+.icons a {
+  margin-left: 15px;
+}
+
+.icons img {
+  width: 30px;
+  height: 30px;
+}
+
+nav {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  justify-content: space-between; /* 항목들을 양 끝으로 배치 */
+  align-items: center; /* 수직 정렬 */
+  padding: 10px 0;
+}
+
+nav .nav_items {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  flex-grow: 1; /* 가로 공간을 최대한 차지하도록 설정 */
+  justify-content: center; /* 가운데 정렬 */
+  margin-left:auto;
+  margin-right:auto;  
+}
+
+nav .category-link{
+  display: flex;
+  margin-right:auto;
+}
+
+nav ul {
+  display: flex;
+  gap: 150px; /* 항목 간의 간격 설정 */
+  margin-left:auto;
+  margin-right:auto;
+}
+
+nav ul li a {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  font-weight: bold;
+}
+
+.bnr_delivery_img {
+  max-width: 150px; /* 원하는 최대 너비로 설정 */
+  height: auto; /* 비율 유지 */
+  margin-left: auto; /* 오른쪽 끝으로 정렬 */
+}
+
+
+/* Footer Styles */
+#footer {
+  background-color: #f4f4f4;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.inner_footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cc_footer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.cc_view {
+  flex: 1;
+}
+
+.cc_view h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.cc_view .list dt {
+  font-weight: bold;
+}
+
+.company_info {
+  padding-bottom: 20px;
+}
+
+.company_info .list {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 10px;
+}
+
+.spec_info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.bar {
+  margin: 0 5px;
+}
+
+.copy {
+  font-weight: bold;
+}
+
+.sns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sns li {
+  list-style: none;
+}
+
+.sns a {
+  display: inline-block;
+}
+
+.sns img {
+  width: 24px;
+  height: 24px;
+}
+
+.link_footer {
+  padding: 20px 0;
+  background-color: #ffffff;
+}
+
+.authentication {
+  display: flex;
+  gap: 20px; 
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.authentication .mark {
+  display: flex;
+  align-items: center;
+}
+
+.authentication .logo {
+  width: 50px; /* 로고 크기 조정 */
+  height: auto;
+  margin-right: 10px;
+}
+
+.authentication .txt {
+  font-size: 9px;
+}
+
+/* Ensure footer always stays at the bottom */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* 공통 부분 */
+.a11yHidden,
+legend {
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+/* 이벤트 섹션 */
+.event {
+  position: relative;
+  width: 100vw;
+  height: auto;
+}
+
+.event:hover .button__left, 
+.event:hover .button__right {
+  display: block;
+  opacity: 1;
+}
+
+.event__wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 120rem;
+  height: 23.125rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+}
+
+.event__wrapper .button__left {
+  position: absolute;
+  top: 0;
+  right: 68.75rem;
+  bottom: 0;
+  left: 0;
+}
+
+.event__wrapper .button__right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 68.75rem;
+  transform: rotate(180deg);
+}
+
+.event__wrapper .button__left,
+.event__wrapper .button__right {
+  border: none;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.event__image {
+  width: auto;
+  height: inherit;
+  display: block;
+  max-width: 100%;
+}
+
+.goods__title {
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  font-size: 1.776875rem; /* 주어진 폰트 크기 유지 */
+  font-weight: 700; /* 굵은 글씨 유지 */
+  line-height: 140%; /* 주어진 줄 높이 유지 */
+  color: #333333; /* 주어진 색상 유지 */
+  margin-bottom: 1.5rem; /* 텍스트와 상품들 사이의 간격 조정 */
+}
+
+
+.goods__group {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px; /* 간격을 줄입니다 */
+  margin: 0 auto;
+  max-width: 1200px; /* 전체 너비를 맞추기 위한 최대 너비 설정 */
+  padding: 0 20px; /* 양쪽 여백 추가 */
+}
+
+.goods__item {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 배치 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+  width: 100%; /* 전체 폭 사용 */
+  position: relative; /* 버튼 위치 조정을 위해 상대적 위치 지정 */
+}
+
+.goods__thumbnail {
+  order: -1;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.goods__name {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 160%;
+  color: black;
+  margin-top: 1rem;
+}
+
+.goods__regPrice {
+  font-size: 0.833rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #333333;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.goods__regular .goods__regPrice {
+  margin-top: 0.5rem;
+  padding-bottom: 1.5rem;
+  font-size: 0.833rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #333333;
+}
+
+.goods__discount .goods__disPrice {
+  display: flex;
+  flex-direction: row; /* 가로 방향으로 배치 */
+  align-items: center; /* 중앙 정렬 */
+  gap: 0.5rem; /* 요소 간의 간격 조정 */
+  margin-top: 0.5rem;
+  font-size: 1.333rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #333333;
+}
+
+.goods__discount .goods__disPrice .goods__disRate {
+  color: #fa622f; /* 할인 비율 색상 설정 */
+}
+
+.goods__discount .goods__regPrice {
+  font-size: 0.7501875rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #898989;
+  margin-top: 0.5rem;
+  text-decoration: line-through; /* 취소선 추가 */
+}
+
+.goods__thumbnail img {
+  width: 100%; /* 이미지 너비 설정 */
+  height: auto; /* 비율 유지 */
+  transition: transform 0.3s ease;
+}
+
+.goods__thumbnail img:hover {
+  transform: scale(1.05);
+}
+
+.goods__list {
+  position: relative; /* 버튼과 이미지의 위치를 조절하기 위해 상대 위치 지정 */
+  width: 15.5625rem; /* 상품 카드의 너비 */
+  margin: 0 auto; /* 중앙 정렬 */
+
+}
+.goods__regPrice del::after, 
+.goods__disPrice ins::after {
+  content: attr(data-price-label);
+  display: inline-block;
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+
+/* category-dropdown.css */
+.category-item {
+    position: relative;
+}
+
+.sub-category {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    width: auto;
+    min-width: 150px;
+    padding: 0;
+}
+
+.sub-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+}
+
+.sub-category li {
+    height:auto;
+    padding: 5px 15px;
+    margin: 0;
+    white-space: nowrap;
+    width: 100%;
+    flex: 0 0 auto;
+    list-style: none;
+}
+
+.sub-category li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    width: 100%;
+    line-height: 1.2;
+    font-size: 14px;
+    padding: 8px 12;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.category-item:hover .sub-category {
+    display: block;
+}
+
+.sub-category li:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.category-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.button__cart {
+  display: block; /* 블록으로 설정하여 이미지 아래에 위치 */
+  width: 100%; /* 버튼 너비를 카드에 맞춤 */
+  height: 40px; /* 버튼 높이 */
+  background-color: #ffffff; /* 버튼 배경색 */
+  border: 1px solid #ddd; /* 버튼 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px; /* 폰트 크기 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  line-height: 40px; /* 텍스트 수직 정렬 */
+  cursor: pointer;
+  margin: 10px 0; /* 버튼과 카드 다른 요소 사이의 간격 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 버튼 그림자 */
+}
+.button__cart-icon {
+  width: 20px; /* 아이콘 너비 */
+  height: 20px; /* 아이콘 높이 */
+  color: #333; /* 아이콘 색상 */
+}
+
+.goods__thumbnail {
+  width: 100%; /* 이미지 너비 설정 */
+  overflow: hidden; /* 이미지가 카드 밖으로 나가지 않도록 설정 */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+}
+
+.product-container {
+  display: flex; /* 상품 이미지와 디테일을 나란히 배치 */
+  align-items: flex-start; /* 상단을 기준으로 정렬 */
+  gap: 20px; /* 상품 이미지와 디테일 사이의 간격 */
+}
+
+.review-container {
+  width: 100;
+}
+
+.product-image img {
+  width: 300px;  /* 원하는 너비 */
+  height: auto;  /* 높이를 자동으로 조정하여 비율을 유지 */
+  
+  border-radius: 10px;
+}
+
+.product-detail {
+  max-width: 600px; /* 상품 정보의 최대 너비를 설정 */
+  height: auto;
+  padding: 20px;
+}
+
+.product-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 22px;
+  font-weight: bold;
+  color: #d9534f;
+  margin-bottom: 5px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+.original-price-2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.discount {
+  font-weight: bold; /* 강조를 위해 굵게 설정 */
+  color: #fa622f;
+}
+
+.discount-price {
+  color: #000000;
+}
+
+.product-origin{
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+
+/* 수량 선택 부분 */
+.product-quantity-cart {
+  display: block; /* 세로 배치 */
+  margin-bottom: 10px; /* 아래 요소와의 간격 */
+}
+
+.product-quantity {
+  margin-bottom: 10px; /* 수량 선택 부분과 장바구니 버튼 사이의 간격 */
+}
+
+.product-quantity label {
+  display: block; /* 수량 라벨을 블록으로 설정하여 칸과 분리 */
+  margin-bottom: 5px; /* 라벨과 입력 칸 사이의 간격 */
+}
+
+.product-quantity input[type="number"] {
+  display: block;
+  width: 60px; /* 가로 크기 조정 */
+  height: 40px; /* 세로 크기 조정 */
+  font-size: 16px; /* 입력 필드 텍스트 크기 */
+  text-align: center; /* 수량 가운데 정렬 */
+}
+
+.add-to-cart-btn {
+  display: block;
+  padding: 10px 20px;
+  background-color: #28a745; /* 버튼 색상 */
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: auto; /* 버튼의 가로 길이를 자동으로 조정 (기본값) */
+  max-width: 200px; /* 원하는 가로 길이로 제한 */
+  margin-top: 10px; /* 수량 필드와의 간격 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #218838; /* 마우스 오버 시 색상 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.delivery-info {
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.delivery-info p {
+    margin-bottom: 10px;
+}
+
+.product-select {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#product-option {
+    padding: 5px;
+    width: 100%;
+}
+
+.total-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.total-price .price {
+    color: #d9534f;
+}
+
+.add-to-cart {
+    display: flex;
+    align-items: center;
+}
+
+#quantity {
+    width: 50px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+
+
+
+
+.delivery-info p {
+    padding: 8px 0; /* 각 항목의 위아래에 여백을 추가 */
+    border-bottom: 1px solid rgba(200, 200, 200, 0.5); /* 각 항목 하단에 회색의 구분선 추가 */
+}
+
+
+/* Footer Styles */
+#footer {
+  background-color: #ffffff;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.inner_footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cc_footer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.cc_view {
+  flex: 1;
+}
+
+.cc_view h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.cc_view .list dt {
+  font-weight: bold;
+}
+
+.company_info {
+  padding-bottom: 20px;
+}
+
+.company_info .list {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 10px;
+}
+
+.spec_info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.bar {
+  margin: 0 5px;
+}
+
+.copy {
+  font-weight: bold;
+}
+
+.sns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sns li {
+  list-style: none;
+}
+
+.sns a {
+  display: inline-block;
+}
+
+.sns img {
+  width: 24px;
+  height: 24px;
+}
+
+.link_footer {
+  padding: 20px 0;
+  background-color: #ffffff;
+}
+
+.authentication {
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.authentication .mark {
+  display: flex;
+  align-items: center;
+}
+
+.authentication .logo {
+  width: 50px; /* 로고 크기 조정 */
+  height: auto;
+  margin-right: 10px;
+}
+
+.authentication .txt {
+  font-size: 9px;
+}
+
+/* Ensure footer always stays at the bottom */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+.footer {
+  width: 100vw;
+  height: 39.3125rem;
+
+}
+.footer__contents {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: inherit;
+  gap: 0;
+}
+.footer__cs {
+  flex-basis: 50%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer__cs__title {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 140%;
+  color: #333333;
+}
+.footer__cs__inquiry {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer__cs__nonMember {
+  vertical-align: top;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer__about {
+  flex-basis: 50%;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 2.25rem;
+}
+.footer__about__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0;
+}
+.footer__companyInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer__snsList {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+.footer__snsLink {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.footer__mark {
+  margin-top: 1.25rem;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+.footer__mark__button {
+  background: transparent;
+  border: none;
+  padding: 1.5rem 0rem 2rem 0rem;
+  min-width: 14.375rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+}
+.footer__mark__button:nth-child(3) {
+  width: 360px;
+  height: auto;
+}
+.footer__copyright {
+  background: var(--gray-50, #f9f9f9);
+  padding: 1.25rem 0 2rem 0;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #898989;
+}
+.footer__copyright__notice {
+  margin-top: 8px;
+}
+.footer__companyInfo__description span:nth-child(even) {
+  margin-left: 0.3125rem;
+  margin-right: 0.3125rem;
+}
+.footer .cs__infoNumber {
+  font-size: 2.3125rem;
+  font-weight: 700;
+  line-height: 140%;
+  color: #333333;
+}
+.footer .cs__infoTime {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #333333;
+}
+.footer .cs__inquiryKaKao, .footer .cs__inquiry1to1, .footer .cs__inquiryBulk {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+.footer .cs__inquiry__button {
+  border: 1px solid #c4c4c4;
+  background: white;
+  width: 8.75rem;
+  height: 2.5rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.footer .cs__inquiry__description {
+  margin-top: -3px;
+  vertical-align: top;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: nowrap;
+  align-items: stretch;
+  gap: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer .about__link {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+}
+.footer .mark__description {
+  display: block;
+  margin-left: 8px;
+  text-align: left;
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 160%;
+  color: #333333;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+}
+.footer #blogLink {
+  background-image: url("/src/assets/icons/");
+}
+.footer #facebookLink {
+  background-image: url("./../../assets/icons/FaceBook.svg");
+}
+.footer #instagramLink {
+  background-image: url("./../../assets/icons/Instagram.svg");
+}
+.footer #snsLink {
+  background-image: url("./../../assets/icons/sns.svg");
+}
+.footer #youtubeLink {
+  background-image: url("./../../assets/icons/Youtube.svg");
+}
+.footer .primary {
+  color: #5f0080;
+}
+
