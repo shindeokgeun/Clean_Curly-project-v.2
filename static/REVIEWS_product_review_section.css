@@ -268,4 +268,68 @@
     color: rgb(153, 153, 153); /* 세로줄 색상 */
 }
 
-/* 최근등록순 버튼에 추가 스타일 없음 */
+/* 리뷰 좋아요 싫어요 */
+.review_like_action_v2__like_container {
+    display: inline-block;
+    font-size: 0;
+    margin-right: 4px;
+    color: #707680;
+}
+.review_like_action_v2__like_text, 
+.review_like_action_v2__unlike_link_text {
+    margin: 0 4px;
+    font-size: 12px;
+    line-height: 18px;
+}
+.review_like_action_v2__like_count, 
+.review_like_action_v2__unlike_link_count {
+    font-weight: bold;
+    margin-right: 4px;
+    font-size: 12px;
+    line-height: 18px;
+}
+.review_like_action_v2__like_button,
+.review_like_action_v2__unlike_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: #707680;
+}
+.review_like_action_v2__like_button.active,
+.review_like_action_v2__unlike_button.active {
+    color: #35c5f0;
+}
+.review_like_action_v2__like_icon,
+.review_like_action_v2__unlike_link_icon {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+}
+
+.thumbs-up-icon {
+  width: 20px;
+  height: 20px;
+  stroke: #35c5f0;  /* 활성화된 상태의 색상 */
+  transition: stroke 0.3s ease;
+}
+
+.thumbs-up-icon:hover {
+  stroke: #09addb;  /* 호버 상태의 색상 */
+}
+
+/* 비활성화 상태 */
+.thumbs-up-icon.inactive {
+  stroke: #dadde0;
+}
+
+.review-section .review_like_action_v2__like_button:disabled,
+.review-section .review_like_action_v2__unlike_button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    background: none !important;
+    color: #707680 !important;
+    border: none !important;
+}

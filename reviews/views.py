@@ -45,6 +45,7 @@ def product_review_section(request, product_id):
     context = {
         'product': product,
         'reviews': reviews,
+        'user': request.user,
     }
     return render(request, 'reviews/product_review_section.html', context)
 
@@ -119,3 +120,45 @@ def get_review_data(user):
         'written_reviews': written_reviews,
         'writeable_items': writeable_items,
     }
+
+
+@login_required
+def rate_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    user = request.user
+    action = request.POST.get('action')
+    
+    if action == 'helpful':
+        if user in review.unhelpful_users.all():
+            review.unhelpful_users.remove(user)
+            review.unhelpful_count = max(0, review.unhelpful_count - 1)
+        if user in review.helpful_users.all():
+            review.helpful_users.remove(user)
+            review.helpful_count = max(0, review.helpful_count - 1)
+        else:
+            review.helpful_users.add(user)
+            review.helpful_count += 1
+    elif action == 'unhelpful':
+        if user in review.helpful_users.all():
+            review.helpful_users.remove(user)
+            review.helpful_count = max(0, review.helpful_count - 1)
+        if user in review.unhelpful_users.all():
+            review.unhelpful_users.remove(user)
+            review.unhelpful_count = max(0, review.unhelpful_count - 1)
+        else:
+            review.unhelpful_users.add(user)
+            review.unhelpful_count += 1
+    
+    review.save()
+    return redirect(reverse('shop:product_detail', args=[review.product.id]))
+
+def product_review_section(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    reviews = Review.objects.filter(product=product).order_by('-created_at')
+    
+    context = {
+        'product': product,
+        'reviews': reviews,
+        'user': request.user
+    }
+    return render(request, 'reviews/product_review_section.html', context)

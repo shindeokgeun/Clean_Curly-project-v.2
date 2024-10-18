@@ -12,7 +12,7 @@ class CustomUserAdmin(BaseUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),  # 비밀번호 필드 포함
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),  # 권한 관련 필드
+        ('Permissions', {'fields': ('is_staff', 'is_active','groups')}),  # 권한 관련 필드
         ('Additional Info', {'fields': ('phone_number', 'address', 'date_of_birth', 'profile_picture')}),  # 추가 정보 필드
     )
 
@@ -25,7 +25,9 @@ class CustomUserAdmin(BaseUserAdmin):
 
     search_fields = ('email', 'username')  # 사용자 리스트 정렬 기준
     ordering = ('email',)  # 사용자 리스트 정렬 기준
-    filter_horizontal = ()  # 필터 옵션
+
+    filter_horizontal = ('groups', 'user_permissions')
+    
 
 # CustomUser 모델을 관리자 사이트에 등록
 admin.site.register(CustomUser, CustomUserAdmin)
