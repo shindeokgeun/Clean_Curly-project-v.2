@@ -35,5 +35,5 @@ class Review(models.Model):
 
     @staticmethod
     def verify_purchase(user, product):
-        # 이 메서드는 나중에 실제 구매 확인 로직으로 대체될 수 있습니다.
+        # 이 메서드는 나중에 실제 구매 확인 로직으로 대체.
         return Purchase.objects.filter(user=user, product=product).exists()
