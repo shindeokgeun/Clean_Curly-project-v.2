@@ -1,157 +1,10 @@
+{% load static %}
 {% load humanize %}
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>클린컬리</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'benefit.css' %}">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="top-links">
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="link_text">{{ user.username }} 님</a>
-                <a href="{% url 'logout' %}" class="link_text">로그아웃</a>
-            {% else %}
-                <a href="{% url 'signup' %}" class="link_text">회원가입</a>
-                <a href="{% url 'login' %}" class="link_text">로그인</a>
-            {% endif %}
-            <a href="{% url 'cs_index' %}" class="link_text">고객센터</a>
-        </div>
-        <div class="header-content">
-            <a href="/" class="logo">
-                <img src="{% static 'images/마켓로고.png' %}" alt="마켓로고">
-            </a>
-            
-            <form class="search-form">
-                <div class="search_box">
-                    <input type="text" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요">
-                    <button type="submit" tabindex="2">
-                        <img src="{% static 'images/돋보기 로고.png' %}" alt="검색">
-                    </button>
-                </div>
-            </form>
-            
-            <div class="icons">
-                <a href="#"><img src="{% static 'images/위치.png' %}" alt="위치"></a>
-                <a href="#"><img src="{% static 'images/좋아요.png' %}" alt="좋아요"></a>
-                <a href="/cart/"><img src="{% static 'images/장바구니.png' %}" alt="장바구니"></a>
-            </div>
-        </div>
-
-        <nav>
-            <div class="nav_items">
-                <div class="category-link">
-                    <ul>
-                        <li class="category-item">
-                            <a href="/">
-                                <img src="{% static 'images/카테고리앞.svg' %}">
-                                카테고리
-                            </a>
-                            <!-- 세부 카테고리 목록 -->
-                            <div class="sub-category">
-                                <ul>
-                                    {% for category in categories %}
-                                        <li><a href="{% url 'shop:product_by_category' category.id %}">
-                                            <span>{{ category.name }}</span>
-                                        </a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <ul>
-                <li><a href="/">신상품</a></li>
-                <li><a href="/">베스트</a></li>
-                <li><a href="/">알뜰쇼핑</a></li>
-                <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
-            </ul>
-            <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" 
-                 alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" 
-                 class="bnr_delivery_img">
-        </div>
-    </nav>
-    </header>
-        <!-- banner -->    
-        <section class="banner"> 
-            <div class="banner_container">    
-                <a href="#" class="banner_link"> 
-                    <img 
-                        src="{% static 'images/미니 배너1.png' %}"
-                        alt="배너 이미지" 
-                        class="banner_image" 
-                        style="object-fit: cover; width: 100%; height: 100%;">
-                </a>
-            </div>
-        </section>
-
-        <section class="banner">     
-            <div class="banner_container">    
-                <a href="#" class="banner_link"> 
-                    <img 
-                        src="{% static 'images/미니 배너2.jpg' %}"
-                        alt="배너 이미지" 
-                        class="banner_image" 
-                        style="object-fit: cover; width: 100%; height: 100%;">
-                </a>
-            </div>
-        </section>
-
-        <section class="banner"> 
-            <div class="banner_container">    
-                <a href="#" class="banner_link"> 
-                    <img 
-                        src="{% static 'images/미니 배너4.png' %}"
-                        alt="배너 이미지" 
-                        class="banner_image" 
-                        style="object-fit: cover; width: 100%; height: 100%;">
-                </a>
-            </div>
-        </section>
-
-        
-        <section class="banner"> 
-            <div class="banner_container">    
-                <a href="#" class="banner_link"> 
-                    <img 
-                        src="{% static 'images/미니 배너5.jpg' %}"
-                        alt="배너 이미지" 
-                        class="banner_image" 
-                        style="object-fit: cover; width: 100%; height: 100%;">
-                </a>
-            </div>
-        </section>
-
-        <section class="banner"> 
-            <div class="banner_container">    
-                <a href="#" class="banner_link"> 
-                    <img 
-                        src="{% static 'images/미니 배너7.jpg' %}"
-                        alt="배너 이미지" 
-                        class="banner_image" 
-                        style="object-fit: cover; width: 100%; height: 100%;">
-                </a>
-            </div>
-        </section>
-
-
-
-
-   
-
-
-    <!-- Footer -->
-    <footer class="footer" >
-        <div class="spacer"></div>
-        <div class="top-border"></div>
-        <div class="footer__contents">
+<!-- Footer -->
+<footer class="footer" >
+    <div class="footer__contents">
         <div class="footer__cs" role="complementary">
-            <h2 class="footer__cs__title">고객행복센터</h2>
+            <h2 class="footer__cs__title">~~~~~고객행복센터~~~~~</h2>
             <div class="footer__cs__info">
             <span class="cs__infoNumber">1644-1107</span
             ><span class="cs__infoTime">월~토요일 오전 7시 - 오후 6시</span>
@@ -332,8 +185,8 @@
             >
             </button>
         </div>
-        </div>
-        <div class="footer__copyright" role="complementary">
+    </div>
+    <div class="footer__copyright" role="complementary">
         <span class="footer__copyright__info">
             마켓칼리에서 판매되는 상품 중에는 마켓칼리에 입점한 개별 판매자가
             판매하는 마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.
@@ -341,12 +194,10 @@
         <span class="footer__copyright__info"
             >마켓플레이스(오픈마켓) 상품의 경우 칼리는 통신판매중개자로서
             통신판매의 당사자가 아닙니다. 칼리는 해당 상품의 주문, 품질, 교환/환불
-            등 의무와 책임을 부담하지 않습니다.</span
-        >
+            등 의무와 책임을 부담하지 않습니다.
+        </span>
         <em class="footer__copyright__notice">
             &copy; KARLY CORP. ALL RIGHTS RESERVED
         </em>
-        </div>
-    </footer>
-</body>
-</html>
+    </div>
+</footer>
