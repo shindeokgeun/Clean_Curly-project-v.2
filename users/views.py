@@ -163,3 +163,108 @@ def delete_mileage(request):
         return redirect('http://127.0.0.1:8000/users/profile/display/')  # 적절한 리다이렉트 경로로 변경
 
     return render(request, 'users/delete_mileage.html')  # 삭제 페이지 템플릿
+
+
+# 아이디 찾기 뷰
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth import get_user_model  # CustomUser를 동적으로 가져오기 위해
+
+def find_username(request):
+    User = get_user_model()  # CustomUser 모델 가져오기
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)  # CustomUser로 변경
+            # 아이디를 이메일로 전송
+            send_mail(
+                'Your Username',
+                f'Your username is: {user.username}',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            # 이메일 전송 후 로그인 페이지로 리다이렉트
+            return redirect('login')  # 'login'은 URLconf에서 정의된 로그인 URL의 이름입니다.
+        except User.DoesNotExist:
+            return render(request, 'users/find_username.html', {'error': 'Email not found.'})
+
+    return render(request, 'users/find_username.html')
+
+# 비밀번호 찾기 뷰
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+
+def reset_password(request):
+    User = get_user_model()  # CustomUser 모델 가져오기
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)  # CustomUser로 변경
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            link = request.build_absolute_uri(f'/users/reset-password-confirm/{uid}/{token}/')
+
+            # 비밀번호 재설정 링크를 이메일로 전송
+            send_mail(
+                'Reset your password',
+                f'Click the link to reset your password: {link}',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+            return redirect('login')  # 로그인 페이지로 리다이렉트
+        except User.DoesNotExist:
+            return render(request, 'users/reset_password.html', {'error': 'Email not found.'})
+        except Exception as e:
+            return render(request, 'users/reset_password.html', {'error': 'Failed to send email. Please try again.'})
+
+    return render(request, 'users/reset_password.html')
+
+
+
+# 비밀번호 재설정 확인 뷰
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import render, redirect
+from django.utils.http import urlsafe_base64_decode
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+def reset_password_confirm(request, uidb64, token):
+    logger.info("Attempting to render reset_password_confirm.html")
+    User = get_user_model()  # CustomUser 모델 가져오기
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        logger.warning(f"Invalid UID: {uidb64}, Token: {token}")
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('login')  # 로그인 페이지로 리디렉션
+        else:
+            form = SetPasswordForm(user)
+    else:
+        form = None  # 유효하지 않은 사용자이거나 토큰인 경우 None 설정
+    logger.info("Rendering reset_password_confirm.html")
+    return render(request, 'users/reset_password_confirm.html', {'form': form})

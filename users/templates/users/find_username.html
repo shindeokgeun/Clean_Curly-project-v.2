@@ -1,0 +1,11 @@
+<h2>아이디찾기</h2>
+<form method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Find Username</button>
+</form>
+{% if message %}
+    <p>{{ message }}</p>
+{% elif error %}
+    <p>{{ error }}</p>
+{% endif %}
