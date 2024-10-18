@@ -1,12 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
+from django.contrib.auth.hashers import check_password
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth import get_user_model  # CustomUser를 동적으로 가져오기 위해
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm, ProfileUpdateForm
+from .models import CustomUser  # 필요에 따라 모델 import
 from reviews.views import get_review_data
-from django.contrib.auth.decorators import login_required
-from .forms import ProfileUpdateForm
-from django.contrib.auth import update_session_auth_hash
+
 
 # 로그인 뷰
 def login_view(request):
@@ -80,10 +89,6 @@ def profile_display_view(request):
     return render(request, 'users/profile_display.html', context)
 
 
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.hashers import check_password
-from django.shortcuts import redirect, render
-from .forms import ProfileUpdateForm
 
 @login_required
 def profile_edit(request):
@@ -109,10 +114,7 @@ def profile_edit(request):
     return render(request, 'users/profile_display_change.html', {'form': form})
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import CustomUser  # 사용자 모델을 임포트하세요
-
+# 마일리지(적립금, 컬리캐쉬) 추가 뷰
 @login_required
 def update_mileage(request):
     if request.method == 'POST':
@@ -129,11 +131,7 @@ def update_mileage(request):
     return render(request, 'users/update_mileage.html')
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import CustomUser  # 필요에 따라 모델 import
-from django.contrib import messages
-
+# 마일리지(적립금, 컬리캐쉬 관련) 삭제 뷰
 @login_required
 def delete_mileage(request):
     if request.method == 'POST':
@@ -151,27 +149,21 @@ def delete_mileage(request):
             messages.error(request, '적립금은 0원 이하로 내려갈 수 없습니다.')
             return redirect('delete_mileage')  # 다시 삭제 페이지로 리다이렉트
 
-        # 칼리캐시 삭제 로직
+        # 컬리캐시 삭제 로직
         if karly_cash_to_delete <= user.karly_cash:
             user.karly_cash -= karly_cash_to_delete
         else:
-            messages.error(request, '칼리캐시는 0원 이하로 내려갈 수 없습니다.')
+            messages.error(request, '컬리캐시는 0원 이하로 내려갈 수 없습니다.')
             return redirect('delete_mileage')  # 다시 삭제 페이지로 리다이렉트
 
         user.save()
-        messages.success(request, '적립금 및 칼리캐시가 성공적으로 업데이트되었습니다.')
+        messages.success(request, '적립금 및 컬리캐시가 성공적으로 업데이트되었습니다.')
         return redirect('http://127.0.0.1:8000/users/profile/display/')  # 적절한 리다이렉트 경로로 변경
 
     return render(request, 'users/delete_mileage.html')  # 삭제 페이지 템플릿
 
 
 # 아이디 찾기 뷰
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth import get_user_model  # CustomUser를 동적으로 가져오기 위해
-
 def find_username(request):
     User = get_user_model()  # CustomUser 모델 가져오기
     if request.method == 'POST':
@@ -194,19 +186,6 @@ def find_username(request):
     return render(request, 'users/find_username.html')
 
 # 비밀번호 찾기 뷰
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.template.loader import render_to_string
-from django.shortcuts import redirect
-from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-
 def reset_password(request):
     User = get_user_model()  # CustomUser 모델 가져오기
     if request.method == 'POST':
@@ -236,12 +215,6 @@ def reset_password(request):
 
 
 # 비밀번호 재설정 확인 뷰
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.tokens import default_token_generator
-from django.shortcuts import render, redirect
-from django.utils.http import urlsafe_base64_decode
-
 import logging
 
 logger = logging.getLogger(__name__)

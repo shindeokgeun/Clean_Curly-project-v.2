@@ -175,26 +175,10 @@ LOGGING = {
 # 403 에러 핸들러를 커스텀 페이지로 설정
 HANDLER403 = 'your_project.views.custom_permission_denied_view'
 
+
 # 장고에서 이메일 보내기 위한 이메일 설정
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'  # 예시로 Gmail SMTP 사용
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')  # 환경 변수에서 이메일 주소 가져오기
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')  # 환경 변수에서 비밀번호 가져오기
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-# 환경변수 설정을 해주어야 하는데, 이렇게 설정하면 현재 세션에만 적용되므로, 컴퓨터 재부팅시 사라짐
-# set EMAIL_USER=your_email@gmail.com
-# set EMAIL_PASS=your_email_password
-
-# 영구설정 방법
-# Windows 검색창에서 "환경 변수"를 검색하고 "시스템 환경 변수 편집"을 선택합니다.
-# "환경 변수" 버튼을 클릭한 후 "사용자 변수" 또는 "시스템 변수"에서 "새로 만들기"를 클릭합니다.
-# 이름 필드에 EMAIL_USER, 값 필드에 자신의 Gmail 주소를 입력하고 확인합니다.
-# 같은 방법으로 EMAIL_PASS에 자신의 비밀번호를 입력합니다.
-
-# 방법2 그냥 이메일과 비밀번호 넣어두면됨(보안 문제로 위에꺼로 테스트 진행)
+# 이메일과 비밀번호 넣어두면 되는데 보안 문제로 2차 인증 활성화 해서 패스키 새로 만들어서 이용
+# # (현재 '지웅'디바이스 등록되어 있어서 확인해보시고 싶으시면 자신 구글 아이디랑 비밀번호 넣으면 됩니다.)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP 사용
 EMAIL_PORT = 587
