@@ -30,7 +30,7 @@
             <form class="search-form">
                 <div class="search_box">
                     <input type="text" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요">
-                    <button type="submit" class="search-button" tabindex="2">
+                    <button type="submit" tabindex="2">
                         <img src="{% static 'images/돋보기 로고.png' %}" alt="검색">
                     </button>
                 </div>
@@ -124,7 +124,7 @@
                     <p><strong>새 비밀번호 확인:</strong></p>
                     <input type="password" id="confirm_password" name="confirm_password">
     
-                    <button type="submit" class="submit-button">정보 수정</button>
+                    <button type="submit">정보 수정</button>
                 </div>
             </form>
         </section>
@@ -132,7 +132,7 @@
         <!-- 로그아웃 버튼 -->
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="submit-button logout-button">로그아웃</button>
+            <button type="submit" class="logout-button">로그아웃</button>
         </form>
     </main>
 

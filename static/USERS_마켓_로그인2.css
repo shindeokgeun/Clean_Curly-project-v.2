@@ -849,7 +849,25 @@ footer .footer__contents {
   color: #333;
 }
 
+/* 확인 버튼 스타일 */
+.submit-button {
+  display: block;
+  width: 100%;
+  height: 44px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  background-color: #5f0080;
+  cursor: pointer;
+}
 
+.submit-button:hover {
+  background-color: #4a0066;
+}
 
 /* 로그아웃 버튼 스타일 */
 .logout-button {
@@ -976,50 +994,19 @@ footer .footer__contents {
     color: #666;
     cursor: not-allowed;
   }
-
-
-/* 공통 정보 수정 및 로그아웃 버튼의 크기 줄이기 */
-.submit-button {
-  display: inline-block;  /* 크기를 내용에 맞춤 */
-  width: auto;            /* 가로 길이 자동 조정 */
-  height: auto;           /* 높이 자동 조정 */
-  padding: 10px 20px;     /* 버튼 내부 여백 */
-  border: 0;
-  border-radius: 3px;
-  font-weight: 700;
-  font-size: 14px;
-  text-align: center;
-  color: #fff;
-  background-color: #5f0080;
-  cursor: pointer;
-}
-
-/* 로그아웃 버튼의 스타일 */
-.logout-button {
-  display: inline-block;  /* 로그아웃 버튼 크기 조정 */
-  width: auto;            /* 가로 길이 자동 조정 */
-  height: auto;           /* 높이 자동 조정 */
-  padding: 10px 20px;     /* 버튼 내부 여백 */
-  border-radius: 3px;     /* 모서리 둥글게 */
-  font-size: 14px;
-  margin: 0 auto;
-}
-
-
-.submit-button:hover,
-.logout-button:hover {
-  background-color: #4a0066;
-}
-
-/* 돋보기 버튼은 그대로 유지 */
-.search-button {
-  background-color: transparent;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-}
-
-.search-button img {
-  width: 20px;
-  height: 20px;
-}
+  
+  /* Submit Button */
+  button[type="submit"] {
+    padding: 12px 20px;
+    background-color: #5f0080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #4d0066;
+  }
+  
