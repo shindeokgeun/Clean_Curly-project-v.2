@@ -125,7 +125,7 @@ def update_mileage(request):
         user.mileage += mileage  # 기존 적립금에 추가
         user.karly_cash += karly_cash  # 기존 칼리캐시에 추가
         user.save()  # 변경사항 저장
-
+        messages.success(request, '적립금 및 컬리캐시가 성공적으로 업데이트되었습니다.')
         return redirect('http://127.0.0.1:8000/users/profile/display/')  # 업데이트 후 프로필 페이지로 리디렉션
 
     return render(request, 'users/update_mileage.html')

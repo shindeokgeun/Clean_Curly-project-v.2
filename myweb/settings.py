@@ -179,10 +179,18 @@ HANDLER403 = 'your_project.views.custom_permission_denied_view'
 # 장고에서 이메일 보내기 위한 이메일 설정
 # 이메일과 비밀번호 넣어두면 되는데 보안 문제로 2차 인증 활성화 해서 패스키 새로 만들어서 이용
 # # (현재 '지웅'디바이스 등록되어 있어서 확인해보시고 싶으시면 자신 구글 아이디랑 비밀번호 넣으면 됩니다.)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP 사용
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = '***'  # 여기서 본인의 이메일 주소 입력
+# EMAIL_HOST_PASSWORD = '***'  # 여기서 본인의 이메일 비밀번호 입력
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP 사용
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '***'  # 여기서 본인의 이메일 주소 입력
-EMAIL_HOST_PASSWORD = '***'  # 여기서 본인의 이메일 비밀번호 입력
+EMAIL_HOST_USER = 'jiung19980803@gmail.com'  # 여기서 본인의 이메일 주소 입력
+EMAIL_HOST_PASSWORD = 'cvst bgin bamp zcdj'  # 여기서 본인의 이메일 비밀번호 입력
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

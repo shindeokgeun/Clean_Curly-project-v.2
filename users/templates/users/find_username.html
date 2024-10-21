@@ -2,7 +2,7 @@
 <form method="POST">
     {% csrf_token %}
     <input type="email" name="email" placeholder="Enter your email" required>
-    <button type="submit">Find Username</button>
+    <button type="submit">아이디찾기</button>
 </form>
 {% if message %}
     <p>{{ message }}</p>
