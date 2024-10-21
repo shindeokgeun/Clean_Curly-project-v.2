@@ -241,3 +241,5 @@ def reset_password_confirm(request, uidb64, token):
         form = None  # 유효하지 않은 사용자이거나 토큰인 경우 None 설정
     logger.info("Rendering reset_password_confirm.html")
     return render(request, 'users/reset_password_confirm.html', {'form': form})
+
+
