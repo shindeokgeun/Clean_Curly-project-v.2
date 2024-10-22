@@ -43,27 +43,26 @@
         </div>
 
         <nav>
-            <div class="nav_items">
-                <div class="category-link">
-                    <ul>
-                        <li class="category-item">
-                            <a href="/">
-                                <img src="{% static 'images/카테고리앞.svg' %}">
-                                카테고리
-                            </a>
-                            <!-- 세부 카테고리 목록 -->
-                            <div class="sub-category">
-                                <ul>
-                                    {% for category in categories %}
-                                        <li><a href="{% url 'shop:product_by_category' category.id %}">
-                                            <span>{{ category.name }}</span>
-                                        </a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        <div class="nav_items">
+            <div class="category-link">
+                <ul>
+                    <li class="category-item">
+                        <a href="/">
+                            <img src="{% static 'images/카테고리앞.svg' %}"> 
+                            카테고리
+                        </a>                            </a>
+                        <!-- 세부 카테고리 목록 -->
+                        <div class="sub-category">
+                            <ul>
+                                {% for category in categories %}
+                                    <li><a href="{% url 'shop:product_by_category' category.id %}">
+                                        <span>{{ category.name }}</span>
+                                    </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <ul>
                 <li><a href="/">신상품</a></li>
@@ -72,8 +71,8 @@
                 <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
             </ul>
             <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" 
-                 alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" 
-                 class="bnr_delivery_img">
+                    alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" 
+                    class="bnr_delivery_img">
         </div>
     </nav>
     </header>
@@ -97,6 +96,7 @@
             </button>
         </div>
     </section>
+
 
     <script>
         let currentBanner = 1;
@@ -125,61 +125,93 @@
         }
     </script>
 
-
-
-
-
-
-
-    <!--
-    1. admin super 계정으로 로그인
-    2. product가서 상품 등록(실제 마켓컬리 상품 참고하여 정보 등록)
-    3. 상품1 섹션에 해당 상품이 추가됨 -->
-
-    <!-- 상품1 섹션 -->
+    <!-- 상품 슬라이더 HTML -->
     <section class="goodsUp">
         <br>
-        <!-- 상품1 제목 -->
         <h2 class="goods__title">🛒이 상품 어때요?</h2>
         <br>
-        <!-- 상품1 목록 -->
-        <div class="goods__group">
-            <!-- 상품 목록을 반복해서 출력 -->
-            {% for product in products %}
-            <div class="goods__list">
-                <a href="{% url 'shop:product_detail' product.id %}" class="goods__link" title="{{ product.name }} 상세페이지">
-                    <dl class="goods__item goods__discount">
-                        <dd class="goods__thumbnail">
-                            <img src="{{ product.image.url }}" alt="{{ product.name }} 이미지" aria-hidden="true">
-                        </dd>
-                        <button type="button" class="button__cart" aria-label="장바구니로 이동">
-                            🛒 담기
-                        </button>
-                        <dd class="goods__name">{{ product.name }}</dd>
-                        {% if product.discount_price %}
-                            <dt class="a11yHidden">정상가</dt>
-                            <dd class="goods__regPrice"><del>{{ product.price|floatformat:0|intcomma }} 원</del></dd>
-                            <dt class="a11yHidden">할인가</dt>
-                            <dd class="goods__disPrice">
-                                <b class="goods__disRate">{{ product.discount_percentage }}% </b>
-                                <ins>{{ product.discount_price|floatformat:0|intcomma }} 원</ins>
+
+        <div class="slider-container">
+            <!-- 이전 버튼 -->
+            <button class="prev-btn2" aria-label="이전 상품으로 이동">
+                <img src="{% static 'images/화살표왼쪽.svg' %}" alt="이전 화살표">
+            </button>
+
+            <div class="slider">
+                {% for product in products %}
+                <div class="goods__list">
+                    <a href="{% url 'shop:product_detail' product.id %}" class="goods__link" title="{{ product.name }} 상세페이지">
+                        <dl class="goods__item goods__discount">
+                            <dd class="goods__thumbnail">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }} 이미지" aria-hidden="true">
                             </dd>
-                        {% else %}
-                            <dd class="goods__disPrice">
-                                <ins>{{ product.price|floatformat:0|intcomma }} 원</ins>
-                            </dd>
-                        {% endif %}
-                    </dl>
-                </a>
+                            <button type="button" class="button__cart" aria-label="장바구니로 이동">
+                                🛒 담기
+                            </button>
+                            <dd class="goods__name">{{ product.name }}</dd>
+                            {% if product.discount_price %}
+                                <dt class="a11yHidden">정상가</dt>
+                                <dd class="goods__regPrice"><del>{{ product.price|floatformat:0|intcomma }} 원</del></dd>
+                                <dt class="a11yHidden">할인가</dt>
+                                <dd class="goods__disPrice">
+                                    <b class="goods__disRate">{{ product.discount_percentage }}% </b>
+                                    <ins>{{ product.discount_price|floatformat:0|intcomma }} 원</ins>
+                                </dd>
+                            {% else %}
+                                <dd class="goods__disPrice">
+                                    <ins>{{ product.price|floatformat:0|intcomma }} 원</ins>
+                                </dd>
+                            {% endif %}
+                        </dl>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
+            <!-- 다음 버튼 -->
+            <button class="next-btn2" aria-label="다음 상품으로 이동">
+                <img src="{% static 'images/화살표오른쪽.svg' %}" alt="다음 화살표">
+            </button>
         </div>
-        
     </section>
 
-
-
-
+    <script>
+        const slider = document.querySelector('.slider');
+        const prevBtn = document.querySelector('.prev-btn2');
+        const nextBtn = document.querySelector('.next-btn2');
+    
+        let scrollAmount = 0;
+        let currentPage = 0;  // 현재 페이지 상태 (0: 처음 상품, 1: 두 번째 상품)
+        const itemWidth = document.querySelector('.goods__list').offsetWidth;
+        const totalPages = 2;  // 2페이지, 즉 2세트의 상품이 있다고 가정
+    
+        nextBtn.addEventListener('click', function() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;  // 페이지 증가
+                scrollAmount += itemWidth * 4; // 4개의 상품씩 이동
+                slider.scrollTo({
+                    top: 0,
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    
+        prevBtn.addEventListener('click', function() {
+            if (currentPage > 0) {
+                currentPage--;  // 페이지 감소
+                scrollAmount -= itemWidth * 4; // 4개의 상품씩 이동
+                if (scrollAmount < 0) {
+                    scrollAmount = 0;
+                }
+                slider.scrollTo({
+                    top: 0,
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
 
 
 
