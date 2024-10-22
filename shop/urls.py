@@ -6,5 +6,7 @@ urlpatterns = [
 
     path('product/<int:product_id>/', views.product_detail, name='product_detail'), # 동적 상품 페이지
     path('category/<int:category_id>/', views.product_by_category, name='product_by_category'), #카테고리별 상품 목록
-    
+    ########## 상품 등록 ##########
+    path('product-register/', views.product_register, name='product_register'),
+    path('success/', views.success_page, name='success_page'),  # 성공 페이지 추가
 ]

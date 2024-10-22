@@ -38,31 +38,32 @@
             <div class="icons">
                 <a href="#"><img src="{% static 'images/위치.png' %}" alt="위치"></a>
                 <a href="#"><img src="{% static 'images/좋아요.png' %}" alt="좋아요"></a>
-                <a href="cart/"><img src="{% static 'images/장바구니.png' %}" alt="장바구니"></a>
+                <a href="/cart/"><img src="{% static 'images/장바구니.png' %}" alt="장바구니"></a>
             </div>
         </div>
 
         <nav>
-        <div class="nav_items">
-            <div class="category-link">
-                <ul>
-                    <li class="category-item">
-                        <a href="/">
-                            <img src="{% static 'images/카테고리앞.svg' %}">
-                            카테고리
-                        </a>
-                        <!-- 세부 카테고리 목록 -->
-                        <div class="sub-category">
-                            <ul>
-                                {% for category in categories %}
-                                    <li><a href="{% url 'shop:product_by_category' category.id %}">
-                                        <span>{{ category.name }}</span>
-                                    </a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+            <div class="nav_items">
+                <div class="category-link">
+                    <ul>
+                        <li class="category-item">
+                            <a href="/">
+                                <img src="{% static 'images/카테고리앞.svg' %}">
+                                카테고리
+                            </a>
+                            <!-- 세부 카테고리 목록 -->
+                            <div class="sub-category">
+                                <ul>
+                                    {% for category in categories %}
+                                        <li><a href="{% url 'shop:product_by_category' category.id %}">
+                                            <span>{{ category.name }}</span>
+                                        </a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <ul>
                 <li><a href="/">신상품</a></li>

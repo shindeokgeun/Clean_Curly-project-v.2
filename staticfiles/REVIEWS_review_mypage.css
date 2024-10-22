@@ -1,0 +1,253 @@
+body.review-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+.table-wrap {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+h6 {
+    margin: 0;
+    padding: 15px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+h6.review-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 15px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-container {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+}
+.tab {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 2px solid transparent;
+}
+.tab:hover {
+    background-color: #f0f0f0;
+}
+.content {
+    padding: 20px;
+}
+.content-pane {
+    display: none;
+}
+.main-message {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.sub-message {
+    font-size: 12px;
+    color: #777;
+    margin-top: 0;
+}
+
+/* 기본적으로 모든 탭 내용을 숨김 */
+.content #writeable,
+.content #written {
+    display: none;
+}
+
+/* 기본 상태에서 작성 가능한 리뷰 탭만 보이도록 설정 */
+.content #writeable:target,
+.content #writeable:not(:target) ~ #writeable {
+    display: block;
+}
+
+/* 작성 가능한 리뷰 탭이 선택되면 작성 가능한 리뷰 내용만 보이도록 설정 */
+.content #writeable:target {
+    display: block;
+}
+
+.content #written:target {
+    display: block;
+}
+
+/* 작성 가능한 리뷰 탭이 선택된 경우에는 다른 탭의 내용은 숨김 */
+.content #writeable:target ~ #written,
+.content #written:not(:target) {
+    display: none;
+}
+
+/* 탭 클릭 시 활성화된 탭 스타일 */
+.tab-container .tab {
+    border-bottom-color: transparent;
+    font-weight: normal;
+}
+
+.tab-container .tab[href="#writeable"]:target,
+.tab-container .tab[href="#written"]:target {
+    border-bottom-color: #007bff;
+    font-weight: bold;
+}
+
+
+.review-list {
+    margin-top: 10px;
+}
+
+.review-item {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0;
+}
+
+.review-content {
+    flex-grow: 1;
+    margin: 0 5px;
+    min-width: 0;
+}
+
+.review-content h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+
+.rating {
+    color: #FFD700;  /* 금색 (전체 별의 기본 색상 설정) */
+    font-size: 15px;  /* 별 크기 조절 */
+    display: inline-block;
+}
+
+.star {
+    display: inline-block;
+    width: 1em;  /* 별의 너비를 1em으로 설정 */
+    height: 1em;  /* 별의 높이를 1em으로 설정 */
+}
+
+.star.filled {
+    color: #FFD700;  /* 채워진 별은 금색으로 표시 */
+}
+
+.star.empty {
+    color: #ccc;  /* 비워진 별은 회색으로 표시 */
+}
+
+.review-text {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.read-more, .comment-link {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.comment-link {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    display: block;
+    margin-top: 5px;
+}
+
+.review-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 120px;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    align-self: flex-end;
+}
+
+.review-image {
+    margin-right: 15px;
+}
+
+.review-image.product-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    
+}
+
+.review-image.user-image img {
+    margin-right: auto;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+
+.review-count {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.review-separator {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 15px 0;
+}
+
+
+.review-actions .btn-edit,
+.review-actions .btn-delete {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.6em;
+}
+
+.review-actions .btn-edit {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.review-actions .btn-delete {
+    background-color: #f44336;
+    color: white;
+}
+
+.review-actions .review-actions {
+    margin-top: 10px;
+}
+
+.review-content .write-review-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.6em;
+}
+
+.review-content .write-review-btn {
+    background-color: #4CAF50;
+    color: white;
+}
