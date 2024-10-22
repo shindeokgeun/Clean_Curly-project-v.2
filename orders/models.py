@@ -16,12 +16,12 @@ class Order(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)  # 1000은 너무 긺
     address = models.CharField(max_length=250)
-    created = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['-order_date']
 
     def __str__(self):
         return f'Order {self.id}'
@@ -43,4 +43,9 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+    
+
+    
+
+
     

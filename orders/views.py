@@ -20,7 +20,6 @@ def order_create(request):
                     quantity=item['quantity']
                 )
 
-
             order.status = 'delivered' #주문이 완료되면 status를 delivered로 바꿈
             order.save() #변경된 상태를 저장함
 
@@ -33,3 +32,5 @@ def order_create(request):
         form = OrderCreateForm()
 
     return render(request, 'orders/order/create.html', {'cart':cart, 'form':form})
+
+

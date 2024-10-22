@@ -188,51 +188,43 @@
         </div>
     </section>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        function updateCountdown(endTime) {
-            const now = new Date();
-            const timeRemaining = endTime - now;
-
-            // 시간이 이미 지났다면 타이머 종료
-            if (timeRemaining <= 0) {
-                document.querySelector("#countdown p").textContent = '00:00:00';
-                return;
-            }
-
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-            document.querySelector("#countdown p").textContent =
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-
-        function getEndTime() {
-            const storedEndTime = localStorage.getItem('endTime');
-            const now = new Date();
-
-            if (storedEndTime) {
-                const endTime = new Date(storedEndTime);
-
-                // 만약 종료 시간이 현재 시간보다 나중이라면 기존 종료 시간 사용
-                if (endTime > now) {
-                    return endTime;
+        document.addEventListener("DOMContentLoaded", function() {
+            function updateCountdown(endTime) {
+                const now = new Date();
+                const timeRemaining = endTime - now;
+                
+                // 만약 시간이 이미 지났다면 종료
+                if (timeRemaining <= 0) {
+                    document.querySelector("#countdown p").textContent = '00:00:00';
+                    return;
                 }
+                
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    
+                // '일'을 조건부로 출력
+                const dayString = days > 0 ? `${days}일 ` : '';
+                document.querySelector("#countdown p").textContent =
+                    `${dayString}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
-
-            // 새로운 종료 시간 설정 (120분 후)
-            const newEndTime = new Date();
-            newEndTime.setMinutes(newEndTime.getMinutes() + 120);
-            localStorage.setItem('endTime', newEndTime); // 새 종료 시간 저장
-            return newEndTime;
-        }
-
-        // 새로고침 후에도 유지되도록 종료 시간을 불러옴
-        const endTime = getEndTime();
-
-        // 타이머를 매초마다 갱신
-        setInterval(() => updateCountdown(endTime), 1000);
-    });
+    
+            // 로컬 스토리지에서 종료 시간 불러오기
+            let endTime = localStorage.getItem("endTime");
+            
+            // 종료 시간이 없거나 이미 종료된 경우 새로 설정
+            if (!endTime || new Date(endTime) - new Date() <= 0) {
+                endTime = new Date();
+                endTime.setMinutes(endTime.getMinutes() + 120);
+                localStorage.setItem("endTime", endTime); // 종료 시간을 로컬 스토리지에 저장
+            } else {
+                endTime = new Date(endTime);
+            }
+    
+            // 1초마다 카운트다운 업데이트
+            setInterval(() => updateCountdown(endTime), 1000);
+        });
     </script>
     
     

@@ -17,75 +17,76 @@
         {% csrf_token %}
     
         <div class="form-group">
-            {{ form.name.label_tag }}  <!-- 상품명 -->
+            상품명
             {{ form.name }}
         </div>
     
         <div class="form-group">
-            {{ form.price.label_tag }}  <!-- 가격 -->
+            가격
             {{ form.price }}
         </div>
     
         <div class="form-group">
-            {{ form.discount_price.label_tag }}  <!-- 할인 가격 -->
+            할인 가격(선택)
             {{ form.discount_price }}
         </div>
     
         <div class="form-group">
-            {{ form.image.label_tag }}  <!-- 이미지 -->
+            상품 이미지
             {{ form.image }}
         </div>
     
         <div class="form-group">
-            {{ form.category.label_tag }}  <!-- 카테고리 -->
+            카테고리
             {{ form.category }}
         </div>
     
         <div class="form-group">
-            {{ form.shipping_info.label_tag }}  <!-- 배송 정보 -->
+            배송 정보
             {{ form.shipping_info }}
         </div>
     
         <div class="form-group">
-            {{ form.seller.label_tag }}  <!-- 판매자 -->
+            판매자
             {{ form.seller }}
         </div>
     
         <div class="form-group">
-            {{ form.packaging_type.label_tag }}  <!-- 포장 타입 -->
+            포장 타입
             {{ form.packaging_type }}
         </div>
     
         <div class="form-group">
-            {{ form.sales_unit.label_tag }}  <!-- 판매 단위 -->
+            판매 단위
             {{ form.sales_unit }}
         </div>
     
         <div class="form-group">
-            {{ form.weight_volume.label_tag }}  <!-- 중량/용량 -->
+            중량/용량
             {{ form.weight_volume }}
         </div>
     
         <div class="form-group">
-            {{ form.expiration_date.label_tag }}  <!-- 유통기한 -->
+            유통기한(선택)
             {{ form.expiration_date }}
         </div>
     
         <div class="form-group">
-            {{ form.Notice_info.label_tag }}  <!-- 안내 사항 -->
+            안내사항(선택)
             {{ form.Notice_info }}
         </div>
     
         <div class="form-group">
-            {{ form.allergy_info.label_tag }}  <!-- 알레르기 정보 -->
+            알레르기 정보(선택)
             {{ form.allergy_info }}
         </div>
     
         <div class="form-group">
-            {{ form.livestock_trace_info.label_tag }}  <!-- 축산물 이력 정보 -->
+            축산물 이력 정보(선택)
             {{ form.livestock_trace_info }}
         </div>
 
     <button type="submit" class="submit-btn">등록하기</button>
-</form>
+    </form>
+</body>
 </html>

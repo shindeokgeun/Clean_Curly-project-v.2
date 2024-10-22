@@ -19,8 +19,12 @@
                 <div class="review-item">
                     <div class="reviewer-container">
                         <div class="reviewer-info">
-                            <div class="reviewer-badge">멤버스</div>
-                            <span class="reviewer-name">{{ review.user.username|slice:":2" }}**</span>
+                            <div class="reviewer-top-info">
+                                <div class="reviewer-badge">멤버스</div>
+                                <span class="reviewer-name">{{ review.user.username|slice:":2" }}*</span>
+                            </div>
+                            <div class="reviewer-bottom-info"></div>
+                            <a href="{% url 'reviews:report_review' review.id %}" class="report-button">신고 및 차단</a>
                         </div>
                         <div class="review-content">
                             <div class="review-header">
@@ -68,7 +72,7 @@
                                             <span class="review_like_action_v2__unlike_link_count">{{ review.unhelpful_count }}</span>
                                         </button>
                                     </form>
-                                </div>        
+                                </div>   
                             </footer>
                         </div>
                     </div>

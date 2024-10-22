@@ -53,3 +53,37 @@ class ReviewForm(forms.ModelForm):
             if image.size > 5*1024*1024:  # 5MB
                 raise forms.ValidationError("이미지 크기는 5MB를 초과할 수 없습니다.")
         return image
+
+from django import forms
+
+class ReportForm(forms.Form):
+    REPORT_REASONS = [
+        ('spam', '도배성 게시물'),
+        ('offensive', '비방 및 욕설'),
+        ('inappropriate', '부적절한 내용'),
+        ('false_info', '허위 정보'),
+        ('copyright', '저작권 침해'),
+        ('other', '기타'),
+    ]
+    reason = forms.ChoiceField(choices=REPORT_REASONS, widget=forms.RadioSelect, label='신고 사유')
+    other_reason = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': '최소 10글자, 최대 100글자로 입력해주세요.'}),
+        required=False,
+        min_length=10,
+        max_length=100,
+        label='기타 사유'
+    )
+    block_user = forms.BooleanField(required=False, label='해당 게시물을 차단합니다.')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        reason = cleaned_data.get('reason')
+        other_reason = cleaned_data.get('other_reason')
+
+        if reason == 'other':
+            if not other_reason:
+                raise forms.ValidationError("'기타' 선택 시 상세 사유를 입력해주세요.")
+            if len(other_reason) < 10 or len(other_reason) > 100:
+                raise forms.ValidationError("기타 사유는 10글자 이상 100글자 이하로 입력해주세요.")
+
+        return cleaned_data

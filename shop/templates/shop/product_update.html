@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 수정 페이지</title>
+    <link rel="stylesheet" href="{% static 'SHOP_product_register.css' %}">
+</head>
+<body>
+    <!--<h1 class="form-title">상품 수정</h1>-->
+
+    <!-- 폼 필드를 감싸는 div -->
+    <form method="post" enctype="multipart/form-data" class="product-form">
+        {% csrf_token %}
+    
+        <div class="form-group">
+            상품명
+            {{ form.name }}
+        </div>
+    
+        <div class="form-group">
+            가격
+            {{ form.price }}
+        </div>
+    
+        <div class="form-group">
+            할인 가격(선택)
+            {{ form.discount_price }}
+        </div>
+    
+        <div class="form-group">
+            상품 이미지
+            {{ form.image }}
+        </div>
+    
+        <div class="form-group">
+            카테고리
+            {{ form.category }}
+        </div>
+    
+        <div class="form-group">
+            배송 정보
+            {{ form.shipping_info }}
+        </div>
+    
+        <div class="form-group">
+            판매자
+            {{ form.seller }}
+        </div>
+    
+        <div class="form-group">
+            포장 타입
+            {{ form.packaging_type }}
+        </div>
+    
+        <div class="form-group">
+            판매 단위
+            {{ form.sales_unit }}
+        </div>
+    
+        <div class="form-group">
+            중량/용량
+            {{ form.weight_volume }}
+        </div>
+    
+        <div class="form-group">
+            유통기한(선택)
+            {{ form.expiration_date }}
+        </div>
+    
+        <div class="form-group">
+            안내사항(선택)
+            {{ form.Notice_info }}
+        </div>
+    
+        <div class="form-group">
+            알레르기 정보(선택)
+            {{ form.allergy_info }}
+        </div>
+    
+        <div class="form-group">
+            축산물 이력 정보(선택)
+            {{ form.livestock_trace_info }}
+        </div>
+
+        <button type="submit" class="submit-btn">수정하기</button>
+    </form>
+</body>
+</html>

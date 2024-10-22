@@ -242,4 +242,15 @@ def reset_password_confirm(request, uidb64, token):
     logger.info("Rendering reset_password_confirm.html")
     return render(request, 'users/reset_password_confirm.html', {'form': form})
 
+# 주문조회
+from orders.models import Order, OrderItem 
+
+@login_required
+def profile_order_view(request):
+    orders = Order.objects.filter(user=request.user).order_by('-order_date')   
+    return render(request,'users/profile_order_view.html', {'orders' : orders})
+
+
+
+
 

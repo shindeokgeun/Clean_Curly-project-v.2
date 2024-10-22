@@ -138,7 +138,7 @@ nav ul li a {
 .bnr_delivery_img {
   max-width: 150px; /* 원하는 최대 너비로 설정 */
   height: auto; /* 비율 유지 */
-  margin-left: auto; /* 오른쪽 끝으로 정렬 */
+  margin-left: 133px; /* 오른쪽 끝으로 정렬 */
 }
 
 /* Banner Styles */
