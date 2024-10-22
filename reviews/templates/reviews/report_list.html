@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 신고 목록</title>
+    <link rel="stylesheet" href="{% static 'REVIEWS_report_list.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>리뷰 신고 관리</h1>
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>신고 일시</th>
+                    <th>신고자</th>
+                    <th>신고된 리뷰</th>
+                    <th>신고 사유</th>
+                    <th>상세 사유</th>
+                    <th>차단 여부</th>
+                    <th>처리 상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td class="timestamp">{{ report.created_at|date:"Y-m-d H:i" }}</td>
+                    <td>{{ report.user.username }}</td>
+                    <td>
+                        <a href="{% url 'shop:product_detail' report.review.product.id %}">
+                            {{ report.review.text|truncatechars:50 }}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="reason-badge">
+                            {% if report.reason == 'spam' %}
+                                도배성 게시물
+                            {% elif report.reason == 'offensive' %}
+                                비방 및 욕설
+                            {% elif report.reason == 'inappropriate' %}
+                                부적절한 내용
+                            {% elif report.reason == 'false_info' %}
+                                허위 정보
+                            {% elif report.reason == 'copyright' %}
+                                저작권 침해
+                            {% elif report.reason == 'other' %}
+                                기타
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if report.reason == 'other' %}
+                            {{ report.other_reason|default:"-" }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if report.block_user %}
+                            <span class="status-processed">차단됨</span>
+                        {% else %}
+                            <span>미차단</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not report.processed %}
+                            <span class="status-pending">처리 대기중</span>
+                        {% else %}
+                            <span class="status-processed">처리 완료</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="empty-message">
+                        신고된 리뷰가 없습니다.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
