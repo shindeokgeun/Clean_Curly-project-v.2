@@ -12,4 +12,5 @@ urlpatterns = [
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('update-mileage/', views.update_mileage, name='update_mileage'),
     path('delete-mileage/', views.delete_mileage, name='delete_mileage'),
+    path('profile/order-view/', views.profile_order_view, name='profile_order_view'), # 주문조회 페이지      
 ] 

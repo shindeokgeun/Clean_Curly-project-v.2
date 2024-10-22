@@ -1,15 +1,19 @@
+{% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'cs.css' %}">
+    <title>주문내역 조회</title>
+    <link rel="stylesheet" href="{% static 'USERS_마켓_로그인.css' %}">
 </head>
+
 <body>
-    <!-- Header -->
+    <!--Header-->
     <header>
+        <link rel="stylesheet" href="{% static 'USERS_마켓_로그인.css' %}">
         <div class="top-links">
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}" class="link_text">{{ user.username }} 님</a>
@@ -20,6 +24,7 @@
             {% endif %}
             <a href="{% url 'cs_index' %}" class="link_text">고객센터</a>
         </div>
+
         <div class="header-content">
             <a href="/" class="logo">
                 <img src="{% static 'images/마켓로고.png' %}" alt="마켓로고">
@@ -42,154 +47,87 @@
         </div>
 
         <nav>
-        <div class="nav_items">
-            <div class="category-link">
-                <ul>
-                    <li class="category-item">
+            <div class="nav_items">
+                <div class="category-link">
+                    <ul>
+                      <li>
                         <a href="/">
-                            <img src="{% static 'images/카테고리앞.svg' %}">
-                            카테고리
+                            <img src="{% static 'images/카테고리앞.svg' %}"> 카테고리 
                         </a>
-                        <!-- 세부 카테고리 목록 -->
-                        <div class="sub-category">
-                            <ul>
-                                <li><a href="#">
-                                    <img src="https://collection-image.kurly.com/site-category-groups/1/D2tq9D88GPQCRZd2FC04ct0BI0xId0Z1wTFWb7Wu.png" alt="" class="category-icon">
-                                    <span>채소</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">세부 카테고리 2</a></li>
-                                <li><a href="#">세부 카테고리 3</a></li>
-                                <li><a href="#">세부 카테고리 4</a></li>
-                                <li><a href="#">세부 카테고리 5</a></li>
-                                <li><a href="#">세부 카테고리 6</a></li>
-                                <li><a href="#">세부 카테고리 7</a></li>
-                                <li><a href="#">세부 카테고리 8</a></li>
-                                <li><a href="#">세부 카테고리 9</a></li>
-                                <li><a href="#">세부 카테고리 10</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    </ul>                   
+                </div>
+                <ul>
+                    <li><a href="/">신상품</a></li>
+                    <li><a href="/">베스트</a></li>
+                    <li><a href="/">알뜰쇼핑</a></li>
+                    <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
                 </ul>
+                    <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" class="bnr_delivery_img">
             </div>
-            <ul>
-                <li><a href="/">신상품</a></li>
-                <li><a href="/">베스트</a></li>
-                <li><a href="/">알뜰쇼핑</a></li>
-                <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
-            </ul>
-            <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" 
-                 alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" 
-                 class="bnr_delivery_img">
-        </div>
-    </nav>
+
+        </nav>
     </header>
-    <div class="custom-board-wrap">
-        <div class="custom-board-main">
-            <!-- 고객센터 사이드바 -->
-            <div class="custom-board-sidebar">
-                <div class="custom-sidebar-title">고객센터</div>
-                <div class="custom-sidebar-menu">
-                    <div class="sidebar-item"><a href="#">공지사항</a></div>
-                    <div class="sidebar-item"><a href="#">자주하는 질문</a></div>
-                    <div class="sidebar-item"><a href="#">1:1 문의</a></div>
-                    <div class="sidebar-item"><a href="{% url 'shop:purchase_history' %}">구매 이력 조회</a></div>
-                    <div class="sidebar-item"><a href="{% url 'shop:product_manage' %}">상품 관리</a></div>
-                </div>
-            </div>
 
-            <!-- 공지사항 섹션 -->
-            <div class="custom-board-content">
-                <div class="custom-board-title">
-                    <strong>공지사항</strong>
-                    <p>컬리의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
-                </div>
-                <div class="custom-board-list-wrap">
-                    <div class="custom-board-list">
-                        <div class="custom-top">
-                            <div class="custom-num">번호</div>
-                            <div class="custom-title">제목</div>
-                            <div class="custom-writer">작성자</div>
-                            <div class="custom-date">작성일</div>
-                            <div class="custom-count">조회</div>
-                        </div>
-                        <div>
-                            <div class="custom-num">공지</div>
-                            <div class="custom-title"><a href="#">[안내] 2024 추석 연휴 배송 일정 안내</a></div>
-                            <div class="custom-writer">컬리</div>
-                            <div class="custom-date">2024.09.09</div>
-                            <div class="custom-count">33</div>
-                        </div>
-                        <div>
-                            <div class="custom-num">4</div>
-                            <div class="custom-title"><a href="#">[이벤트] 09/10(화) 정관장 라이브 방송 당첨자 안내</a></div>
-                            <div class="custom-writer">컬리</div>
-                            <div class="custom-date">2024.09.10</div>
-                            <div class="custom-count">357</div>
-                        </div>
-                        <div>
-                            <div class="custom-num">3</div>
-                            <div class="custom-title"><a href="#">[이벤트] 9/6(금) 배스킨라빈스 라이브 방송 당첨자 안내</a></div>
-                            <div class="custom-writer">컬리</div>
-                            <div class="custom-date">2024.09.06</div>
-                            <div class="custom-count">365</div>
-                        </div>
-                        <div>
-                            <div class="custom-num">2</div>
-                            <div class="custom-title"><a href="#">[안내] 제주 하루배송 권역 추가 안내(2024.09.07~)</a></div>
-                            <div class="custom-writer">컬리</div>
-                            <div class="custom-date">2024.09.06</div>
-                            <div class="custom-count">112</div>
-                        </div>
-                        <div>
-                            <div class="custom-num">1</div>
-                            <div class="custom-title"><a href="#">[공지] 용량변경상품 정보제공 안내</a></div>
-                            <div class="custom-writer">컬리</div>
-                            <div class="custom-date">2024.08.26</div>
-                            <div class="custom-count">757</div>
-                        </div>
-                    </div>
-                    <div class="custom-board-page">
-                        <a href="#" class="custom-bt custom-first"><<</a>
-                        <a href="#" class="custom-bt custom-prev"><</a>
-                        <a href="#" class="custom-num custom-on">1</a>
-                        <a href="#" class="custom-num">2</a>
-                        <a href="#" class="custom-num">3</a>
-                        <a href="#" class="custom-num">4</a>
-                        <a href="#" class="custom-num">5</a>
-                        <a href="#" class="custom-bt custom-next">></a>
-                        <a href="#" class="custom-bt custom-last">>></a>
-                    </div>
-                    <div class="custom-bt-wrap">
-                        <a href="#" class="custom-on">목록</a>
-                        <!-- <a href="#">수정</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const pageLinks = document.querySelectorAll('.custom-board-page a.custom-num');
+    <main>       
+        <link rel="stylesheet" href="{% static 'profile_order_view.css' %}">
+        <h1>주문내역</h1>
+            <table class="order_view_table">
+                <thead>
+                    <tr>
+                        <th>주문날짜</th>
+                        <th>제품사진</th>
+                        <th>제품명</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th>배송상태</th>
+                    </tr>
+                </thead>
 
-        pageLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-            e.preventDefault(); // 기본 링크 동작 방지
-            
-            // 모든 페이지 번호에서 'custom-on' 클래스 제거
-            pageLinks.forEach(link => link.classList.remove('custom-on'));
-            
-            // 클릭된 페이지 번호에 'custom-on' 클래스 추가
-            this.classList.add('custom-on');
-            });
-        });
-    });
-    </script>
- 
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.order_date | date:"Y년 m월 d일" }}</td> <!--주문날짜-->
+                                
+                            <td>
+                                {% for item in order.items.all %}
+                                    <li><a href="{{ item.get_absolute_url }}">
+                                        <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                                    </a>
+                                    </li>
+                                {% endfor %}
+                            </td> <!--제품사진-->
 
-    <footer class="footer" >
-        <div class="spacer"></div>
-        <div class="top-border"></div>
+                            <td>
+                                {% for item in order.items.all %}
+                                    <li>{{ item.product }}</li>
+                                {% endfor %}
+                            </td> <!--제품명-->
+                            
+                            <td>{% for item in order.items.all %}
+                                    <li>{{ item.quantity }}</li>
+                                {% endfor %}
+                            </td> <!--수량-->
+
+                            <td>{% for item in order.items.all %}
+                                    <li>{{ item.price | floatformat:0 | intcomma }}원</li>
+                                {% endfor %}
+                            </td> <!--가격-->
+                        
+                            <td>{{ order.status }}</td> <!--배송상태-->
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+    </main>
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="footer__contents">
         <div class="footer__cs" role="complementary">
             <h2 class="footer__cs__title">고객행복센터</h2>
@@ -390,4 +328,6 @@
         </div>
     </footer>
     </body>
-  </html>
+</html>
+
+</body>
