@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 등록 페이지</title>
+    <title>상품 수정 페이지</title>
     <link rel="stylesheet" href="{% static 'SHOP_product_register.css' %}">
-    
 </head>
 <body>
-    <!--<h1 class="form-title">상품 등록</h1>-->
-    {% csrf_token %}
+    <!--<h1 class="form-title">상품 수정</h1>-->
 
     <!-- 폼 필드를 감싸는 div -->
     <form method="post" enctype="multipart/form-data" class="product-form">
@@ -86,7 +84,7 @@
             {{ form.livestock_trace_info }}
         </div>
 
-    <button type="submit" class="submit-btn">등록하기</button>
+        <button type="submit" class="submit-btn">수정하기</button>
     </form>
 </body>
 </html>

@@ -1,0 +1,13 @@
+<!-- templates/shop/product_delete.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<h1>정말 이 상품을 삭제하시겠습니까?</h1>
+
+<p>상품명: {{ product.name }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">삭제</button>
+</form>
+<a href="{% url 'shop:product_manage' %}" class="btn btn-secondary">취소</a>

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 신고</title>
+    <link rel="stylesheet" href="{% static 'REVIEWS_reviews_report_form.css' %}">
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>리뷰 신고</h2>
+                <a href="{{ product_url }}" class="close-button">&times;</a>
+            </div>
+            <div class="modal-content">
+                <form class="report-form" method="post">
+                    {% csrf_token %}
+                    <p class="report-intro">해당 리뷰에 대해 신고하시는 이유를 선택해 주세요.</p>
+                    <div class="form-group">
+                        <label class="section-label">{{ form.reason.label }}</label>
+                        <div class="report-reasons">
+                            {% for value, text in form.reason.field.choices %}
+                                <div class="report-reason">
+                                    <input type="radio" id="reason_{{ value }}" name="{{ form.reason.name }}" value="{{ value }}" {% if form.reason.value == value %}checked{% endif %} required>
+                                    <label for="reason_{{ value }}">{{ text }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if form.reason.value == 'other' %}
+                        <div class="form-group other-reason-group">
+                            <label for="{{ form.other_reason.id_for_label }}" class="section-label other-reason-label">'기타' 선택 시 상세 사유를 입력해주세요. (10-100글자)</label>
+                            {{ form.other_reason }}
+                            {% if form.other_reason.errors %}
+                                <div class="error-message">
+                                    {% for error in form.other_reason.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group block-user-checkbox">
+                        <label for="{{ form.block_user.id_for_label }}">
+                            {{ form.block_user }}
+                            {{ form.block_user.label }}
+                        </label>
+                    </div>
+                    <p class="info-text">* 신고 내용은 반영되지 않을 수 있으며, 허위 신고시 불이익을 받을 수 있습니다.</p>
+                    <button type="submit" class="submit-button">신고하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
