@@ -44,33 +44,31 @@ def review_entry_form(request, product_id):
     return render(request, 'reviews/review_entry_form.html', context)
 
 def product_review_section(request, product_id):
+    print("\n=== Debug Review Display ===")  # 이 부분이 출력되어야 함
     product = get_object_or_404(Product, id=product_id)
     reviews = Review.objects.filter(product=product).order_by('-created_at')
-    print(f"Initial reviews count: {reviews.count()}")  # 디버깅 출력
-
+    print(f"Initial reviews count: {reviews.count()}")
+    print(f"Initial review IDs: {list(reviews.values_list('id', flat=True))}")
+    
     blocked_reviews = []
     if request.user.is_authenticated:
-        # 차단한 리뷰 확인
-        blocked_reviews = list(BlockedReview.objects.filter(
-            user=request.user
-        ).values_list('review', flat=True))
-        print(f"Found blocked reviews: {blocked_reviews}")  # 디버깅 출력
+        print(f"\nLogged in user: {request.user.username} (ID: {request.user.id})")
         
-        reviews = reviews.exclude(id__in=blocked_reviews)
-        print(f"Reviews count after excluding blocked: {reviews.count()}")  # 디버깅 출력
-
-  #  if request.user.is_authenticated:
-  #      # 차단한 리뷰 제외
-  #      blocked_reviews = BlockedReview.objects.filter(
-  #          user=request.user
-  #      ).values_list('review', flat=True)
-  #      reviews = reviews.exclude(id__in=blocked_reviews)
+        # 차단된 리뷰 확인
+        blocked_reviews = BlockedReview.objects.filter(user=request.user)
+        print(f"Blocked reviews count: {blocked_reviews.count()}")
+        print(f"Blocked review IDs: {list(blocked_reviews.values_list('review_id', flat=True))}")
+        
+        # 차단된 리뷰 제외
+        reviews = reviews.exclude(id__in=blocked_reviews.values_list('review_id', flat=True))
+        print(f"\nFinal reviews count after excluding blocked: {reviews.count()}")
+        print(f"Final review IDs: {list(reviews.values_list('id', flat=True))}")
     
     context = {
         'product': product,
         'reviews': reviews,
         'user': request.user,
-        'blocked_reviews': blocked_reviews,  # 템플릿에 전달
+        'blocked_reviews': blocked_reviews.values_list('review_id', flat=True) if request.user.is_authenticated else []
     }
     return render(request, 'reviews/product_review_section.html', context)
 
@@ -190,39 +188,41 @@ def report_review(request, review_id):
             other_reason = form.cleaned_data['other_reason']
             block_user = form.cleaned_data['block_user']
             
-            # 디버깅 출력 추가
-            print(f"Report submission - Reason: {reason}, Block User: {block_user}")
+            # 디버깅 출력
+            print(f"Report submission - User: {request.user.username}, Review ID: {review_id}")
+            print(f"Reason: {reason}, Block User: {block_user}")
 
             # 신고 생성
             report = Report(
                 user=request.user, 
                 review=review, 
                 reason=reason,
-                block_user=block_user  # block_user 상태 저장
+                block_user=block_user
             )
             
             if reason == 'other':
                 report.other_reason = other_reason
             
             report.save()
-            print(f"Report saved with ID: {report.id}")  # 디버깅 출력
+            print(f"Report saved with ID: {report.id}")
 
             if block_user:
-                # 리뷰 차단 구현
-              #  BlockedReview.objects.get_or_create(
-              #      user=request.user,
-              #      review=review,
-              #      defaults={'created_at': timezone.now()}
-              #  )
-              #  messages.success(request, '해당 리뷰가 차단되었습니다.') 
-                print(f"Attempting to create BlockedReview - User: {request.user.id}, Review: {review.id}")
-                blocked, created = BlockedReview.objects.get_or_create(
-                    user=request.user,
-                    review=review,
-                    defaults={'created_at': timezone.now()}
-                )
-                print(f"BlockedReview {'created' if created else 'already exists'}")  # 디버깅 출력
-                messages.success(request, '해당 리뷰가 차단되었습니다.')
+                try:
+                    # 리뷰 차단 구현
+                    blocked, created = BlockedReview.objects.get_or_create(
+                        user=request.user,
+                        review=review,  # review_id가 아닌 review 객체 사용
+                        defaults={'created_at': timezone.now()}
+                    )
+                    print(f"BlockedReview {'created' if created else 'already exists'} - User: {request.user.id}, Review: {review_id}")
+                    
+                    if created:
+                        messages.success(request, '해당 리뷰가 차단되었습니다.')
+                    else:
+                        messages.info(request, '이미 차단된 리뷰입니다.')
+                except Exception as e:
+                    print(f"Error creating BlockedReview: {str(e)}")
+                    messages.error(request, '리뷰 차단 중 오류가 발생했습니다.')
 
             messages.success(request, '신고가 접수되었습니다.')
             return redirect('shop:product_detail', product_id=review.product.id)
