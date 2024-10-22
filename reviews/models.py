@@ -37,3 +37,47 @@ class Review(models.Model):
     def verify_purchase(user, product):
         # 이 메서드는 나중에 실제 구매 확인 로직으로 대체.
         return Purchase.objects.filter(user=user, product=product).exists()
+
+
+class Report(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reports')
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='reports')
+    reason = models.CharField(max_length=100)
+    other_reason = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # 새로 추가할 필드들
+    block_user = models.BooleanField(default=False)  # 사용자 차단 여부
+    processed = models.BooleanField(default=False)   # 신고 처리 상태
+    processed_at = models.DateTimeField(null=True, blank=True)  # 처리된 시간
+    processed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True,
+        related_name='processed_reports'
+    )  # 처리한 관리자
+
+    class Meta:
+        ordering = ['-created_at']  # 최신 신고순으로 정렬
+
+    def __str__(self):
+        return f"Report by {self.user.username} for review {self.review.id}"
+
+    def mark_as_processed(self, admin_user):
+        """신고를 처리 완료로 표시"""
+        from django.utils import timezone
+        self.processed = True
+        self.processed_at = timezone.now()
+        self.processed_by = admin_user
+        self.save()
+
+class BlockedReview(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blocked_reviews')
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='blocked_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'review')  # 동일한 리뷰를 중복 차단 방지
+
+    def __str__(self):
+        return f"{self.user.username} blocked review {self.review.id}"
