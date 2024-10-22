@@ -21,4 +21,3 @@ def special_offers_view(request):
     
     # 초 단위로 전달
     return render(request, 'special_offers.html', {'time_remaining_seconds': int(time_remaining.total_seconds())})
-

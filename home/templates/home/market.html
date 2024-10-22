@@ -259,7 +259,6 @@
         </div>
     </section>
     <script>
-        // 아래 코드는 내가 원하는 시간에 맞춰서 흐르게하는 코드(새로고침시 초기화)
         document.addEventListener("DOMContentLoaded", function() {
             function updateCountdown(endTime) {
                 const now = new Date();
@@ -275,22 +274,28 @@
                 const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
+    
                 // '일'을 조건부로 출력
                 const dayString = days > 0 ? `${days}일 ` : '';
                 document.querySelector("#countdown p").textContent =
                     `${dayString}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
-
-            // 타이머 종료 시간 설정 (getMinutes() 이후 시간 조정하면 해당 시간만큼 흐름)
-            const endTime = new Date();
-            endTime.setMinutes(endTime.getMinutes() + 120);
-
+    
+            // 로컬 스토리지에서 종료 시간 불러오기
+            let endTime = localStorage.getItem("endTime");
+            
+            // 종료 시간이 없거나 이미 종료된 경우 새로 설정
+            if (!endTime || new Date(endTime) - new Date() <= 0) {
+                endTime = new Date();
+                endTime.setMinutes(endTime.getMinutes() + 120);
+                localStorage.setItem("endTime", endTime); // 종료 시간을 로컬 스토리지에 저장
+            } else {
+                endTime = new Date(endTime);
+            }
+    
+            // 1초마다 카운트다운 업데이트
             setInterval(() => updateCountdown(endTime), 1000);
         });
-
-
-                
     </script>
 
    <br>
