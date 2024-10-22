@@ -1,16 +1,19 @@
 {% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+    <title>주문내역 조회</title>
     <link rel="stylesheet" href="{% static 'USERS_마켓_로그인.css' %}">
-    <link rel="stylesheet" href="{% static 'REVIEWS_review_mypage.css' %}">
 </head>
+
 <body>
-    <!-- Header -->
+    <!--Header-->
     <header>
+        <link rel="stylesheet" href="{% static 'USERS_마켓_로그인.css' %}">
         <div class="top-links">
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}" class="link_text">{{ user.username }} 님</a>
@@ -21,6 +24,7 @@
             {% endif %}
             <a href="{% url 'cs_index' %}" class="link_text">고객센터</a>
         </div>
+
         <div class="header-content">
             <a href="/" class="logo">
                 <img src="{% static 'images/마켓로고.png' %}" alt="마켓로고">
@@ -63,71 +67,64 @@
 
         </nav>
     </header>
-    
-    <main>
-        <h1>개인 페이지</h1>
-        <section class="profile-section">
-            {% if user.profile_picture %}
-                <div class="profile-picture">
-                    <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}/static/images/default_profile.png{% endif %}" alt="프로필 사진">
-                </div>
-            {% else %}
-                <div class="profile-picture">
-                    <p>프로필 사진이 없습니다.</p>
-                </div>
-            {% endif %}
-            
-            <div class="profile-info">
-                <p><strong>아이디:</strong> {{ user.username }}</p>
-                <p><strong>이메일:</strong> {{ user.email }}</p>
-                <p><strong>전화번호:</strong> {{ user.phone_number }}</p>
-                <p><strong>주소:</strong> {{ user.address }}</p>
-                <p><strong>생년월일:</strong> {{ user.date_of_birth }}</p>
-            </div>
-        </section>
 
-        <div class="mileage-section">
-            <h4>반가워요! {{ user.username }}님</h4>
-            <p>최초 1회 무료배송</p>
-            <div class="mileage-details">
-                <div class="mileage">
-                    <p>적립금</p>
-                    <span>
-                        {{ user.mileage|floatformat:0 }}원
-                    </span>
-                </div>
-                <div class="karly-cash">
-                    <p>칼리캐시</p>
-                    <span>
-                        {{ user.karly_cash|floatformat:0 }}원
-                    </span>
-                </div>
-            </div>
-            <div class="update-buttons">
-                <a href="{% url 'update_mileage' %}" class="update-miles-button add-miles-button">적립금/캐시 추가</a>
-                <a href="{% url 'delete_mileage' %}" class="update-miles-button delete-miles-button">적립금/캐시 삭제</a>
-            </div>
-        </div>
-        
-        <div class="user-controls-new"> <!-- 새로운 사용자 컨트롤 클래스 이름 -->
-            <!-- 로그아웃 버튼 -->
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="logout-button">로그아웃</button>
-            </form>
-        
-            <!-- 회원정보 수정 버튼 -->
-            <a href="{% url 'profile_edit' %}" class="profile-edit-button">회원정보 수정</a>
+    <main>       
+        <link rel="stylesheet" href="{% static 'profile_order_view.css' %}">
+        <h1>주문내역</h1>
+            <table class="order_view_table">
+                <thead>
+                    <tr>
+                        <th>주문날짜</th>
+                        <th>제품사진</th>
+                        <th>제품명</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th>배송상태</th>
+                    </tr>
+                </thead>
 
-            <!-- 주문내역 조회 -->
-            <a href="{% url 'profile_order_view' %}" class="profile-edit-button">주문내역 조회</a> 
-            
-        </div>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.order_date | date:"Y년 m월 d일" }}</td> <!--주문날짜-->
+                                
+                            <td>
+                                {% for item in order.items.all %}
+                                    <li><a href="{{ item.get_absolute_url }}">
+                                        <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                                    </a>
+                                    </li>
+                                {% endfor %}
+                            </td> <!--제품사진-->
 
-  
-        {% include 'reviews/review_mypage.html' %}
- 
+                            <td>
+                                {% for item in order.items.all %}
+                                    <li>{{ item.product }}</li>
+                                {% endfor %}
+                            </td> <!--제품명-->
+                            
+                            <td>{% for item in order.items.all %}
+                                    <li>{{ item.quantity }}</li>
+                                {% endfor %}
+                            </td> <!--수량-->
+
+                            <td>{% for item in order.items.all %}
+                                    <li>{{ item.price | floatformat:0 | intcomma }}원</li>
+                                {% endfor %}
+                            </td> <!--가격-->
+                        
+                            <td>{{ order.status }}</td> <!--배송상태-->
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
     </main>
+
+
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -332,3 +329,5 @@
     </footer>
     </body>
 </html>
+
+</body>

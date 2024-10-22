@@ -145,9 +145,38 @@
                             <dd class="goods__thumbnail">
                                 <img src="{{ product.image.url }}" alt="{{ product.name }} 이미지" aria-hidden="true">
                             </dd>
-                            <button type="button" class="button__cart" aria-label="장바구니로 이동">
-                                🛒 담기
-                            </button>
+                        </dl>
+                    </a>
+
+                    <!-- 모달창 -->
+
+                    <button type="button" class="button__cart" onclick="openModal('{{ product.name }}', '{{ product.image.url }}', '{{ product.price|floatformat:0|intcomma }}')" aria-label="장바구니로 이동">
+                        🛒 담기
+                    </button>
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <h2>상품 상세 정보</h2>
+                            <p>지금 테스트 중입니다.</p>
+                        </div>
+                    </div>
+
+                    <script>
+                        // 모달 열기
+                        function openModal() {
+                            const modal = document.getElementById("modal");
+                            modal.style.display = "flex"; // 모달을 화면에 표시
+                        }
+
+                        // 모달 닫기
+                        function closeModal() {
+                            const modal = document.getElementById("modal");
+                            modal.style.display = "none"; // 모달을 화면에서 숨김
+                        }
+                    </script>
+
+                    <a href="{% url 'shop:product_detail' product.id %}" class="goods__link" title="{{ product.name }} 상세페이지">
+                        <dl class="goods__item goods__discount">
                             <dd class="goods__name">{{ product.name }}</dd>
                             {% if product.discount_price %}
                                 <dt class="a11yHidden">정상가</dt>

@@ -163,3 +163,17 @@ def delete_mileage(request):
         return redirect('http://127.0.0.1:8000/users/profile/display/')  # 적절한 리다이렉트 경로로 변경
 
     return render(request, 'users/delete_mileage.html')  # 삭제 페이지 템플릿
+
+
+# 주문조회
+from orders.models import Order, OrderItem 
+
+@login_required
+def profile_order_view(request):
+    orders = Order.objects.filter(user=request.user).order_by('-order_date')   
+    return render(request,'users/profile_order_view.html', {'orders' : orders})
+
+
+
+
+
