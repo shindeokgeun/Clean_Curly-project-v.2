@@ -251,6 +251,17 @@ def profile_order_view(request):
     return render(request,'users/profile_order_view.html', {'orders' : orders})
 
 
-
-
-
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        # 사용자가 비밀번호를 입력했는지 확인
+        if request.user.check_password(request.POST['password']):
+            # 사용자 계정을 삭제합니다
+            user = request.user
+            user.delete()  # 계정 삭제
+            messages.success(request, '계정이 성공적으로 삭제되었습니다.')
+            return redirect('http://127.0.0.1:8000/')  
+        else:
+            messages.error(request, '비밀번호가 일치하지 않습니다.')
+    
+    return render(request, 'users/delete_account.html')

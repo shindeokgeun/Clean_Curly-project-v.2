@@ -951,13 +951,10 @@ footer .footer__contents {
   line-height: 20px;
   text-align: center;
   color: #fff;
-  background-color: #4CAF50; /* 로그아웃 버튼 색상 */
+  background-color: #3700ff; /* 로그아웃 버튼 색상 */
   cursor: pointer;
 }
 
-.logout-button:hover {
-  background-color: #4CAF50; /* 로그아웃 버튼 hover 색상 */
-}
 
 /* 회원정보 수정 버튼 스타일 */
 .profile-edit-button {
@@ -976,11 +973,40 @@ footer .footer__contents {
   cursor: pointer;
 }
 
-.profile-edit-button:hover {
-  background-color: #5f0080; /* 회원정보 수정 버튼 hover 색상 */
+
+/* 회원 탈퇴 */
+.profile-edit-button2 {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #ff0000; /* 회원탈퇴 수정 버튼 색상 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  margin-left: 20px; /* 로그아웃 버튼과 간격 조정 */
+  cursor: pointer;
 }
 
-
+/* 주문내역 조회 버튼 스타일 */
+.profile-edit-button3 {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #4CAF50; /* 주문내역 조회 수정 버튼 색상 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  margin-left: 20px; /* 로그아웃 버튼과 간격 조정 */
+  cursor: pointer;
+}
 
 
 

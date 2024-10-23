@@ -1138,7 +1138,7 @@ legend {
 
 .button__close,
 .button__closeToday {
-  margin-top: 10px; /* 버튼의 상단 여백 설정 */
+  margin-top: 0px; /* 버튼의 상단 여백 설정 */
   margin-right: 20px; /* 오른쪽 버튼 간격 조정 */
   padding: 20px 20px; /* 버튼 내부 여백 설정 */
   background-color: transparent; /* 배경색을 투명하게 설정 */
@@ -1146,7 +1146,7 @@ legend {
   border: none; /* 경계선 제거 */
   border-radius: 5px; /* 모서리를 둥글게 설정 */
   cursor: pointer; /* 커서 포인터로 설정하여 클릭 가능함을 시각적으로 표시 */
-  font-size: 20px; /* 글씨 크기 조정 */
+  font-size: 15px; /* 글씨 크기 조정 */
   display: inline-block; /* 버튼을 블록 수준 요소로 변경 */
   text-align: center; /* 텍스트 가운데 정렬 */
 }

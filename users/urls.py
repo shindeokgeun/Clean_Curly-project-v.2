@@ -16,4 +16,5 @@ urlpatterns = [
     path('reset-password/', views.reset_password, name='reset_password'),
     path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name='reset_password_confirm'),
     path('profile/order-view/', views.profile_order_view, name='profile_order_view'), # 주문조회 페이지      
+    path('delete-account/', views.delete_account, name='delete_account'),
 ] 

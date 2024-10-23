@@ -1,0 +1,13 @@
+{% block content %}
+  <h2>회원 탈퇴</h2>
+  <p>정말로 탈퇴하시겠습니까? 탈퇴 후에는 되돌릴 수 없습니다.</p>
+  
+  <form method="POST">
+    {% csrf_token %}
+    <label for="password">비밀번호 확인:</label>
+    <input type="password" name="password" required id="password">
+    <button type="submit">회원 탈퇴</button>
+  </form>
+  
+  <a href="{% url 'profile' %}">취소</a>
+{% endblock %}
