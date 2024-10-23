@@ -187,4 +187,3 @@ EMAIL_HOST_USER = '***'  # 여기서 본인의 이메일 주소 입력
 EMAIL_HOST_PASSWORD = '***'  # 여기서 본인의 이메일 비밀번호 입력
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-
