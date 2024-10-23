@@ -1112,7 +1112,7 @@ legend {
 }
 
 .popup__container {
-  width: 500px; /* 팝업 컨테이너의 너비 설정 */
+  width: 350px; /* 팝업 컨테이너의 너비 설정 */
   background-color: #fff; /* 배경색을 흰색으로 설정 */
   padding: 10px; /* 내부 여백 설정 */
   border-radius: 10px; /* 모서리를 둥글게 설정 */
@@ -1146,7 +1146,7 @@ legend {
   border: none; /* 경계선 제거 */
   border-radius: 5px; /* 모서리를 둥글게 설정 */
   cursor: pointer; /* 커서 포인터로 설정하여 클릭 가능함을 시각적으로 표시 */
-  font-size: 25px; /* 글씨 크기 조정 */
+  font-size: 20px; /* 글씨 크기 조정 */
   display: inline-block; /* 버튼을 블록 수준 요소로 변경 */
   text-align: center; /* 텍스트 가운데 정렬 */
 }
