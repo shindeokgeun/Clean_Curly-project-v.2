@@ -12,5 +12,8 @@ urlpatterns = [
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('update-mileage/', views.update_mileage, name='update_mileage'),
     path('delete-mileage/', views.delete_mileage, name='delete_mileage'),
+    path('find-username/', views.find_username, name='find_username'),
+    path('reset-password/', views.reset_password, name='reset_password'),
+    path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name='reset_password_confirm'),
     path('profile/order-view/', views.profile_order_view, name='profile_order_view'), # 주문조회 페이지      
 ] 
