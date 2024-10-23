@@ -76,6 +76,53 @@
         </div>
     </nav>
     </header>
+    <!-- 팝업 -->
+    <div class="popup" id="popupContainer">
+        <dialog class="popup__container" id="popupDialog">
+            <div class="popup__img">
+                <a href="#">
+                    <img class="img__detail" src="{% static 'images/popup.jpg' %}" alt="칼리 뷰티 플랫폼 상세페이지">
+                </a>
+            </div>
+            <form method="dialog">
+                <button class="button__closeToday" value="cancel" id="closeToday">오늘 하루 안보기</button>
+                <button class="button__close" value="default">닫기</button>
+            </form>
+        </dialog>
+    </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popupDialog = document.getElementById('popupDialog');
+            const closeTodayBtn = document.getElementById('closeToday');
+            const popupElement = document.getElementById('popupContainer'); // 팝업 전체 요소
+
+            // 쿠키에서 'hidePopup' 값 확인
+            if (document.cookie.indexOf('hidePopup=true') === -1) {
+                popupDialog.showModal(); // 팝업 열기
+            } else {
+                popupDialog.close();
+                popupElement.style.display = 'none';  // 팝업 요소를 숨김
+            }
+
+            // "오늘 하루 안보기" 버튼 클릭 시
+            closeTodayBtn.addEventListener('click', function () {
+                // 쿠키에 hidePopup 값 설정 (하루 동안 유지)
+                document.cookie = "hidePopup=true; max-age=86400; path=/";
+                popupDialog.close();
+                popupElement.style.display = 'none';  // 팝업 전체 숨기기
+                document.body.classList.remove('modal-open');  // 페이지의 스크롤 활성화
+            });
+
+            // "닫기" 버튼 클릭 시 팝업 닫기
+            popupDialog.addEventListener('close', function () {
+                popupElement.style.display = 'none';  // 팝업 전체 숨기기
+                document.body.classList.remove('modal-open');  // 페이지의 스크롤 활성화
+            });
+        });
+      </script>
+
+
 
     <!-- 메인 이벤트 섹션 -->
     <section class="event">
@@ -358,6 +405,8 @@
             setInterval(() => updateCountdown(endTime), 1000);
         });
     </script>
+
+    
 
    <br>
         <!-- banner -->    
