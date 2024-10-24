@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'find_id.css' %}"> <!-- CSS 파일 경로 -->
+</head>
+<body>
+    <div class="container">
+        <h2>아이디 찾기</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="이메일을 입력하세요" required>
+            <button type="submit">아이디찾기</button>
+        </form>
+        
+        {% if message %}
+            <p class="success">{{ message }}</p>
+        {% elif error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
