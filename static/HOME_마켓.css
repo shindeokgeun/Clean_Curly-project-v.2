@@ -1110,21 +1110,20 @@ legend {
   justify-content: center; /* 수평 중앙 정렬 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
 }
-
 .popup__container {
-  width: 350px; /* 팝업 컨테이너의 너비 설정 */
-  background-color: #fff; /* 배경색을 흰색으로 설정 */
-  padding: 10px; /* 내부 여백 설정 */
-  border-radius: 10px; /* 모서리를 둥글게 설정 */
-  position: absolute; /* 절대 위치 설정 */
-  top: 50%; /* 세로 방향 중앙으로 설정 */
-  left: 50%; /* 가로 방향 중앙으로 설정 */
-  transform: translate(-50%, -50%); /* 컨테이너를 중앙으로 이동 */
-  display: flex; /* 플렉스 박스 레이아웃 사용 */
-  flex-direction: column; /* 자식 요소들을 세로 방향으로 배치 */
-  align-items: center; /* 자식 요소들 수평 중앙 정렬 */
+  width: 350px;
+  background-color: #fff;
+  /* padding: 10px; /*--------- 이부분도*/
+  border-radius: 10px;
+  border: none; /* 검은색 선 제거 --------  이부분 이야기 해보기 */ 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .popup__img {
   width: 100%; /* 이미지 감싸는 박스의 너비를 100%로 설정 */
   overflow: hidden; /* 넘치는 부분 숨기기 */

@@ -1090,3 +1090,52 @@ footer .footer__contents {
   display: flex;
   gap: 50px; /* 버튼 사이의 간격 조절 */
 }
+
+
+/* 소셜로그인 비밀번호 설정 버튼 꾸미기*/
+/* 소셜로그인 비밀번호 설정 버튼 꾸미기 */
+.set-password-button {
+  background-color: #4CAF50; /* 녹색 배경 */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block; /* 글자 길이에 맞춰서 버튼 크기 설정 */
+  font-size: 16px;
+  margin: 10px auto; /* 상하 여백은 10px, 좌우는 auto로 중앙 정렬 */
+  cursor: pointer;
+  border-radius: 5px; /* 둥근 테두리 */
+  transition: background-color 0.3s ease; /* 호버 시 배경색 전환 */
+}
+
+.set-password-button:hover {
+  background-color: #45a049; /* 호버 시 배경색 변경 */
+}
+
+.set-password-button:active {
+  background-color: #3e8e41; /* 클릭 시 배경색 변경 */
+  transform: scale(0.98); /* 클릭 시 약간 작아지는 효과 */
+}
+
+.set-password-button:focus {
+  outline: none; /* 클릭 시 나타나는 외곽선 제거 */
+}
+
+/* 부모 컨테이너에서 중앙 정렬 */
+.button-container {
+  text-align: center; /* 부모 요소에서 자식 요소 중앙 정렬 */
+}
+
+.set-password-message {
+  font-size: 14px; /* 글꼴 크기 */
+  color: #555; /* 글자 색상 */
+  margin-top: 10px; /* 위쪽 여백 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+  text-align: center; /* 중앙 정렬 */
+  line-height: 1.6; /* 줄 간격 */
+  background-color: #f9f9f9; /* 연한 배경색 */
+  padding: 10px 20px; /* 내부 여백 */
+  border-radius: 5px; /* 둥근 테두리 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+}

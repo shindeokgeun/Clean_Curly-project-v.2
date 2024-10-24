@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'reviews.apps.ReviewsConfig',
     'benefit',
     'cs',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+
 ]
 
 ROOT_URLCONF = 'myweb.urls'
@@ -176,14 +179,42 @@ LOGGING = {
 HANDLER403 = 'your_project.views.custom_permission_denied_view'
 
 
-# 장고에서 이메일 보내기 위한 이메일 설정
-# 이메일과 비밀번호 넣어두면 되는데 보안 문제로 2차 인증 활성화 해서 패스키 새로 만들어서 이용
-# # (현재 '지웅'디바이스 등록되어 있어서 확인해보시고 싶으시면 자신 구글 아이디랑 비밀번호 넣으면 됩니다.)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP 사용
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '***'  # 여기서 본인의 이메일 주소 입력
-EMAIL_HOST_PASSWORD = '***'  # 여기서 본인의 이메일 비밀번호 입력
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# # 장고에서 이메일 보내기 위한 이메일 설정
+# # 이메일과 비밀번호 넣어두면 되는데 보안 문제로 2차 인증 활성화 해서 패스키 새로 만들어서 이용
+# # # (현재 '지웅'디바이스 등록되어 있어서 확인해보시고 싶으시면 자신 구글 아이디랑 비밀번호 넣으면 됩니다.)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP 사용
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER =  os.getenv('EMAIL_HOST_USER')  # 여기서 본인의 이메일 주소 입력
+# EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_HOST_PASSWORD')  # 여기서 본인의 이메일 비밀번호 입력
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# # Social Auth
+# AUTHENTICATION_BACKENDS = (
+#     'social_core.backends.google.GoogleOAuth2',
+#     'django.contrib.auth.backends.ModelBackend',
+# )
+
+# from dotenv import load_dotenv
+
+# # .env 파일 로드
+# load_dotenv()
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_CLIENT_ID")  # 구글 클라이언트 ID
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")  # 구글 클라이언트 비밀
+# SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/auth/complete/google-oauth2/'  # 리디렉션 URI
+# SOCIAL_AUTH_URL_NAMESPACE = 'social'
+# # Redirect URI 설정
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+# LOGIN_REDIRECT_URL = 'index'  # 로그인 후 리디렉션할 URL
+
+# # 필요한 스코프
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#     'email',
+#     'profile',
+# ]
+
+
 

@@ -36,16 +36,20 @@ def logout_view(request):
     return redirect('index')  # 로그아웃 후 홈 페이지로 리디렉션
 
 # 회원가입 뷰
+from django.contrib.auth import login as auth_login, authenticate
+
 def signup_view(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)  # 사용자 등록 폼에 POST 데이터 및 파일 처리
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()  # 유저 정보 저장
-            auth_login(request, user)  # 회원가입 후 자동 로그인
-            return redirect('index')  # 가입 후 홈 페이지로 리디렉션
+            user = form.save()
+            # 사용자 인증 후 로그인 (백엔드를 명시적으로 지정)
+            auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('index')
     else:
-        form = CustomUserCreationForm()  # GET 요청 시 빈 폼 생성
-    return render(request, 'users/마켓_회원가입.html', {'form': form})  # 회원가입 템플릿 렌더링
+        form = CustomUserCreationForm()
+    
+    return render(request, 'users/마켓_회원가입.html', {'form': form})
 
 # 마켓 메인 페이지 뷰
 def market_view(request):
@@ -260,8 +264,45 @@ def delete_account(request):
             user = request.user
             user.delete()  # 계정 삭제
             messages.success(request, '계정이 성공적으로 삭제되었습니다.')
-            return redirect('http://127.0.0.1:8000/')  
+            return redirect('index')  
         else:
             messages.error(request, '비밀번호가 일치하지 않습니다.')
     
     return render(request, 'users/delete_account.html')
+
+
+# 구글 로그인 비밀번호 설정뷰
+from django.contrib.auth.hashers import make_password
+
+# @login_required
+# def set_password(request):
+#     if request.method == "POST":
+#         password = request.POST.get("password")
+#         user = request.user
+#         if password:  # 비밀번호가 비어있지 않은지 확인
+#             user.password = make_password(password)
+#             user.save()
+#             messages.success(request, "비밀번호가 성공적으로 설정되었습니다.")
+#             return redirect("index")  # 비밀번호 설정 후 리디렉션할 URL
+#         else:
+#             messages.error(request, "비밀번호를 입력해주세요.")
+#     return render(request, "users/set_password.html")
+
+# http://127.0.0.1:8000/users/set-password/ 에서 비밀번호 지정해줘야함.
+
+@login_required
+def set_password(request):
+    if request.user.social_auth.exists():  # 소셜 로그인 여부 확인
+        if request.method == 'POST':
+            form = SetPasswordForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # 비밀번호 변경 후 세션 업데이트
+                return redirect('index')  # 비밀번호 설정 후 리디렉션할 URL
+        else:
+            form = SetPasswordForm(user=request.user)
+        
+        return render(request, 'users/set_password.html', {'form': form}) # 소셜 로그인 계정 (즉, 비밀번호가 등록이 안되어 있는 분들은 비밀번호 설정 페이지로 이동)
+    
+    # 소셜 로그인 계정이 아닌 경우에는 403 Forbidden 응답을 반환 (기존 회원가입하신분들, 즉 비밀번호가 있는 분들은 403에러 페이지로 이동)
+    return render(request, '403.html', status=403)
