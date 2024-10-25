@@ -403,3 +403,44 @@
     margin-top: auto; /* 리뷰 내용과 푸터 사이의 공간을 최대화 */
 }
 
+
+.review-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.review-count {
+    color: #666;
+}
+
+.review-sort-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.sort-button {
+    padding: 0 10px;
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sort-button.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.separator {
+    color: #ddd;
+    margin: 0 5px;
+}
+
+/* 버튼 hover 효과 */
+.sort-button:hover {
+    color: #000;
+}
