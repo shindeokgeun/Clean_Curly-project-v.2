@@ -258,33 +258,145 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 중앙 정렬 */
 }
 
 /* 모달 내용 스타일 */
 .modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 20px; /* 내부 여백 */
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
-  margin: auto;
+  margin: 15% auto; /* 중앙에 위치 */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* 패딩 포함 크기 계산 */
+  overflow: hidden; /* 내용이 넘치지 않도록 설정 */
+  max-height: 80vh; /* 최대 높이를 설정해 화면에 넘치지 않도록 함 */
+  overflow-y: auto; /* 내용이 많을 경우 세로 스크롤 추가 */
+
+}
+
+/* 가격과 수량 선택을 같은 줄에 배치하기 위한 스타일 */
+.modal-content > div {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 공간을 최대한 분배 */
+  align-items: center; /* 수직 중앙 정렬 */
 }
 
 /* 닫기 버튼 스타일 */
 .close {
-  float: right;
+  float: right; /* 오른쪽 정렬 */
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
 }
 
+/* 제품명 */
+#modalProductName {
+  font-size: 23px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
 
+/* 가격 스타일 */
+.price {
+  display: inline; /* 기본적으로 인라인으로 설정 */
+  font-weight: bold; 
+}
 
+/* 기존 가격 (할인 전) 스타일 */
+#normalPrice {
+  font-size: 24px;
+  margin-right: 3px; 
+  margin-top: 30px;
+  margin-bottom: 30px; 
+}
 
+/* 가로줄 클래스 (할인 있을 때만 적용) */
+.line-through {
+  text-decoration: line-through;
+}
 
+/* 정상가 회색으로 변경 (할인 있을 때 적용) */
+.gray-text {
+  color: #999;
+}
 
+/* 검정색 텍스트 (할인 없을 때) */
+.black-text {
+  color: black;
+}
 
+/* 할인가 스타일 */
+#discountPrice {  
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 3px;
+  color: #000000;
+}
+
+/* 할인 섹션 숨김 처리 */
+#discountSection {
+  display: none;
+  margin-right: 10px; /* 원할 경우 추가적인 마진 조정*/ 
+}
+
+/* 수량 선택 컨테이너 스타일 */
+.quantity-container {
+  margin-top: 15px;
+  margin-left: auto;
+}
+
+/* 수량 선택 */
+label {
+  font-weight: bold;
+  margin-top: 0px;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid #0e0d0d;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* 합계 컨테이너 스타일 */
+.total-price-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* 필요한 경우, 조정할 수 있습니다 */
+  margin-top: 10px; /* 위에 공간을 주고 싶다면 추가 */
+}
+
+/* 합계 글자 스타일 */
+.total-label {
+  text-align: left;
+}
+
+/* 총 가격 스타일 */
+.total-price {
+  text-align: right;
+  font-weight: bold; /* 원하는 경우 추가 가능 */
+  font-size: 30px;
+}
+
+.addToCart {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: block; /* 블록 요소로 변경 */
+  margin: 25px auto 15px auto; /* 위, 아래 마진 설정 및 좌우 중앙 정렬 */
+  text-align: center;
+}
 
 .goods__thumbnail {
   width: 100%; /* 이미지 너비 설정 */
