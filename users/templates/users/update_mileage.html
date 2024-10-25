@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>적립금/컬리캐시 업데이트</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>적립금 및 칼리캐시 업데이트</h1>
+    <form action="{% url 'update_mileage' %}" method="post">
+        {% csrf_token %}
+        <label for="mileage">적립금 추가:</label>
+        <input type="number" name="mileage" id="mileage" min="0" required>
+        <br>
+        <label for="karly_cash">컬리캐시 추가:</label>
+        <input type="number" name="karly_cash" id="karly_cash" min="0" required>
+        <br>
+        <button type="submit">업데이트</button>
+    </form>
+</body>
+</html>

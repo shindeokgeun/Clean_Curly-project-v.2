@@ -2,6 +2,7 @@
 <div id="review" class="review-section product-reviews-container">
     <section class="review-container">
         <h2 class="review-title">상품 후기</h2>
+        
         <div class="review-images">
             {% for review in reviews %}
                 {% if review.image %}
@@ -11,44 +12,84 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="review-summary">
+        
+        <div class="review-header-container">
             <span class="review-count">총 {{ reviews.count }}개</span>
+            <div class="review-sort-buttons">
+                <a href="?sort=latest" class="sort-button {% if current_sort == 'latest' %}active{% endif %}">최신순</a>
+                <span class="separator">|</span>
+                <a href="?sort=helpful" class="sort-button {% if current_sort == 'helpful' %}active{% endif %}">추천순</a>
+            </div>
         </div>
+
         <div class="review-list">
             {% for review in reviews %}
-                <div class="review-item">
-                    <div class="reviewer-container">
-                        <div class="reviewer-info">
-                            <div class="reviewer-badge">멤버스</div>
-                            <span class="reviewer-name">{{ review.user.username|slice:":2" }}**</span>
-                        </div>
-                        <div class="review-content">
-                            <div class="review-header">
-                                <h3 class="review-product-name">{{ review.product.name }}</h3>
-                                <div class="rating">
-                                    {% for i in "12345"|make_list %}
-                                        {% if forloop.counter <= review.rating %}
-                                            <span class="star filled">★</span>
-                                        {% else %}
-                                            <span class="star empty">☆</span>
-                                        {% endif %}
-                                    {% endfor %}
+                {% if review.id not in blocked_reviews %}
+                    <div class="review-item">
+                        {% if user.is_authenticated %}
+                            <div style="display:none">리뷰 ID: {{ review.id }}</div>
+                        {% endif %}
+                        <div class="reviewer-container">
+                            <div class="reviewer-info">
+                                <div class="reviewer-top-info">
+                                    <div class="reviewer-badge">멤버스</div>
+                                    <span class="reviewer-name">{{ review.user.username|slice:":2" }}*</span>
                                 </div>
+                                <div class="reviewer-bottom-info"></div>
+                                <a href="{% url 'reviews:report_review' review.id %}" class="report-button">신고 및 차단</a>
                             </div>
-                            <p class="review-text">{{ review.text }}</p>
-                            {% if review.image %}
-                                <div class="review-images">
-                                    <button class="review-image-button">
-                                        <img src="{{ review.image.url }}" alt="리뷰 이미지">
-                                    </button>
+                            <div class="review-content">
+                                <div class="review-header">
+                                    <h3 class="review-product-name">{{ review.product.name }}</h3>
+                                    <div class="rating">
+                                        {% for i in "12345"|make_list %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <span class="star filled">★</span>
+                                            {% else %}
+                                                <span class="star empty">☆</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            {% endif %}
-                            <footer class="review-footer">
-                                <span class="review-date">{{ review.created_at|date:"Y.m.d" }}</span>
-                            </footer>
+                                <p class="review-text">{{ review.text }}</p>
+                                {% if review.image %}
+                                    <div class="review-images">
+                                        <button class="review-image-button">
+                                            <img src="{{ review.image.url }}" alt="리뷰 이미지">
+                                        </button>
+                                    </div>
+                                {% endif %}
+                                <footer class="review-footer">
+                                    <span class="review-date">{{ review.created_at|date:"Y.m.d" }}</span>
+                                    <div class="review_like_action_v2__like_container">
+                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}?sort={{ current_sort }}" class="review_like_action_v2__like_form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="helpful">
+                                            <button type="submit" class="review_like_action_v2__like_button {% if user in review.helpful_users.all %}active{% endif %}" {% if not user.is_authenticated or user.id == review.user.id %}disabled{% endif %}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="review_like_action_v2__like_icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.725 6.2c-.051.152-.026.32.068.45s.245.207.406.207h3.477c.061 0 .121.006.181.017.55.1.914.626.814 1.175l-.962 5.288c-.087.48-.505.83-.994.83H6.177c-.558 0-1.01-.453-1.01-1.011v-6.24c0-.241.086-.474.243-.657l3.619-4.223c.174-.202.463-.26.702-.141.21.105.312.35.237.573L8.725 6.2zM2.333 14V7.333"></path>
+                                                </svg>
+                                                <span class="review_like_action_v2__like_text">도움돼요</span>
+                                                <span class="review_like_action_v2__like_count">{{ review.helpful_count }}</span>
+                                            </button>
+                                        </form>
+                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}?sort={{ current_sort }}" class="review_like_action_v2__like_form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="unhelpful">
+                                            <button type="submit" class="review_like_action_v2__unlike_button {% if user in review.unhelpful_users.all %}active{% endif %}" {% if not user.is_authenticated or user.id == review.user.id %}disabled{% endif %}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="review_like_action_v2__unlike_link_icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.725 6.2c-.051.152-.026.32.068.45s.245.207.406.207h3.477c.061 0 .121.006.181.017.55.1.914.626.814 1.175l-.962 5.288c-.087.48-.505.83-.994.83H6.177c-.558 0-1.01-.453-1.01-1.011v-6.24c0-.241.086-.474.243-.657l3.619-4.223c.174-.202.463-.26.702-.141.21.105.312.35.237.573L8.725 6.2zM2.333 14V7.333"></path>
+                                                </svg>
+                                                <span class="review_like_action_v2__unlike_link_text">도움안돼요</span>
+                                                <span class="review_like_action_v2__unlike_link_count">{{ review.unhelpful_count }}</span>
+                                            </button>
+                                        </form>
+                                    </div>   
+                                </footer>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}    
             {% endfor %}
         </div>
     </section>

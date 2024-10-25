@@ -1,0 +1,37 @@
+<!-- templates/shop/purchase_history.html -->
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구매자별 구매 이력 조회</title>
+    <link rel="stylesheet" href="{% static 'SHOP_purchase_history.css' %}">
+</head>
+<body>
+
+{% for buyer, items in purchase_history.items %}
+    <div class="buyer-section">
+        <h3>구매자: {{ buyer.username }}</h3>
+        <ul>
+            {% for item in items %}
+                <li>
+                    <!-- 상품 이미지 -->
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    <!-- 상품 정보 -->
+                    <div class="info">
+                        <span><strong>상품명:</strong> {{ item.product.name }}</span>
+                        <span><strong>수량:</strong> {{ item.quantity }}개</span>
+                        <span><strong>총 금액:</strong> {{ item.quantity|mul:item.price|floatformat:0|intcomma }}원</span>
+                        <span class="order-date">주문일자: {{ item.order.created }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>적립금/컬리캐시 삭제</title>
+    <link rel="stylesheet" href="{% static 'css/USERS_마켓_로그인.css' %}">
+</head>
+<body>
+    <h1>적립금 및 컬리캐시 삭제</h1>
+    <form action="{% url 'delete_mileage' %}" method="post">
+        {% csrf_token %}
+        <label for="mileage">삭제할 적립금:</label>
+        <input type="number" name="mileage" id="mileage" min="0" required>
+        <br>
+        <label for="karly_cash">삭제할 컬리캐시:</label>
+        <input type="number" name="karly_cash" id="karly_cash" min="0" required>
+        <br>
+        <button type="submit">삭제</button>
+    </form>
+</body>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+</html>

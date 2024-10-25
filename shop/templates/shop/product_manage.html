@@ -1,0 +1,42 @@
+<!-- templates/shop/product_manage.html -->
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 관리 페이지</title>
+    <link rel="stylesheet" href="{% static 'SHOP_product_manage.css' %}">
+</head>
+<table>
+    <thead>
+        <tr>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>할인가</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price|floatformat:0|intcomma }}원</td>
+            <td>{{ product.discount_price|floatformat:0|intcomma }}원</td>
+            <td><a href="{% url 'shop:product_update' product.id %}">수정</a></td>
+            <td>
+                <a href="{% url 'shop:product_delete' product.id %}" class="btn btn-danger">삭제</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">등록된 상품이 없습니다.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 새 상품 등록 링크 -->
+<a href="{% url 'shop:product_register' %}" class="btn btn-register">새 상품 등록</a>

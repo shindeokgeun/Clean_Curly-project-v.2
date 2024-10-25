@@ -118,7 +118,7 @@
         {% endif %}
     
         <!-- 로그아웃 버튼 -->
-        <form action="{% url 'logout' %}" method="post">
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
             {% csrf_token %}
             <button type="submit" class="logout-button">로그아웃</button>
         </form>

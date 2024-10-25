@@ -121,7 +121,7 @@ nav .nav_items {
 
 nav .category-link{
   display: flex;
-  margin-right:auto;
+  margin-right: auto;
 }
 
 nav ul {
@@ -861,12 +861,12 @@ footer .footer__contents {
   line-height: 44px;
   text-align: center;
   color: #fff;
-  background-color: #5f0080;
+  background-color: #4CAF50;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  background-color: #4a0066;
+  background-color: #4CAF50;
 }
 
 /* 로그아웃 버튼 스타일 */
@@ -876,17 +876,24 @@ footer .footer__contents {
   padding: 10px 20px;
   border: 0;
   border-radius: 3px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   text-align: center;
   color: #fff;
-  background-color: #5f0080;
+  background-color: #4CAF50;
   cursor: pointer;
 }
 
 .logout-button:hover {
-  background-color: #4a0066;
+  background-color: #4CAF50;
+}
+
+.logout-form {
+  display: flex;               /* Flexbox 사용 */
+  justify-content: center;     /* 수평 중앙 정렬 */
+  align-items: center;         /* 수직 중앙 정렬 (필요한 경우) */
+  height: 100px;              /* 높이 설정 (필요에 따라 조정) */
 }
 
 .profile-section {
@@ -921,18 +928,139 @@ footer .footer__contents {
   font-size: 16px;
   margin-bottom: 10px;
 }
+
+
+/* 사용자 컨트롤 영역 (버튼들 가운데 정렬) */
+.user-controls-new { /* 새로운 클래스 이름 */
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 10px; /* 버튼들 간격 */
+}
+
+/* 로그아웃 버튼 스타일 */
 .logout-button {
-  display: block;
+  display: inline-block;
+  width: auto;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #e74c3c;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
   color: #fff;
-  border: none;
-  border-radius: 5px;
+  background-color: #4CAF50; /* 로그아웃 버튼 색상 */
   cursor: pointer;
 }
 
 .logout-button:hover {
-  background-color: #c0392b;
+  background-color: #4CAF50; /* 로그아웃 버튼 hover 색상 */
 }
 
+/* 회원정보 수정 버튼 스타일 */
+.profile-edit-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #5f0080; /* 회원정보 수정 버튼 색상 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  margin-left: 20px; /* 로그아웃 버튼과 간격 조정 */
+  cursor: pointer;
+}
+
+.profile-edit-button:hover {
+  background-color: #5f0080; /* 회원정보 수정 버튼 hover 색상 */
+}
+
+
+
+
+
+
+/* 적립금/칼리캐시 박스 스타일 - 프로필 박스와 유사하게 수정 */
+.mileage-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 1000px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 프로필 박스와 동일한 그림자 효과 */
+}
+
+.mileage-section h4 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.mileage-section p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.mileage-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+}
+
+.mileage, .karly-cash {
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.mileage p, .karly-cash p {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.mileage span, .karly-cash span {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #333;
+}
+
+
+
+
+.update-miles-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.add-miles-button {
+  background-color: #4CAF50; /* 초록색 */
+}
+
+.delete-miles-button {
+  background-color: #f44336; /* 빨간색 */
+}
+
+.update-miles-button:hover {
+  opacity: 0.8; /* 마우스 오버 시 투명도 변경 */
+}
+
+.update-buttons {
+  display: flex;
+  gap: 50px; /* 버튼 사이의 간격 조절 */
+}

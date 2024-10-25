@@ -1,0 +1,90 @@
+/* 상품 관리 페이지 전체 레이아웃 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+tbody td a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+tbody td a:hover {
+    text-decoration: underline;
+}
+
+/* 버튼 스타일 */
+td a.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    width: 70px; /* 버튼 너비를 제한하여 동일한 크기 유지 */
+    text-align: center;
+}
+
+
+.btn-danger {
+    background-color: #ff4d4d;
+}
+
+.btn-danger:hover {
+    background-color: #d9534f;
+}
+
+/* 새 상품 등록 링크 버튼 */
+a.btn-register {
+    display: block;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 20px auto;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    width: 200px;
+    font-size: 16px;
+}
+
+a.btn-register:hover {
+    background-color: #0056b3;
+}

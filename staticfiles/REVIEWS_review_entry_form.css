@@ -1,0 +1,499 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.review-popup {
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+}
+
+.review-popup-header {
+  background-color: #f8f8f8;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.review-popup-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.review-popup-header p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    z-index: 1000;
+    border: none;
+}
+
+.close-button:hover {
+    background-color: #666;
+}
+
+.review-popup-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.review-intro {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.reward-info {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.reward-info strong {
+    font-weight: bold;
+    color: inherit;
+}
+
+.submit-button {
+    margin-top: 15px; /* 버튼 위의 공간 줄임 */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-container {
+    position: relative;
+    padding: 20px;
+    /* 필요에 따라 다른 스타일 추가 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.selected-rating {
+    color: #888;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+}
+
+.file-upload {
+    margin-top: 10px;
+}
+
+.file-upload-box {
+    width: 80px;
+    height: 80px;
+    border: 1px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.plus-icon {
+    font-size: 30px;
+    color: #ccc;
+}
+
+.file-upload-info {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rating:not(:checked) > label {
+    float: right;
+    width: 1em;
+    padding: 0 .1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 200%;
+    line-height: 1.2;
+    color: #ddd;
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+}
+
+.rating > input:checked ~ label:before {
+    opacity: 1;
+}
+
+.rating:hover > input:checked ~ label:before {
+    opacity: 0.4;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+}
+
+.rating > label {
+    position: relative;
+    width: 1em;
+    font-size: 30px;
+    color: #FFD600;
+    cursor: pointer;
+}
+
+.rating > label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+    opacity: 1 !important;
+}
+
+.upload-button {
+    background-color: #f0f0f0;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #555;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dropdown-toggle {
+    display: none;
+}
+
+.dropdown-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-title::after {
+    content: '';
+    margin-left: auto;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #888;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle:checked + .dropdown-title::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.dropdown-content input[type="radio"] {
+    display: none;
+}
+
+.dropdown-content label {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.dropdown-content label:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-toggle:checked + .dropdown-title::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-toggle:checked + .dropdown-title .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-toggle:checked + .dropdown-title + .dropdown-content {
+    display: block;
+}
+
+.dropdown-content p {
+    margin: 0;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.review-label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    color: #888;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    min-height: 100px;
+}
+
+.satisfaction-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.reward-dropdown,
+.satisfaction-dropdown {
+    width: 100%;
+    padding: 10px;
+    padding-right: 30px; /* 화살표를 위한 공간 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    appearance: none; /* 기본 브라우저 화살표 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.reward-dropdown option,
+.satisfaction-dropdown option {
+    padding: 10px;
+}
+
+.modal-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: #fff;
+  width: 90%;
+  max-width: 400px;
+  height: 80vh;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.modal-header {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  padding: 20px;
+  padding-right: 40px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.modal-header p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 화살표 호버 효과 */
+.reward-dropdown:hover,
+.satisfaction-dropdown:hover {
+    border-color: #aaa;
+}
+
+/* 포커스 시 스타일 */
+.reward-dropdown:focus,
+.satisfaction-dropdown:focus {
+    outline: none;
+    border-color: #888;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+textarea, .satisfaction-dropdown {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modal-footer {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: #f8f8f8;
+}
+
+/* 만족도 드롭다운 특별 스타일 */
+#satisfaction-toggle + .dropdown-title {
+    font-size: 14px; /* 만족도 라벨의 글씨 크기 */
+    font-weight: bold;
+    color: #333;
+}
+
+.selected-rating {
+    display: flex;
+    align-items: center;
+}
+
+.selected-rating .stars {
+    color: #ffd700;
+    margin-left: 5px;
+}
+
+.stars {
+    color: #ffd700;
+    font-size: 13px;
+}
+
+/* 선택된 옵션 스타일 */
+.dropdown-content input[type="radio"]:checked + label {
+    background-color: #e0e0e0;
+}
+
