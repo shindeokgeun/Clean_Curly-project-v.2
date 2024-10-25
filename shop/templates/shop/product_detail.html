@@ -121,11 +121,10 @@
 
     <!-- 리뷰 섹션 -->
     <div class="review-container">
-    {% include 'reviews/product_review_section.html' with product=product %}
+        {% include 'reviews/product_review_section.html' with reviews=reviews blocked_reviews=blocked_reviews user=user %}
     </div>
     
     <!-- footer -->
     {% include 'common/footer.html' %}
-
 </body>
 </html>
