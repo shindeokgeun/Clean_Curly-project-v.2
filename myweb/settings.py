@@ -175,6 +175,11 @@ LOGGING = {
     },
 }
 
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
+
 # 403 에러 핸들러를 커스텀 페이지로 설정
 HANDLER403 = 'your_project.views.custom_permission_denied_view'
 
@@ -196,10 +201,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-from dotenv import load_dotenv
-
-# .env 파일 로드
-load_dotenv()
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_CLIENT_ID")  # 구글 클라이언트 ID
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")  # 구글 클라이언트 비밀

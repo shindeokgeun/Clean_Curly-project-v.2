@@ -274,22 +274,6 @@ def delete_account(request):
 # 구글 로그인 비밀번호 설정뷰
 from django.contrib.auth.hashers import make_password
 
-# @login_required
-# def set_password(request):
-#     if request.method == "POST":
-#         password = request.POST.get("password")
-#         user = request.user
-#         if password:  # 비밀번호가 비어있지 않은지 확인
-#             user.password = make_password(password)
-#             user.save()
-#             messages.success(request, "비밀번호가 성공적으로 설정되었습니다.")
-#             return redirect("index")  # 비밀번호 설정 후 리디렉션할 URL
-#         else:
-#             messages.error(request, "비밀번호를 입력해주세요.")
-#     return render(request, "users/set_password.html")
-
-# http://127.0.0.1:8000/users/set-password/ 에서 비밀번호 지정해줘야함.
-
 @login_required
 def set_password(request):
     if request.user.social_auth.exists():  # 소셜 로그인 여부 확인
