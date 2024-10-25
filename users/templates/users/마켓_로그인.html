@@ -82,7 +82,10 @@
                 <a href="{% url 'reset_password' %}" class="login__findPassword">비밀번호 찾기</a>
             </div>
             <button type="submit" class="login__button">로그인</button>
-            <a href="{% url 'social:begin' 'google-oauth2' %}" class="login__button">구글로 로그인</a>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="login__button google-login">
+                <span class="google-login__icon"></span>
+                <span class="google-login__text">구글 로그인</span>
+              </a>
             <a href="{% url 'signup' %}" class="login__signIn">회원가입</a>
           </fieldset>
         </form>
