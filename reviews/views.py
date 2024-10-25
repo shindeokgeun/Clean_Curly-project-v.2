@@ -12,6 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render
 from .models import Report
 from django.utils import timezone
+from django.db import models
 
 @login_required
 def review_entry_form(request, product_id):
@@ -44,30 +45,31 @@ def review_entry_form(request, product_id):
     return render(request, 'reviews/review_entry_form.html', context)
 
 def product_review_section(request, product_id):
-    print("\n=== Debug Review Display ===")  # 이 부분이 출력되어야 함
     product = get_object_or_404(Product, id=product_id)
-    reviews = Review.objects.filter(product=product).order_by('-created_at')
-    print(f"Initial reviews count: {reviews.count()}")
-    print(f"Initial review IDs: {list(reviews.values_list('id', flat=True))}")
     
+    # 정렬 방식 파라미터 받기
+    sort_type = request.GET.get('sort', 'latest')  # 기본값은 최신순
+    
+    # 기본 쿼리셋
+    reviews = Review.objects.filter(product=product)
+    
+    # 정렬 적용
+    if sort_type == 'helpful':
+        reviews = Review.order_by_helpful(reviews)
+    else:
+        reviews = reviews.order_by('-created_at')
+    
+    # 차단된 리뷰 처리
     blocked_reviews = []
     if request.user.is_authenticated:
-        print(f"\nLogged in user: {request.user.username} (ID: {request.user.id})")
-        
-        # 차단된 리뷰 확인
         blocked_reviews = BlockedReview.objects.filter(user=request.user)
-        print(f"Blocked reviews count: {blocked_reviews.count()}")
-        print(f"Blocked review IDs: {list(blocked_reviews.values_list('review_id', flat=True))}")
-        
-        # 차단된 리뷰 제외
         reviews = reviews.exclude(id__in=blocked_reviews.values_list('review_id', flat=True))
-        print(f"\nFinal reviews count after excluding blocked: {reviews.count()}")
-        print(f"Final review IDs: {list(reviews.values_list('id', flat=True))}")
     
     context = {
         'product': product,
         'reviews': reviews,
         'user': request.user,
+        'current_sort': sort_type,
         'blocked_reviews': blocked_reviews.values_list('review_id', flat=True) if request.user.is_authenticated else []
     }
     return render(request, 'reviews/product_review_section.html', context)
@@ -150,6 +152,8 @@ def rate_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     user = request.user
     action = request.POST.get('action')
+
+    current_sort = request.GET.get('sort', 'latest')
     
     if action == 'helpful':
         if user in review.unhelpful_users.all():
@@ -173,7 +177,7 @@ def rate_review(request, review_id):
             review.unhelpful_count += 1
     
     review.save()
-    return redirect(reverse('shop:product_detail', args=[review.product.id]))
+    return redirect(f"{reverse('shop:product_detail', args=[review.product.id])}?sort={current_sort}")
 
 
 @login_required

@@ -2,22 +2,7 @@
 <div id="review" class="review-section product-reviews-container">
     <section class="review-container">
         <h2 class="review-title">상품 후기</h2>
-
-        {% if user.is_authenticated %}
-            <div style="display:none">
-                <!-- 디버깅 정보 -->
-                <p>현재 사용자: {{ user.username }} (ID: {{ user.id }})</p>
-                <p>총 리뷰 수: {{ reviews.count }}</p>
-                <p>차단된 리뷰 ID 목록: {{ blocked_reviews }}</p>
-                <p>현재 표시된 리뷰 ID:
-                    {% for review in reviews %}
-                        {{ review.id }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-            </div>
-        {% endif %}
-
-
+        
         <div class="review-images">
             {% for review in reviews %}
                 {% if review.image %}
@@ -27,8 +12,14 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="review-summary">
+        
+        <div class="review-header-container">
             <span class="review-count">총 {{ reviews.count }}개</span>
+            <div class="review-sort-buttons">
+                <a href="?sort=latest" class="sort-button {% if current_sort == 'latest' %}active{% endif %}">최신순</a>
+                <span class="separator">|</span>
+                <a href="?sort=helpful" class="sort-button {% if current_sort == 'helpful' %}active{% endif %}">추천순</a>
+            </div>
         </div>
 
         <div class="review-list">
@@ -71,7 +62,7 @@
                                 <footer class="review-footer">
                                     <span class="review-date">{{ review.created_at|date:"Y.m.d" }}</span>
                                     <div class="review_like_action_v2__like_container">
-                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}" class="review_like_action_v2__like_form">
+                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}?sort={{ current_sort }}" class="review_like_action_v2__like_form">
                                             {% csrf_token %}
                                             <input type="hidden" name="action" value="helpful">
                                             <button type="submit" class="review_like_action_v2__like_button {% if user in review.helpful_users.all %}active{% endif %}" {% if not user.is_authenticated or user.id == review.user.id %}disabled{% endif %}>
@@ -82,7 +73,7 @@
                                                 <span class="review_like_action_v2__like_count">{{ review.helpful_count }}</span>
                                             </button>
                                         </form>
-                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}" class="review_like_action_v2__unlike_form">
+                                        <form method="post" action="{% url 'reviews:rate_review' review.id %}?sort={{ current_sort }}" class="review_like_action_v2__like_form">
                                             {% csrf_token %}
                                             <input type="hidden" name="action" value="unhelpful">
                                             <button type="submit" class="review_like_action_v2__unlike_button {% if user in review.unhelpful_users.all %}active{% endif %}" {% if not user.is_authenticated or user.id == review.user.id %}disabled{% endif %}>

@@ -8,12 +8,23 @@ from .forms import ProductForm
 from django.http import HttpResponseForbidden
 from reviews.views import product_review_section  # 추가
 from django.template.response import SimpleTemplateResponse  # 추가
+from django.db import models
 
 #### 상품 상세정보 페이지 ####
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     categories = Category.objects.all()
-    reviews = Review.objects.filter(product=product).order_by('-created_at')
+   
+    sort_type = request.GET.get('sort', 'latest')
+    
+    # 리뷰 정렬
+    reviews = Review.objects.filter(product=product)
+    if sort_type == 'helpful':
+        reviews = reviews.annotate(
+            help_count=models.Count('helpful_users')
+        ).order_by('-help_count', '-created_at')
+    else:
+        reviews = reviews.order_by('-created_at')
     
     # 리뷰 차단 관련 데이터 추가
     blocked_reviews = []
@@ -21,10 +32,7 @@ def product_detail(request, product_id):
         blocked_reviews = list(BlockedReview.objects.filter(
             user=request.user
         ).values_list('review_id', flat=True))
-        print(f"\n=== Debug Review Display ===")
-        print(f"Logged in user: {request.user.username} (ID: {request.user.id})")
-        print(f"Blocked reviews count: {len(blocked_reviews)}")
-        print(f"Blocked review IDs: {blocked_reviews}")
+        reviews = reviews.exclude(id__in=blocked_reviews)
     
     if request.method == 'POST':
         form = QuantityForm(request.POST)
@@ -48,6 +56,7 @@ def product_detail(request, product_id):
         'categories': categories,
         'blocked_reviews': blocked_reviews,  # 차단된 리뷰 ID 목록 추가
         'user': request.user,  # user 정보 추가
+        'current_sort': sort_type,  # 정렬 상태 추가
     }
     return render(request, 'shop/product_detail.html', context)
 
