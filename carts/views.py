@@ -4,6 +4,7 @@ from carts.cart import Cart
 from shop.models import Product
 from carts.forms import CartAddProductForm
 
+
 @require_POST #post요청만 허용하도록 강제
 def cart_add(request, product_id):
     cart = Cart(request) #현재 사용자 세션에 있는 장바구니를 가져오거나 새로운 장바구니 객체를 생성하여 cart에 저장
@@ -14,6 +15,7 @@ def cart_add(request, product_id):
         cd = form.cleaned_data
         cart.add(product=product,
                  quantity=cd['quantity'],
+                 price=cd['price'],  # 가격 필드를 넘겨서 할인가가 적용되도록 처리
                  override_quantity=cd['override'])
     return redirect('carts:cart_detail')
 

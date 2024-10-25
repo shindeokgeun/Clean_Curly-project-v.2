@@ -1,0 +1,85 @@
+.category-title {
+    text-align: center; /* 제목 중앙 정렬 */
+    font-size: 2em; /* 폰트 크기 */
+    font-weight: bold; /* 굵은 폰트 */
+    margin: 20px 0; /* 위아래 여백 */
+    color: #333; /* 제목 색상 */
+}
+
+/* 전체 카테고리 상품 리스트 컨테이너 */
+ul {
+    display: flex; /* Flexbox를 사용하여 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    flex-wrap: wrap; /* 항목들이 여러 줄로 표시되도록 설정 */
+    gap: 20px; /* 상품 간격 */
+    padding: 0;
+    margin: 20px auto; /* 상하 20px, 좌우 자동 가운데 정렬 */
+    list-style-type: none; /* 불릿 포인트 제거 */
+}
+
+/* 각 상품 항목 */
+ul li {
+    border: 1px solid #eaeaea; /* 상품에 테두리 추가 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    overflow: hidden;
+    transition: box-shadow 0.3s ease; /* 마우스 오버 시 효과를 위한 트랜지션 */
+    width: 250px; /* 상품의 고정 너비 */
+}
+
+ul li:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 박스 그림자 */
+}
+
+/* 링크 기본 스타일 제거 */
+ul li a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+/* 상품 이미지 */
+ul li img {
+    max-width: 100%;
+    max-height: 300px; /* 최대 높이를 설정 */
+    width: auto; /* 자동으로 너비 비율 유지 */
+    height: auto; /* 자동으로 높이 비율 유지 */
+    display: block;
+    margin: 0 auto; /* 이미지를 중앙 정렬 */
+}
+
+/* 상품명 스타일 */
+.product-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333; /* 진한 글씨 */
+    margin: 10px 0;
+}
+
+/* 할인가가 있을 경우 상품 가격 스타일 */
+.product-price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #000000; /* 할인가 색상 */
+    margin: 5px 0;
+}
+
+/* 할인율 스타일 */
+.discount {
+    font-size: 1.3em;
+    color: #ff0000; /* 할인율을 강조하기 위한 빨간색 */
+    margin-right: 5px;
+}
+
+/* 원가(취소선) 스타일 */
+.original-price {
+    font-size: 1.1em;
+    color: #999; /* 원가 색상(회색) */
+    text-decoration: line-through; /* 취소선 추가 */
+    margin: 5px 0;
+}
+
+/* 할인가가 없는 경우 정상가 스타일 */
+.original-price-2 {
+    font-size: 1.3em;
+    color: #333; /* 정상가 색상 */
+    margin: 5px 0;
+}

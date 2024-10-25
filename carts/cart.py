@@ -10,11 +10,12 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] ={}
         self.cart = cart
             
-    def add(self, product, quantity=1, override_quantity=False): #장바구니에 추가
+    def add(self, product, quantity=1, price=None, override_quantity=False): #장바구니에 추가
         product_id = str(product.id) #prdouct가 가지고 있는 id 형태가 int형태인데 이걸 str로 바꿔서 가지고 옴
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity':0, 'price': str(product.price)}
-        
+        if price is not None:
+            self.cart[product_id]['price'] = str(price)  # 전달받은 price를 저장
         if override_quantity: #override_quantity가 True일때 덮어씌운다
             self.cart[product_id]['quantity']=quantity
         else: #override_quantity가 False일때 추가해준다

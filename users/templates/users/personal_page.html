@@ -122,6 +122,11 @@
             {% csrf_token %}
             <button type="submit" class="logout-button">로그아웃</button>
         </form>
+
+        <div class="button-container">
+            <a href="{% url 'set_password' %}" class="set-password-button">구글 로그인 하신분들 비밀번호 설정</a>
+          </div>
+            <p class="set-password-message">구글로그인 아닌분들은 403오류 페이지로 이동됩니다</p>
     </main>
 
     <!-- Footer -->
