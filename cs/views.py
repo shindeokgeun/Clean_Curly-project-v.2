@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from shop.models import Product, Category
+
 # Create your views here.
 
 def index(request):
-    return render(request, 'cs/cs.html')
+    products = Product.objects.all()
+    categories = Category.objects.all() # 카테고리 추가
+    return render(request, 'cs/cs.html', {'products': products, 'categories': categories})
