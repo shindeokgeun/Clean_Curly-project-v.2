@@ -1,0 +1,42 @@
+/* Main Content Style */
+main {
+    width: 1150px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.order_view_table{
+    width: 100%;
+    border-collapse: collapse;  
+    margin-bottom: 20px;
+    margin: 0 auto; /* 자동으로 좌우 여백 설정 */
+}
+
+.order_view_table th, .order_view_table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #181818;
+}
+
+  
+.order_view_table th {
+    background-color: #89f18d;
+    font-weight: bold;
+    text-align: center;
+}
+  
+.order_view_table td {
+    text-align: center;
+}
+  
+.order_view_table td img {
+    max-width: 180px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.order_view_table td li {
+    list-style: none;
+    padding: 5px 0;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 탈퇴</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'delete_account.css' %}"> <!-- CSS 파일 경로 -->
+</head>
+<body>
+    <div class="container">
+        <h2>회원 탈퇴</h2>
+        <p>정말로 탈퇴하시겠습니까? 탈퇴 후에는 되돌릴 수 없습니다.</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <label for="password">비밀번호 확인:</label>
+            <input type="password" name="password" required id="password">
+            <button type="submit">회원 탈퇴</button>
+        </form>
+        
+        <a href="{% url 'profile' %}">취소</a>
+    </div>
+</body>
+</html>

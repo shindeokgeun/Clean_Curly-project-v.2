@@ -1,6 +1,5 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
-
 
 
 urlpatterns = [
@@ -14,6 +13,8 @@ urlpatterns = [
     path('delete-mileage/', views.delete_mileage, name='delete_mileage'),
     path('find-username/', views.find_username, name='find_username'),
     path('reset-password/', views.reset_password, name='reset_password'),
-    path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name='reset_password_confirm'),
+    path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name='reset_password_confirm'), # 이메일로 비밀번호찾기
     path('profile/order-view/', views.profile_order_view, name='profile_order_view'), # 주문조회 페이지      
-] 
+    path('delete-account/', views.delete_account, name='delete_account'), # 회원탈퇴 페이지
+    path('set-password/', views.set_password, name='set_password'), # 구글 로그인 비밀번호 설정뷰
+    ]
