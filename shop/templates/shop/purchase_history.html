@@ -18,10 +18,15 @@
         <ul>
             {% for item in items %}
                 <li>
-                    <span><strong>상품명:</strong> {{ item.product.name }}</span>
-                    <span><strong>수량:</strong> {{ item.quantity }}개</span>
-                    <span><strong>총 금액:</strong> {{ item.quantity|mul:item.price|floatformat:0|intcomma }}원</span>
-                    <span class="order-date">주문일자: {{ item.order.created }}</span>
+                    <!-- 상품 이미지 -->
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    <!-- 상품 정보 -->
+                    <div class="info">
+                        <span><strong>상품명:</strong> {{ item.product.name }}</span>
+                        <span><strong>수량:</strong> {{ item.quantity }}개</span>
+                        <span><strong>총 금액:</strong> {{ item.quantity|mul:item.price|floatformat:0|intcomma }}원</span>
+                        <span class="order-date">주문일자: {{ item.order.created }}</span>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

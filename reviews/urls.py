@@ -25,4 +25,7 @@ urlpatterns = [
     
     # 디버그
     path('debug/', views.debug_view, name='debug_view'),
+
+    # 고객센터 탭
+    path('report/list/', views.report_list, name='report_list'),
 ]

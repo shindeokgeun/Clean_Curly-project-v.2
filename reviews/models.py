@@ -38,6 +38,11 @@ class Review(models.Model):
         # 이 메서드는 나중에 실제 구매 확인 로직으로 대체.
         return Purchase.objects.filter(user=user, product=product).exists()
 
+    @classmethod
+    def order_by_helpful(cls, queryset):
+        return queryset.annotate(
+            help_count=models.Count('helpful_users')
+        ).order_by('-help_count', '-created_at')
 
 class Report(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reports')
@@ -81,3 +86,5 @@ class BlockedReview(models.Model):
 
     def __str__(self):
         return f"{self.user.username} blocked review {self.review.id}"
+    
+

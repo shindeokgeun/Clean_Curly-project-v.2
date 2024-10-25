@@ -3,40 +3,62 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Category
 from .forms import QuantityForm
 from carts.forms import CartAddProductForm
-from reviews.models import Review 
+from reviews.models import Review, BlockedReview
 from .forms import ProductForm
 from django.http import HttpResponseForbidden
+from reviews.views import product_review_section  # 추가
+from django.template.response import SimpleTemplateResponse  # 추가
+from django.db import models
 
 #### 상품 상세정보 페이지 ####
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    categories = Category.objects.all()  # 모든 카테고리를 가져옴
-    reviews = Review.objects.filter(product=product).order_by('-created_at')
+    categories = Category.objects.all()
+   
+    sort_type = request.GET.get('sort', 'latest')
+    
+    # 리뷰 정렬
+    reviews = Review.objects.filter(product=product)
+    if sort_type == 'helpful':
+        reviews = reviews.annotate(
+            help_count=models.Count('helpful_users')
+        ).order_by('-help_count', '-created_at')
+    else:
+        reviews = reviews.order_by('-created_at')
+    
+    # 리뷰 차단 관련 데이터 추가
+    blocked_reviews = []
+    if request.user.is_authenticated:
+        blocked_reviews = list(BlockedReview.objects.filter(
+            user=request.user
+        ).values_list('review_id', flat=True))
+        reviews = reviews.exclude(id__in=blocked_reviews)
+    
     if request.method == 'POST':
         form = QuantityForm(request.POST)
         if form.is_valid():
             quantity = form.cleaned_data['quantity']
-
-            # 장바구니에 수량을 업데이트 (또는 다른 로직 추가)
-            # 세션에 저장하는 예시
             cart = request.session.get('cart', {})
             cart[product_id] = {
                 'name': product.name,
                 'quantity': quantity,
-                'price': float(product.discount_price or product.price),  # Decimal을 float으로 변환
+                'price': float(product.discount_price or product.price),
             }
             request.session['cart'] = cart
-
-            return redirect('carts:cart_detail')  # 장바구니 페이지로 리디렉션
-
+            return redirect('carts:cart_detail')
     else:
         form = QuantityForm()
-    return render(request, 'shop/product_detail.html', {
+
+    context = {
         'product': product, 
         'form': form,
         'reviews': reviews,
-        'categories': categories
-    })
+        'categories': categories,
+        'blocked_reviews': blocked_reviews,  # 차단된 리뷰 ID 목록 추가
+        'user': request.user,  # user 정보 추가
+        'current_sort': sort_type,  # 정렬 상태 추가
+    }
+    return render(request, 'shop/product_detail.html', context)
 
 
 def product_by_category(request, category_id):
