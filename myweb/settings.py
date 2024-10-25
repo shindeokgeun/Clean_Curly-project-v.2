@@ -198,6 +198,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Social Auth
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.naver.NaverOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 

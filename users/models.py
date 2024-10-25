@@ -11,3 +11,4 @@ class CustomUser(AbstractUser):
     mileage = models.DecimalField(max_digits=10, decimal_places=2, default=5000.0)  # 기본 마일리지
     karly_cash = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)  # 칼리캐시
     is_social = models.BooleanField(default=False) # 소셜 로그인 확인을 위한 필드
+
