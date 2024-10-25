@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from .models import CustomUser
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import transaction 
 
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(
@@ -36,9 +37,10 @@ class CustomUserCreationForm(UserCreationForm):
 
     profile_picture = forms.ImageField(
         widget=forms.FileInput(attrs={'accept': 'image/*'}),
-        required=False,  # Optional, depending on whether you want to make this field required
+        required=False,
         label='프로필 사진'
     )
+
 
     class Meta:
         model = CustomUser

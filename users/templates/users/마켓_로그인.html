@@ -77,9 +77,9 @@
             {{ form.password }}
             {{ form.password.errors }}
             <div class="login__find">
-              <a href="#" class="login__findId">아이디 찾기</a>
-              <span>|</span>
-              <a href="#" class="login__findPassword">비밀번호 찾기</a>
+                <a href="{% url 'find_username' %}" class="login__findId">아이디 찾기</a>
+                <span>|</span>
+                <a href="{% url 'reset_password' %}" class="login__findPassword">비밀번호 찾기</a>
             </div>
             <button type="submit" class="login__button">로그인</button>
             <a href="{% url 'signup' %}" class="login__signIn">회원가입</a>
