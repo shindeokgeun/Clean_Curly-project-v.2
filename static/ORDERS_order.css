@@ -475,92 +475,91 @@ main {
 }
 
 
-.order-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 18px;
+/* 주문 내역 섹션 */
+.order {
+  width: 1000px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* 주문 내역 제목 */
+.order h2 {
+  font-size: 30px;
   text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* 주문 정보 테이블 */
+.order-table {
+  width: 960px;
+  max-width: 960px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 .order-table th, .order-table td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
 .order-table th {
   background-color: #f2f2f2;
-}
-
-.order-table img {
-  max-width: 100px;
-}
-
-.order-table .total {
   font-weight: bold;
 }
 
+.order-table td img {
+  width: 100px;
+  height: auto;
+}
+
+/* 총 가격 행 */
 .order-table .total td {
-  background-color: #5dc760;
-  color: white;
-  font-size: 18px;
-  text-align: right;
-}
-
-
-.order {
-  width: 60%;
-  margin: 50px auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.order h2 {
-  text-align: center;
-  font-size: 30px;
-  margin-top: 50px;  
-  margin-bottom: 50px;
-  color: #080808;
-}
-
-.order-info ul{
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}  
-.order-info ul li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
-.order-info ul li span {
   font-weight: bold;
-  color: #000;
+  background-color: #f2f2f2;
 }
 
-
-/* 주문 폼 */
+/* 배송지 정보 폼 */
 .order-form {
-  text-align: center;  
+  margin-top: 30px;
+  margin-bottom: 80px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-form p {
+  display: flex;
+  justify-content: center; /* 버튼을 중앙으로 정렬 */
   margin-top: 20px;
 }
 
 .order-form input[type="submit"] {
-  background-color: #4CAF50;
+  display: block;
+  width: 300px;
+  padding: 10px;
+  background-color: #28a745;
   color: white;
-  padding: 10px 20px;
   border: none;
+  cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
-  cursor: pointer;
+  margin-bottom: 20px;
 }
+
+.order-form input[type="submit"]:hover {
+  background-color: #218838;
+}
+
 .order-form label {
   display: inline-block;
-  width: 120px; /* 라벨의 너비 */
-  text-align: right;
-  margin-right: 10px; /* 입력 필드와 라벨 사이의 간격 */
+  width: 60px; /* 라벨의 너비 */
+  text-align: center;
+  margin-right: 30px; /* 입력 필드와 라벨 사이의 간격 */
   font-weight: bold;
 }
 
@@ -568,7 +567,7 @@ main {
 .order-form input[type="email"],
 .order-form input[type="tel"] {
   display: inline-block;
-  width: calc(100% - 140px); /* 입력 필드의 너비를 라벨 크기에 맞추어 조정 */
+  width: 70%; /* 입력 필드의 너비를 라벨 크기에 맞추어 조정 */
   padding: 8px;
   margin-bottom: 12px;
   border: 1px solid #ccc;

@@ -474,89 +474,91 @@ main {
   color: #5f0080;
 }
 
-.cart {
-  width: 70%;
-  margin: 50px auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
+/* 장바구니 제목 */
 .cart_title {
   font-size: 30px;
-  color: #070707;
-  margin-bottom: 30px;
   text-align: center;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  font-weight: bold;
 }
 
-/* 테이블 스타일 */
+/* 장바구니 내부 컨테이너 */
+.inner_cart {
+  width: 1000px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+
+}
+
+/* 장바구니 테이블 */
 .cart_table {
-  width: 90%;
+  width: 960px;
+  max-width: 960px;
   border-collapse: collapse;
   margin-bottom: 20px;
-  margin: 0 auto; /* 자동으로 좌우 여백 설정 */
 }
 
 .cart_table th, .cart_table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
 .cart_table th {
-  background-color: #f4f4f4;
+  background-color: #f2f2f2;
   font-weight: bold;
-  text-align: center;
-}
-
-.cart_table td {
-  text-align: center;
 }
 
 .cart_table td img {
-  max-width: 200px;
+  width: 100px;
   height: auto;
+}
+
+/* 장바구니 폼 버튼 */
+.cart_table input[type="submit"] {
+  padding: 5px 10px;
+  background-color: #54d354;
+  border: none;
+  color: white;
+  cursor: pointer;
   border-radius: 5px;
 }
 
-/* 총 가격 스타일 */
-.cart_table .total {
+/* 총 가격 행 */
+.cart_table .total td {
   font-weight: bold;
+  background-color: #f2f2f2;
 }
 
-.cart_table .total td {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
+/* 동작 버튼 */
+.text-right {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;  
 }
-/* 버튼 스타일 */
+
 .button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
   text-decoration: none;
   border-radius: 5px;
   font-size: 16px;
-  text-align: center;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #45a049;
 }
 
 .button.light {
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.button:hover {
+  background-color: #218838;
 }
 
 .button.light:hover {
-  background-color: #e0e0e0;
-}
-
-/* 텍스트 오른쪽 정렬 */
-.text-right {
-  text-align: center;
-  margin-top: 20px;
+  background-color: #e2e6ea;
 }

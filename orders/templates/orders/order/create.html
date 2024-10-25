@@ -85,14 +85,14 @@
                             </td>
                             <td>{{ item.product.name }}</td>
                             <td>{{ item.quantity }}</td>
-                            <td>{{ item.total_price|intcomma }}원</td>
+                            <td>{{ item.total_price|floatformat:0|intcomma }}원</td>
 
                         </tr>
                     {% endfor %}                    
           
                     <tr class="total">
                         <td colspan="3">총 가격</td>
-                        <td>{{ cart.get_total_price|intcomma }}원</td>
+                        <td>{{ cart.get_total_price|floatformat:0|intcomma }}원</td>
                     </tr>
                 </tbody>
             </table>
