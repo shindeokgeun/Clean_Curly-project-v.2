@@ -14,7 +14,8 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model  # CustomUser를 동적으로 가져오기 위해
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm, ProfileUpdateForm
 from .models import CustomUser  # 필요에 따라 모델 import
-from reviews.views import get_review_data
+from reviews.utils import get_review_data
+
 
 
 # 로그인 뷰
