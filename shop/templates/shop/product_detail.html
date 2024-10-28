@@ -94,11 +94,12 @@
                         </form>
                     </div>
                 </div>
-            
-                
-                
             </div>
         </div>   
+        <!-- 리뷰 섹션 -->
+    
+        {% include 'reviews/product_review_section.html' with reviews=reviews blocked_reviews=blocked_reviews user=user %}
+    
     </div> 
 
     <!-- JavaScript로 수량 변화 감지 및 총 금액 업데이트 -->
@@ -117,12 +118,8 @@
             document.getElementById('total-price').innerText = totalPrice.toLocaleString() + '원';
         }
     </script>
-    
 
-    <!-- 리뷰 섹션 -->
-    <div class="review-container">
-        {% include 'reviews/product_review_section.html' with reviews=reviews blocked_reviews=blocked_reviews user=user %}
-    </div>
+    
     
     <!-- footer -->
     {% include 'common/footer.html' %}

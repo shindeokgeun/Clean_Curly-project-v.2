@@ -14,11 +14,17 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import get_user_model  # CustomUser를 동적으로 가져오기 위해
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm, ProfileUpdateForm
 from .models import CustomUser  # 필요에 따라 모델 import
-from reviews.views import get_review_data
+from reviews.utils import get_review_data
+from shop.models import Product, Category
+
 
 
 # 로그인 뷰
 def login_view(request):
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
+
     if request.method == 'POST':
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -27,7 +33,8 @@ def login_view(request):
             return redirect('index')  # 로그인 후 홈 페이지로 리디렉션
     else:
         form = CustomAuthenticationForm()  # GET 요청 시 빈 폼 생성
-    return render(request, 'users/마켓_로그인.html', {'form': form})  # 로그인 템플릿 렌더링
+
+    return render(request, 'users/마켓_로그인.html', {'form': form, 'products': products, 'categories': categories})  # 로그인 템플릿 렌더링
 
 
 # 로그아웃 뷰
@@ -48,8 +55,12 @@ def signup_view(request):
             return redirect('index')
     else:
         form = CustomUserCreationForm()
+
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
     
-    return render(request, 'users/마켓_회원가입.html', {'form': form})
+    return render(request, 'users/마켓_회원가입.html', {'form': form,'products': products, 'categories': categories})
 
 # 마켓 메인 페이지 뷰
 def market_view(request):
@@ -62,6 +73,9 @@ def market_view(request):
 # 개인 페이지 뷰 (로그인 필요)
 @login_required
 def profile_view(request):
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
     if request.method == 'POST':
         # 비밀번호 확인 처리
         if 'confirm_password' in request.POST:
@@ -80,7 +94,7 @@ def profile_view(request):
     else:
         if 'password_confirmed' in request.GET:
             return redirect('profile_display')  # 비밀번호 확인이 완료되면 프로필 디스플레이 페이지로 이동
-        return render(request, 'users/personal_page.html')  # 비밀번호 확인 페이지 렌더링
+        return render(request, 'users/personal_page.html', {'products': products, 'categories': categories})  # 비밀번호 확인 페이지 렌더링
 
 # 프로필 디스플레이 뷰 (로그인 필요)
 @login_required
@@ -90,6 +104,23 @@ def profile_display_view(request):
         'user': request.user,
         'review_data': review_data,
     }
+
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
+
+    # 기존의 context에 새로운 데이터를 추가
+    context = {
+        'user': request.user,
+        'review_data': review_data,
+    }
+
+    # products와 categories 추가
+    context.update({
+        'products': products,
+        'categories': categories,
+    })
+    
     return render(request, 'users/profile_display.html', context)
 
 
@@ -115,7 +146,11 @@ def profile_edit(request):
     else:
         form = ProfileUpdateForm(instance=user)
 
-    return render(request, 'users/profile_display_change.html', {'form': form})
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
+
+    return render(request, 'users/profile_display_change.html', {'form': form,'products': products, 'categories': categories})
 
 
 # 마일리지(적립금, 컬리캐쉬) 추가 뷰
@@ -251,8 +286,12 @@ from orders.models import Order, OrderItem
 
 @login_required
 def profile_order_view(request):
-    orders = Order.objects.filter(user=request.user).order_by('-order_date')   
-    return render(request,'users/profile_order_view.html', {'orders' : orders})
+    orders = Order.objects.filter(user=request.user).order_by('-order_date')
+
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()   
+    return render(request,'users/profile_order_view.html', {'orders' : orders,'products': products, 'categories': categories})
 
 
 @login_required

@@ -121,8 +121,6 @@
         <br>
 
         <div class="slider-container">
-            <!-- 이전 버튼 -->
-
             <div class="slider">
                 {% for product in products %}
                 <div class="goods__list">
@@ -305,14 +303,14 @@
 
         }
     </script>
-
+    <div id="slider-container" data-total-items="{{ total_items }}"></div>
     <script>
         const slider = document.querySelector('.slider');
         const prevBtn = document.querySelector('.prev-btn2');
         const nextBtn = document.querySelector('.next-btn2');
 
         let currentPage = 1;  // 현재 페이지 번호
-        const totalItems = 8;  // 총 상품 수
+        const totalItems = parseInt(document.getElementById('slider-container').getAttribute('data-total-items')) || 0;
         const itemsPerPage = 4;  // 한 페이지에 보여줄 상품 수
         const totalPages = Math.ceil(totalItems / itemsPerPage);  // 총 페이지 수 계산
 

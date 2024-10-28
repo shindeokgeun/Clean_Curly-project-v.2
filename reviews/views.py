@@ -17,12 +17,17 @@ from django.db import models
 @login_required
 def review_entry_form(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    previous_page = request.META.get('HTTP_REFERER') or reverse('users:profile_display')
 
-    # 해당 상품에 대한 배송 완료된 주문이 있는지 확인
-    if not Order.objects.filter(user=request.user, items__product=product, status='delivered').exists():
+    order_item = OrderItem.objects.filter(
+        order__user=request.user,
+        order__status='delivered',
+        product=product,
+        review__isnull=True  # 리뷰가 없는 주문 아이템만
+    ).first()
+
+    if not order_item:
         messages.error(request, "리뷰를 작성할 수 있는 상품이 아닙니다.")
-        return redirect('profile_display') 
+        return redirect('profile_display')
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
@@ -30,6 +35,7 @@ def review_entry_form(request, product_id):
             review = form.save(commit=False)
             review.user = request.user
             review.product = product
+            review.order_item = order_item
             review.verified_purchase = True
             review.save()
             messages.success(request, '리뷰가 성공적으로 작성되었습니다.')
@@ -40,7 +46,7 @@ def review_entry_form(request, product_id):
     context = {
         'form': form,
         'product': product,
-        'previous_page': previous_page,
+        'previous_page': request.META.get('HTTP_REFERER') or reverse('users:profile_display'),
     }
     return render(request, 'reviews/review_entry_form.html', context)
 
@@ -79,12 +85,13 @@ def review_mypage(request):
     user = request.user
     written_reviews = Review.objects.filter(user=user).order_by('-created_at')
     
-    eligible_orders = Order.objects.filter(user=user, status='delivered')
-    writeable_items = OrderItem.objects.filter(order__in=eligible_orders)
-    
-    reviewed_products = Review.objects.filter(user=user).values_list('product', flat=True)
-    writeable_items = writeable_items.exclude(product__in=reviewed_products)
-    
+    writeable_items = OrderItem.objects.filter(
+        order__user=user,
+        order__status='delivered'
+    ).exclude(
+        review__isnull=False  # 이미 리뷰가 있는 주문 아이템 제외
+    )
+
     review_data = {
         'written_reviews': written_reviews,
         'writeable_items': writeable_items,
@@ -130,21 +137,6 @@ def delete_review(request, review_id):
 
 def debug_view(request):
     return HttpResponse("Debug view is working!")
-
-
-def get_review_data(user):
-    written_reviews = Review.objects.filter(user=user).order_by('-created_at')
-    
-    eligible_orders = Order.objects.filter(user=user, status='delivered')
-    writeable_items = OrderItem.objects.filter(order__in=eligible_orders)
-    
-    reviewed_products = Review.objects.filter(user=user).values_list('product', flat=True)
-    writeable_items = writeable_items.exclude(product__in=reviewed_products)
-    
-    return {
-        'written_reviews': written_reviews,
-        'writeable_items': writeable_items,
-    }
 
 
 @login_required
