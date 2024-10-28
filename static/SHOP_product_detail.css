@@ -17,7 +17,9 @@
 }
 
 .review-container {
-  width: 100;
+  width: 100%;  /* % 단위 추가 */
+  max-width: 1200px;  /* container와 동일한 max-width */
+  margin: 0 auto;  /* 중앙 정렬 */
 }
 
 .product-image img {

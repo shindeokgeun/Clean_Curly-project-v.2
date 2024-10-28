@@ -5,6 +5,7 @@ from django.conf import settings
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     product = models.ForeignKey('shop.Product', on_delete=models.CASCADE, related_name='reviews')
+    order_item = models.OneToOneField('orders.OrderItem', on_delete=models.SET_NULL, null=True, related_name='review')
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
