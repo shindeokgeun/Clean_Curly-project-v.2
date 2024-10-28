@@ -8,7 +8,12 @@ def index(request):
     # Product 모델에서 모든 상품을 가져와서 템플릿에 전달
     products = Product.objects.all()
     categories = Category.objects.all() # 카테고리 추가
-    return render(request, 'home/market.html', {'products': products, 'categories': categories})
+    total_items = products.count()  # 총 상품 수 계산
+    return render(request, 'home/market.html', {
+        'products': products,
+        'categories': categories,
+        'total_items': total_items  # 총 상품 수를 템플릿에 전달
+    })
 
 
 def special_offers_view(request):

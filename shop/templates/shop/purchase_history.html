@@ -25,7 +25,7 @@
                         <span><strong>상품명:</strong> {{ item.product.name }}</span>
                         <span><strong>수량:</strong> {{ item.quantity }}개</span>
                         <span><strong>총 금액:</strong> {{ item.quantity|mul:item.price|floatformat:0|intcomma }}원</span>
-                        <span class="order-date">주문일자: {{ item.order.created }}</span>
+                        <span class="order-date">주문일자: {{ item.order.order_date }}</span>
                     </div>
                 </li>
             {% endfor %}
