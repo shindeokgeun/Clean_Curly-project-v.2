@@ -1,0 +1,469 @@
+/* 공통 부분 정리 */
+.a11yHidden,
+legend {
+    overflow: hidden;
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+/* General Reset */
+*,*::before,*::after {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+  
+/* Body Style */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+}
+  
+/* Main Content Style */
+main {
+    flex: 1;
+}
+  
+/* Header Styles */
+header {
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    /* margin-bottom: 30px; /* 하단에 마진 추가 */
+}
+  
+  
+.top-links {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+}
+  
+.link_text {
+    margin-left: 15px;
+    color: #666;
+    font-size: 14px;
+}
+  
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.logo img {
+    max-width: 150px;
+}
+  
+.search-form {
+    flex-grow: 1;
+    max-width: 400px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+  
+.search_box {
+    position: relative;
+    width: 100%;
+}
+  
+.search_box input {
+    width: 100%;
+    padding-right: 40px;
+    padding-left: 10px;
+    height: 35px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+  
+.search_box button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+  
+.search_box img {
+    width: 20px;
+    height: 20px;
+}
+  
+.icons a {
+    margin-left: 15px;
+}
+  
+.icons img {
+    width: 30px;
+    height: 30px;
+}
+  
+nav {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 항목들을 양 끝으로 배치 */
+    align-items: center; /* 수직 정렬 */
+    padding: 10px 0;
+}
+  
+nav .nav_items {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    flex-grow: 1; /* 가로 공간을 최대한 차지하도록 설정 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-left:auto;
+    margin-right:auto;  
+}
+  
+nav .category-link{
+    display: flex;
+    margin-right:auto;
+}
+  
+nav ul {
+    display: flex;
+    gap: 150px; /* 항목 간의 간격 설정 */
+    margin-left:auto;
+    margin-right:auto;
+}
+  
+nav ul li a {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    font-weight: bold;
+}
+  
+.bnr_delivery_img {
+    max-width: 150px; /* 원하는 최대 너비로 설정 */
+    height: auto; /* 비율 유지 */
+    margin-left: auto; /* 오른쪽 끝으로 정렬 */
+}
+
+/* category-dropdown.css */
+.category-item {
+    position: relative;
+}
+
+.sub-category {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    width: auto;
+    min-width: 150px;
+    padding: 0;
+}
+
+.sub-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+}
+
+.sub-category li {
+    height:auto;
+    padding: 5px 15px;
+    margin: 0;
+    white-space: nowrap;
+    width: 100%;
+    flex: 0 0 auto;
+    list-style: none;
+}
+
+.sub-category li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    width: 100%;
+    line-height: 1.2;
+    font-size: 14px;
+    padding: 8px 12;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.category-item:hover .sub-category {
+    display: block;
+}
+
+.sub-category li:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.category-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.button__cart {
+  display: block; /* 블록으로 설정하여 이미지 아래에 위치 */
+  width: 100%; /* 버튼 너비를 카드에 맞춤 */
+  height: 40px; /* 버튼 높이 */
+  background-color: #ffffff; /* 버튼 배경색 */
+  border: 1px solid #ddd; /* 버튼 테두리 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 14px; /* 폰트 크기 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  line-height: 40px; /* 텍스트 수직 정렬 */
+  cursor: pointer;
+  margin: 10px 0; /* 버튼과 카드 다른 요소 사이의 간격 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 버튼 그림자 */
+}
+.button__cart-icon {
+  width: 20px; /* 아이콘 너비 */
+  height: 20px; /* 아이콘 높이 */
+  color: #333; /* 아이콘 색상 */
+}
+
+/* Ensure footer always stays at the bottom */
+html, body {
+    height: 100%;
+}
+
+.footer {
+    width: 100vw;
+    height: 39.3125rem;
+    margin-top: 30px;
+  
+}
+.footer__contents {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: inherit;
+    gap: 0;
+}
+.footer__cs {
+    flex-basis: 50%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
+}
+.footer__cs__title {
+    font-size: 1.3125rem;
+    font-weight: 700;
+    line-height: 140%;
+    color: #333333;
+}
+.footer__cs__inquiry {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
+}
+.footer__cs__nonMember {
+    vertical-align: top;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 160%;
+    color: #333333;
+}
+.footer__about {
+    flex-basis: 50%;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 2.25rem;
+}
+.footer__about__list {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+}
+.footer__companyInfo {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 160%;
+    color: #333333;
+}
+.footer__snsList {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 1.25rem;
+}
+.footer__snsLink {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer__mark {
+    margin-top: 1.25rem;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 0.75rem;
+}
+.footer__mark__button {
+    background: transparent;
+    border: none;
+    padding: 1.5rem 0rem 2rem 0rem;
+    min-width: 14.375rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0;
+}
+.footer__mark__button:nth-child(3) {
+    width: 360px;
+    height: auto;
+}
+.footer__copyright {
+    background: var(--gray-50, #f9f9f9);
+    padding: 1.25rem 0 2rem 0;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 160%;
+    color: #898989;
+}
+.footer__copyright__notice {
+    margin-top: 8px;
+}
+.footer__companyInfo__description span:nth-child(even) {
+    margin-left: 0.3125rem;
+    margin-right: 0.3125rem;
+}
+.footer .cs__infoNumber {
+    font-size: 2.3125rem;
+    font-weight: 700;
+    line-height: 140%;
+    color: #333333;
+}
+.footer .cs__infoTime {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 150%;
+    color: #333333;
+}
+.footer .cs__inquiryKaKao, .footer .cs__inquiry1to1, .footer .cs__inquiryBulk {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
+}
+.footer .cs__inquiry__button {
+    border: 1px solid #c4c4c4;
+    background: white;
+    width: 8.75rem;
+    height: 2.5rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+.footer .cs__inquiry__description {
+    margin-top: -3px;
+    vertical-align: top;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: nowrap;
+    align-items: stretch;
+    gap: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #333333;
+}
+.footer .about__link {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #333333;
+}
+.footer .mark__description {
+    display: block;
+    margin-left: 8px;
+    text-align: left;
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 160%;
+    color: #333333;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+}
+.footer #blogLink {
+    background-image: url("/src/assets/icons/");
+}
+.footer #facebookLink {
+    background-image: url("./../../assets/icons/FaceBook.svg");
+}
+.footer #instagramLink {
+    background-image: url("./../../assets/icons/Instagram.svg");
+}
+.footer #snsLink {
+    background-image: url("./../../assets/icons/sns.svg");
+}
+.footer #youtubeLink {
+    background-image: url("./../../assets/icons/Youtube.svg");
+}
+.footer .primary {
+    color: #5f0080;
+}

@@ -1,12 +1,45 @@
-<h2>{{ category.name }} 카테고리 상품</h2>
-<ul>
-    {% for product in products %}
-        <li>
-            <a href="{% url 'shop:product_detail' product.id %}">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                <p>{{ product.name }}</p>
-                <p>{{ product.price }}원</p>
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 리스트</title>
+    <link rel="stylesheet" href="{% static 'SHOP_product_list.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    
+
+    <h2 class="category-title">{{ category.name }} 카테고리 상품</h2>
+    <ul class="product-list">
+        {% for product in products %}
+            <li class="product-item">
+                <a href="{% url 'shop:product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    <p class="product-name">{{ product.name }}</p>
+
+                    <!-- 할인 가격 및 원가 출력 -->
+                    {% if product.discount_price %}
+                        <p class="product-price">
+                            <!-- 할인율 표시 -->
+                            <span class="discount">{{ product.discount_percentage }}%</span> 
+                            <!-- 할인된 가격 표시 -->
+                            <span class="discount-price">{{ product.discount_price|floatformat:0|intcomma }}원</span>
+                        </p>
+                        <!-- 정상가 표시 (취소선) -->
+                        <p class="original-price"><del>{{ product.price|floatformat:0|intcomma }}원</del></p>
+                    {% else %}
+                        <!-- 할인 가격이 없을 때 정상가만 표시 -->
+                        <p class="original-price-2">{{ product.price|floatformat:0|intcomma }}원</p>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    
+</body>
+</html>

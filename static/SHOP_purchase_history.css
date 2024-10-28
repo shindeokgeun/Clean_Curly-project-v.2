@@ -11,12 +11,14 @@ h3 {
     color: #444;
     margin-top: 30px;
     margin-bottom: 10px;
+    text-align: center; /* 구매자 이름 가운데 정렬 */
 }
 
 /* 구매자별 섹션을 감싸는 컨테이너 */
 .buyer-section {
     background-color: #fff;
     padding: 20px;
+    text-align: center;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -29,6 +31,8 @@ ul {
 }
 
 li {
+    display: flex;
+    align-items: center;
     background-color: #f0f0f0;
     padding: 15px;
     margin-bottom: 10px;
@@ -42,14 +46,27 @@ li:nth-child(even) {
     background-color: #e9e9e9;
 }
 
-/* 상품명, 수량, 총 금액 */
-li span {
-    display: block;
+/* 상품 이미지 */
+li img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+/* 상품명, 수량, 총 금액을 포함하는 정보 영역 */
+li .info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+li .info span {
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-li strong {
+li .info strong {
     font-weight: bold;
     color: #333;
 }
@@ -70,5 +87,10 @@ li strong {
     li {
         font-size: 14px;
         padding: 10px;
+    }
+
+    li img {
+        width: 80px;
+        margin-right: 15px;
     }
 }

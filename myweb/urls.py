@@ -29,5 +29,7 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),  # orders 앱 URLs 추가 (없다면)
     path('benefit/', include('benefit.urls')),
     path('cs/', include('cs.urls')),
+    path('auth/', include('social_django.urls', namespace='social')),  # 소셜 로그인 URL
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 미디어 파일을 서빙할 수 있도록 설정 (개발 환경에서만 사용)
 

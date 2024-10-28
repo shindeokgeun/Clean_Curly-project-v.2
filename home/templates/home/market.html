@@ -1,4 +1,5 @@
 {% load humanize %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,75 +8,63 @@
     <title>클린컬리</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'HOME_마켓.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="top-links">
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}" class="link_text">{{ user.username }} 님</a>
-                <a href="{% url 'logout' %}" class="link_text">로그아웃</a>
-            {% else %}
-                <a href="{% url 'signup' %}" class="link_text">회원가입</a>
-                <a href="{% url 'login' %}" class="link_text">로그인</a>
-            {% endif %}
-            <a href="{% url 'cs_index' %}" class="link_text">고객센터</a>
-        </div>
-        <div class="header-content">
-            <a href="/" class="logo">
-                <img src="{% static 'images/마켓로고.png' %}" alt="마켓로고">
-            </a>
-            
-            <form class="search-form">
-                <div class="search_box">
-                    <input type="text" maxlength="225" tabindex="1" placeholder="검색어를 입력하세요">
-                    <button type="submit" tabindex="2">
-                        <img src="{% static 'images/돋보기 로고.png' %}" alt="검색">
-                    </button>
-                </div>
-            </form>
-            
-            <div class="icons">
-                <a href="#"><img src="{% static 'images/위치.png' %}" alt="위치"></a>
-                <a href="#"><img src="{% static 'images/좋아요.png' %}" alt="좋아요"></a>
-                <a href="/cart/"><img src="{% static 'images/장바구니.png' %}" alt="장바구니"></a>
-            </div>
-        </div>
+    <!-- haeder 수정 -->
+    {% include 'common/header.html' %}
 
-        <nav>
-        <div class="nav_items">
-            <div class="category-link">
-                <ul>
-                    <li class="category-item">
-                        <a href="/">
-                            <img src="{% static 'images/카테고리앞.svg' %}"> 
-                            카테고리
-                        </a>                            </a>
-                        <!-- 세부 카테고리 목록 -->
-                        <div class="sub-category">
-                            <ul>
-                                {% for category in categories %}
-                                    <li><a href="{% url 'shop:product_by_category' category.id %}">
-                                        <span>{{ category.name }}</span>
-                                    </a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+    <!-- 팝업 -->
+     <!-- 오늘 하루 안보기 버튼을 누르게 되면 쿠키에 hidePopup이 활성화되어 팝업이 숨겨지게 됩니다.
+          다시 팝업창 활성화 하고 싶으면 해당 홈페이지의 쿠키를 초기화하면 되는데 방법은
+          F12로 개발자 도구에 들어간다음 Application 누른 후 좌측 Storage 내 Cookies 안에 해당 홈페이지 주소에서 우클릭 후 Clear를 해줍니다
+          이후 새로고침하면 팝업이 등장합니다! (팝업은 처음 홈페이지 시작시와, 왼쪽 상단의 클린 컬리 배너를 누를시 자동으로 등장합니다.)-->
+    <div class="popup" id="popupContainer">
+        <dialog class="popup__container" id="popupDialog">
+            <div class="popup__img">
+                <a href="#">
+                    <img class="img__detail" src="{% static 'images/popup.jpg' %}" alt="칼리 뷰티 플랫폼 상세페이지">
+                </a>
             </div>
-            <ul>
-                <li><a href="/">신상품</a></li>
-                <li><a href="/">베스트</a></li>
-                <li><a href="/">알뜰쇼핑</a></li>
-                <li><a href="{% url 'benefit_benefit' %}">특가/혜택</a></li>
-            </ul>
-            <img src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif" 
-                    alt="서울, 경기, 인천 샛별배송, 수도권 이외 지역 택배배송" 
-                    class="bnr_delivery_img">
-        </div>
-    </nav>
-    </header>
+            <form method="dialog">
+                <button class="button__closeToday" value="cancel" id="closeToday">오늘 하루 안보기</button>
+                <button class="button__close" value="default">닫기</button>
+            </form>
+        </dialog>
+    </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popupDialog = document.getElementById('popupDialog');
+            const closeTodayBtn = document.getElementById('closeToday');
+            const popupElement = document.getElementById('popupContainer'); // 팝업 전체 요소
+
+            // 쿠키에서 'hidePopup' 값 확인
+            if (document.cookie.indexOf('hidePopup=true') === -1) {
+                popupDialog.showModal(); // 팝업 열기
+            } else {
+                popupDialog.close();
+                popupElement.style.display = 'none';  // 팝업 요소를 숨김
+            }
+
+            // "오늘 하루 안보기" 버튼 클릭 시
+            closeTodayBtn.addEventListener('click', function () {
+                // 쿠키에 hidePopup 값 설정 (하루 동안 유지)
+                document.cookie = "hidePopup=true; max-age=86400; path=/";
+                popupDialog.close();
+                popupElement.style.display = 'none';  // 팝업 전체 숨기기
+                document.body.classList.remove('modal-open');  // 페이지의 스크롤 활성화
+            });
+
+            // "닫기" 버튼 클릭 시 팝업 닫기
+            popupDialog.addEventListener('close', function () {
+                popupElement.style.display = 'none';  // 팝업 전체 숨기기
+                document.body.classList.remove('modal-open');  // 페이지의 스크롤 활성화
+            });
+        });
+      </script>
+
+
 
     <!-- 메인 이벤트 섹션 -->
     <section class="event">
@@ -133,9 +122,6 @@
 
         <div class="slider-container">
             <!-- 이전 버튼 -->
-            <button class="prev-btn2" aria-label="이전 상품으로 이동">
-                <img src="{% static 'images/화살표왼쪽.svg' %}" alt="이전 화살표">
-            </button>
 
             <div class="slider">
                 {% for product in products %}
@@ -148,32 +134,16 @@
                         </dl>
                     </a>
 
-                    <!-- 모달창 -->
-
-                    <button type="button" class="button__cart" onclick="openModal('{{ product.name }}', '{{ product.image.url }}', '{{ product.price|floatformat:0|intcomma }}')" aria-label="장바구니로 이동">
+                    <!-- 모달창 -->                    
+                    <button type="button" class="button__cart" onclick="openModal('{{ product.name }}',
+                                                                                '{{ product.price|floatformat:0|intcomma }}', 
+                                                                                '{{ product.discount_price|floatformat:0|intcomma }}',
+                                                                                '{{ product.id}}')">
                         🛒 담기
                     </button>
-                    <div id="modal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal()">&times;</span>
-                            <h2>상품 상세 정보</h2>
-                            <p>지금 테스트 중입니다.</p>
-                        </div>
-                    </div>
+                    
 
-                    <script>
-                        // 모달 열기
-                        function openModal() {
-                            const modal = document.getElementById("modal");
-                            modal.style.display = "flex"; // 모달을 화면에 표시
-                        }
 
-                        // 모달 닫기
-                        function closeModal() {
-                            const modal = document.getElementById("modal");
-                            modal.style.display = "none"; // 모달을 화면에서 숨김
-                        }
-                    </script>
 
                     <a href="{% url 'shop:product_detail' product.id %}" class="goods__link" title="{{ product.name }} 상세페이지">
                         <dl class="goods__item goods__discount">
@@ -196,7 +166,9 @@
                 </div>
                 {% endfor %}
             </div>
-
+            <button class="prev-btn2" aria-label="이전 상품으로 이동">
+                <img src="{% static 'images/화살표왼쪽.svg' %}" alt="이전 화살표">
+            </button>
             <!-- 다음 버튼 -->
             <button class="next-btn2" aria-label="다음 상품으로 이동">
                 <img src="{% static 'images/화살표오른쪽.svg' %}" alt="다음 화살표">
@@ -204,46 +176,184 @@
         </div>
     </section>
 
+    <!--모달-->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalProductName"></h3>
+            <div>
+                <span id="discountSection" class="price"><span id="discountPrice"></span></span>
+                <span id="normalPrice" class="price"></span> 
+                
+                <!-- 수량 선택 -->
+                <div class="quantity-container">
+                    <label for="quantity"></label>
+                    <select id="quantity" onchange="updateTotalPrice()"></select>
+                </div>
+            </div>
+
+            <!-- 합계 -->
+            <div class="total-price-container">
+                <span class="total-label">합계</span>
+                <span id="totalPrice" class="total-price"></span>
+            </div> 
+
+            <!-- 장바구니 담기 -->                           
+            <form id="addToCartForm" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" id="formQuantity" value="1">
+                <input type="hidden" name="price" id="formPrice" value=""> <!-- 가격 정보 추가 -->
+                <input type="hidden" name="override" value="false">
+                <button type="submit" class="addToCart">
+                    장바구니 담기
+                </button>
+            </form>                   
+        </div>
+    </div>
+
+    <script>
+        // 모달 열기 함수
+        function openModal(name, price, discountPrice, productId) {
+            const modal = document.getElementById("modal");
+            modal.style.display = "flex"; // 모달을 표시
+
+            // body 스크롤 막기
+            document.body.style.overflow = "hidden";
+
+            // 상품명 설정
+            document.getElementById("modalProductName").innerText = name;
+
+            // 정상 가격 설정
+            const normalPriceElement = document.getElementById("normalPrice");
+            normalPriceElement.innerText = price + "원"; // 가격을 문자열로 표시
+
+            // 할인가가 있는지 확인하고 설정
+            const discountSection = document.getElementById("discountSection");
+            const discountPriceElement = document.getElementById("discountPrice");
+
+            // 초기화 - 항상 먼저 실행
+            discountSection.style.display = "none"; // 할인가 섹션 숨김
+            normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
+            discountPriceElement.innerText = ''; // 할인 가격 초기화
+            
+            let finalPrice = price;  // 기본 가격 설정
+            
+
+            if (discountPrice && discountPrice !== 'None') {
+                document.getElementById("discountPrice").innerText = discountPrice + "원"; // 할인가 표시
+                discountSection.style.display = "inline"; // 할인가 섹션 표시
+                normalPriceElement.classList.add("line-through", "gray-text"); // 정상가에 가로줄과 회색 적용
+                
+            } else {
+                discountSection.style.display = "none"; // 할인가가 없으면 숨김
+                normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
+            }
+
+            // formPrice를 최종 가격으로 설정
+            document.getElementById("formPrice").value = discountPrice && discountPrice !== 'None'
+                ? parseInt(discountPrice.replace(/,/g, ''))
+                : parseInt(price.replace(/,/g, '')); // 할인가가 있으면 할인가, 없으면 정상가
+
+
+            // 수량 선택 옵션 생성 (1부터 100까지)
+            const quantitySelect = document.getElementById("quantity");
+            quantitySelect.innerHTML = ''; // 기존 옵션 초기화
+            for (let i = 1; i <= 100; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                quantitySelect.appendChild(option);
+            }
+
+            // 장바구니 폼의 action URL 설정 (productId 활용)
+            document.getElementById("addToCartForm").action = `/cart/add/${productId}/`;
+
+            // 초기 합계 업데이트
+            updateTotalPrice();
+        }
+
+        // 총 가격 업데이트
+        function updateTotalPrice() {
+            const priceText = document.getElementById("normalPrice").innerText;
+            const discountPriceText = document.getElementById("discountPrice").innerText;
+            let price = parseInt(priceText.replace(/,/g, '').replace('원', '')); // 문자열을 숫자로 변환
+
+            // 할인가가 있으면 할인가로 설정
+            if (discountPriceText && discountPriceText !== '') {
+                price = parseInt(discountPriceText.replace(/,/g, '').replace('원', ''));
+            }
+
+            // 선택한 수량 가져오기
+            const quantity = parseInt(document.getElementById("quantity").value);
+
+            // 총 가격 계산
+            const totalPrice = price * quantity;
+            document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + "원"; // 총 가격 표시
+
+            // 폼에 수량 및 가격 업데이트
+            document.getElementById("formQuantity").value = quantity;
+            document.getElementById("formPrice").value = price; // 할인가 혹은 정상가 반영
+        }
+
+        // 모달 닫기 함수
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            
+            modal.style.display = "none"; // 모달 숨김
+            document.body.style.overflow = "auto"; // 배경 스크롤 다시 허용
+            
+
+        }
+    </script>
+
     <script>
         const slider = document.querySelector('.slider');
         const prevBtn = document.querySelector('.prev-btn2');
         const nextBtn = document.querySelector('.next-btn2');
-    
-        let scrollAmount = 0;
-        let currentPage = 0;  // 현재 페이지 상태 (0: 처음 상품, 1: 두 번째 상품)
-        const itemWidth = document.querySelector('.goods__list').offsetWidth;
-        const totalPages = 2;  // 2페이지, 즉 2세트의 상품이 있다고 가정
-    
-        nextBtn.addEventListener('click', function() {
-            if (currentPage < totalPages - 1) {
-                currentPage++;  // 페이지 증가
-                scrollAmount += itemWidth * 4; // 4개의 상품씩 이동
-                slider.scrollTo({
-                    top: 0,
-                    left: scrollAmount,
-                    behavior: 'smooth'
-                });
+
+        let currentPage = 1;  // 현재 페이지 번호
+        const totalItems = 8;  // 총 상품 수
+        const itemsPerPage = 4;  // 한 페이지에 보여줄 상품 수
+        const totalPages = Math.ceil(totalItems / itemsPerPage);  // 총 페이지 수 계산
+
+        // 각 상품의 너비 (이미지 크기 + 간격)
+        const itemWidth = 280 + 20;  // 상품 너비 + 간격(20px)
+
+        // 슬라이더 전체 너비 설정 (상품 너비 * 총 상품 개수)
+        slider.style.width = `${itemWidth * totalItems}px`;
+
+        // 다음 버튼 클릭 시 상품 부드럽게 넘기기
+        function showNextPage() {
+            const slider = document.querySelector('.slider');
+            if (currentPage < totalPages) {
+                currentPage++;  // 다음 페이지로 이동
+            } else {
+                currentPage = 1;  // 마지막 페이지에서 첫 번째로 돌아감
             }
-        });
-    
-        prevBtn.addEventListener('click', function() {
-            if (currentPage > 0) {
-                currentPage--;  // 페이지 감소
-                scrollAmount -= itemWidth * 4; // 4개의 상품씩 이동
-                if (scrollAmount < 0) {
-                    scrollAmount = 0;
-                }
-                slider.scrollTo({
-                    top: 0,
-                    left: scrollAmount,
-                    behavior: 'smooth'
-                });
+
+            const offset = -(currentPage - 1) * itemWidth * itemsPerPage;  // 슬라이더의 너비만큼 이동
+            slider.style.transform = `translateX(${offset}px)`;  // 가로로 슬라이더 이동
+        }
+
+        // 이전 버튼 클릭 시 상품 부드럽게 넘기기
+        function showPreviousPage() {
+            const slider = document.querySelector('.slider');
+            if (currentPage > 1) {
+                currentPage--;  // 이전 페이지로 이동
+            } else {
+                currentPage = totalPages;  // 첫 번째 페이지에서 마지막 페이지로
             }
-        });
+
+            const offset = -(currentPage - 1) * itemWidth * itemsPerPage;  // 슬라이더의 너비만큼 이동
+            slider.style.transform = `translateX(${offset}px)`;  // 가로로 슬라이더 이동
+        }
+
+        // 버튼에 이벤트 핸들러 연결
+        nextBtn.addEventListener('click', showNextPage);
+        prevBtn.addEventListener('click', showPreviousPage);
+
     </script>
-
-
-
+    
     <section class="special-offers">
         <h2 class="special-offers__title">&#127873; 선물특가</h2>
         <div class="special-offers__container">
@@ -357,7 +467,11 @@
             // 1초마다 카운트다운 업데이트
             setInterval(() => updateCountdown(endTime), 1000);
         });
+
+                
     </script>
+
+    
 
    <br>
         <!-- banner -->    
@@ -372,10 +486,6 @@
                 </a>
             </div>
         </section>
-
-
-
-
 
 
     <!--향은: 두 번째 섹션 부분은 상품 등록 안하고 일단 이렇게 냅둘게요!!!-->
@@ -490,212 +600,6 @@
     </section>
     <br>
 
-
-   
-
-
-    <!-- Footer -->
-    <footer class="footer" >
-        <div class="spacer"></div>
-        <div class="top-border"></div>
-        <div class="footer__contents">
-        <div class="footer__cs" role="complementary">
-            <h2 class="footer__cs__title">고객행복센터</h2>
-            <div class="footer__cs__info">
-            <span class="cs__infoNumber">1644-1107</span
-            ><span class="cs__infoTime">월~토요일 오전 7시 - 오후 6시</span>
-            </div>
-            <div class="footer__cs__inquiry">
-            <div class="cs__inquiryKaKao">
-                <button class="cs__inquiry__button" type="button">
-                카카오톡 문의
-                </button>
-                <div class="cs__inquiry__description">
-                <span> 월~토요일 | 오전 7시 - 오후 6시 </span>
-                <span>일/공휴일 | 오전 7시 - 오후 1시</span>
-                </div>
-            </div>
-            <div class="cs__inquiry1to1">
-                <button class="cs__inquiry__button" type="button">
-                1:1 문의
-                </button>
-                <div class="cs__inquiry__description">
-                <span>365일</span>
-                <span>고객센터 운영시간에 순차적으로 답변드리겠습니다.</span>
-                </div>
-            </div>
-            <div class="cs__inquiryBulk">
-                <button class="cs__inquiry__button" type="button">
-                대량주문 문의
-                </button>
-                <div class="cs__inquiry__description">
-                <span>월~금요일 | 오전9시 - 오후 6시</span>
-                <span>점심시간 | 낮 12시 - 오후 1시</span>
-                </div>
-            </div>
-            </div>
-            <div class="footer__cs__nonMember">
-            <span>
-                비회원 문의:
-                <a href="mailto:help@karlycorp.com" class="primary"
-                >help@karlycorp.com</a
-                >
-            </span>
-            <span>
-                비회원 대량주문 문의:
-                <a href="mailto:help@karlycorp.com" class="primary"
-                >help@karlycorp.com</a
-                >
-            </span>
-            </div>
-        </div>
-        <div class="footer__about" role="complementary">
-            <ul class="footer__about__list">
-            <li class="about__item">
-                <a href="#" class="about__link">칼리소개</a>
-            </li>
-            <li class="about__item">
-                <a href="#" class="about__link">칼리소개영상</a>
-            </li>
-            <li class="about__item">
-                <a href="#" class="about__link">인재채용</a>
-            </li>
-            <li class="about__item">
-                <a href="#" class="about__link">이용약관</a>
-            </li>
-            <li class="about__item">
-                <a href="#" class="about__link">개인정보처리방침</a>
-            </li>
-            <li class="about__item">
-                <a href="#" class="about__link">이용안내</a>
-            </li>
-            </ul>
-            <address class="footer__companyInfo">
-            <p class="footer__companyInfo__description">
-                <span>법인명 (상호) : 주식회사 컬리</span>
-                <span>|</span>
-                <span>사업자등록번호 : 261-81-23567</span>
-                <span>|</span>
-                <span
-                ><a
-                    href="#"
-                    class="primary"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    >사업자정보 확인</a
-                ></span
-                >
-            </p>
-            <p class="footer__companyInfo__description">
-                <span>통신판매업 : 제 2018-서울강남-01646 호</span>
-                <span>|</span>
-                <span>개인정보보호책임자 : 이원준</span>
-            </p>
-            <p class="footer__companyInfo__description">
-                <span>주소 : 서울특별시 강남구 테헤란로 133, 18층(역삼동)</span>
-                <span>|</span>
-                <span>대표이사 : 김슬아</span>
-            </p>
-            <p class="footer__companyInfo__description">
-                <span>입점문의 : <span class="primary">입점문의하기</span></span>
-                <span>|</span>
-                <span
-                >제휴문의 :
-                <a href="mailto:business@karlycorp.com" class="primary"
-                    >business@karlycorp.com</a
-                ></span
-                >
-            </p>
-            <p class="footer__companyInfo__description">
-                <span
-                >채용문의 :
-                <a href="mailto:recruit@karlycorp.com" class="primary"
-                    >recruit@karlycorp.com</a
-                ></span
-                >
-            </p>
-            <p class="footer__companyInfo__description">
-                <span>팩스 : 070 - 7500 - 6098</span>
-            </p>
-            </address>
-            <div class="footer__sns">
-            <ul class="footer__snsList">
-                <li id="blogLink">
-                <a href="https://helloworld.kurly.com/" target="_blank" rel="noreferrer noopener">
-                    <img src="https://res.kurly.com/pc/ico/1810/ico_blog.png" alt="블로그">
-                </a>
-                </li>
-                <li id="facebookLink">
-                <a href="https://www.facebook.com/Marketkurly" target="_blank" rel="noreferrer noopener">
-                    <img src="https://res.kurly.com/pc/ico/1810/ico_fb.png" alt="Facebook">
-                </a>
-                </li>
-                <li id="instagramLink">
-                <a href="https://www.instagram.com/marketkurly/" target="_blank" rel="noreferrer noopener">
-                    <img src="https://res.kurly.com/pc/ico/1810/ico_instagram.png" alt="Instagram">
-                </a>
-                </li>
-                <li id="snsLink">
-                <a href="https://www.kurly.com/main?NaPm=ct%3Dm0omntk7%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3D7b5393f6daa681496ec2f843cab9f51dac56d618" target="_blank" rel="noreferrer noopener">
-                    <img src="https://res.kurly.com/pc/ico/1810/ico_naverpost.png" alt="Naver Post">
-                </a>
-                </li>
-                <li id="youtubeLink">
-                <a href="https://www.youtube.com/channel/UCfpdjL5pl-1qKT7Xp4UQzQg" target="_blank" rel="noreferrer noopener">
-                    <img src="https://res.kurly.com/pc/ico/1810/ico_youtube.png" alt="YouTube">
-                </a>
-                </li>
-            </ul>
-            </div>
-            
-        </div>
-        <div class="footer__mark" role="complementary">
-            <button type="button" class="footer__mark__button">
-            <img src="https://res.kurly.com/pc/ico/2001/logo_isms.png" alt="isms 로고" class="logo" width="100" height="auto">
-            <span class="mark__description">
-                <span>
-                [인증범위] 마켓칼리 쇼핑몰 서비스 개발 운영(심사받지 않은 물리적
-                인프라 제외)
-                </span>
-                <span> [유효기간] 2022.01.19 ~ 2025.01.18 </span>
-            </span>
-            </button>
-            <button type="button" class="footer__mark__button">
-            <img src="https://res.kurly.com/pc/ico/2001/logo_eprivacyplus.png" alt="eprivacy plus 로고" class="logo" width="100" height="auto">
-            <span class="mark__description">
-                <span>개인정보보호 우수 웹사이트</span>
-                <span> 개인정보처리시스템 인증 (ePRIVACY PLUS) </span>
-            </span>
-            </button>
-            <button type="button" class="footer__mark__button">
-            <img src="https://res.kurly.com/pc/service/main/2009/logo_payments.png" alt="payments 로고" class="logo" width="100" height="auto">
-            <span class="mark__description">
-                토스페이먼츠 구매안전(에스크로) 서비스를 이용하실 수 있습니다.
-            </span>
-            </button>
-            <button type="button" class="footer__mark__button">
-            <img src="https://res.kurly.com/pc/ico/2208/logo_wooriBank.svg" alt="wooriBank 로고" class="logo" width="100" height="auto">
-            <span class="mark__description"
-                >고객님이 현금으로 결제한 금액에 대해 우리은행과 채무지급보증
-                계약을 체결하여 안전거래를 보장하고 있습니다.</span
-            >
-            </button>
-        </div>
-        </div>
-        <div class="footer__copyright" role="complementary">
-        <span class="footer__copyright__info">
-            마켓칼리에서 판매되는 상품 중에는 마켓칼리에 입점한 개별 판매자가
-            판매하는 마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.
-        </span>
-        <span class="footer__copyright__info"
-            >마켓플레이스(오픈마켓) 상품의 경우 칼리는 통신판매중개자로서
-            통신판매의 당사자가 아닙니다. 칼리는 해당 상품의 주문, 품질, 교환/환불
-            등 의무와 책임을 부담하지 않습니다.</span
-        >
-        <em class="footer__copyright__notice">
-            &copy; KARLY CORP. ALL RIGHTS RESERVED
-        </em>
-        </div>
-    </footer>
+    {% include 'common/footer.html' %}
 </body>
 </html>

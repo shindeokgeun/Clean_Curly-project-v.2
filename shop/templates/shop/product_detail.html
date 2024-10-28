@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세정보</title>
     <link rel="stylesheet" href="{% static 'SHOP_product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
     <link rel="stylesheet" href="{% static 'REVIEWS_product_review_section.css' %}">
 </head>
 <body>
@@ -82,28 +83,45 @@
                         <form method="POST" action="{% url 'shop:product_detail' product.id %}">
                             {% csrf_token %}
                             <label for="quantity">수량:</label>
-                            {{ form.quantity }} <!-- Django 폼에서 제공하는 수량 입력 필드 -->
+                            <input type="number" id="quantity" name="quantity" min="1" value="1" oninput="updateTotalPrice()">
+                            <!-- 총 상품 금액  -->
+                            <div class="total-price">
+                                <p><strong>총 상품 금액:</strong> 
+                                    <span class="price" id="total-price">{{ product.discount_price|default:product.price|floatformat:0|intcomma }}원</span>
+                                </p>
+                            </div>
                             <button type="submit" class="add-to-cart-btn">장바구니 담기</button> <!-- 선택된 수량과 함께 전송 -->
                         </form>
                     </div>
                 </div>
-            
-                <!-- 총 상품 금액 (동적으로 가격 표시) -->
-                <div class="total-price">
-                    <p><strong>총 상품 금액:</strong> 
-                        <span class="price" id="total-price">{{ product.discount_price|default:product.price|floatformat:0|intcomma }}원</span>
-                    </p>
-                </div>
-                
             </div>
         </div>   
+        <!-- 리뷰 섹션 -->
+    
+        {% include 'reviews/product_review_section.html' with reviews=reviews blocked_reviews=blocked_reviews user=user %}
+    
     </div> 
 
-    <!-- 리뷰 섹션 -->
-    <div class="review-container">
-        {% include 'reviews/product_review_section.html' with reviews=reviews blocked_reviews=blocked_reviews user=user %}
-    </div>
+    <!-- JavaScript로 수량 변화 감지 및 총 금액 업데이트 -->
+    <script>
+        function updateTotalPrice() {
+            // 수량 값 가져오기
+            var quantity = document.getElementById('quantity').value;
+    
+            // 가격 가져오기 (할인된 가격이 있는지 확인 후 계산)
+            var price = parseFloat("{{ product.discount_price|default:product.price }}");
+    
+            // 총 가격 계산
+            var totalPrice = quantity * price;
+    
+            // 총 금액을 천 단위 콤마를 추가해서 표시
+            document.getElementById('total-price').innerText = totalPrice.toLocaleString() + '원';
+        }
+    </script>
 
+    
+    
+    <!-- footer -->
     {% include 'common/footer.html' %}
 </body>
 </html>

@@ -29,7 +29,17 @@ def order_create(request):
 
     
     else:
-        form = OrderCreateForm()
+        # GET 요청 시 로그인한 사용자 정보를 미리 폼에 채워넣기
+        if request.user.is_authenticated:
+            initial_data = {
+                'name': request.user.username,
+                'email': request.user.email,
+                'phone_number': request.user.phone_number,  # 사용자 모델에 추가된 필드일 경우
+                'address': request.user.address,  # 사용자 모델에 추가된 필드일 경우
+            }
+            form = OrderCreateForm(initial=initial_data)
+        else:
+            form = OrderCreateForm()
 
     return render(request, 'orders/order/create.html', {'cart':cart, 'form':form})
 

@@ -71,56 +71,46 @@
     <main>       
         <link rel="stylesheet" href="{% static 'profile_order_view.css' %}">
         <h1>주문내역</h1>
-            <table class="order_view_table">
-                <thead>
-                    <tr>
-                        <th>주문날짜</th>
-                        <th>제품사진</th>
-                        <th>제품명</th>
-                        <th>수량</th>
-                        <th>가격</th>
-                        <th>배송상태</th>
+        <table class="order_view_table">
+            <thead>
+                <tr>
+                    <th>주문날짜</th>
+                    <th>제품이미지</th>
+                    <th>제품명</th>
+                    <th>수량</th>
+                    <th>가격</th>
+                    <th>배송상태</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                    {% for item in order.items.all %}
+                    <tr class="{% if not forloop.first %}no-border{% endif %}">
+                        {% if forloop.first %}
+                        <td rowspan="{{ order.items.count }}">{{ order.order_date | date:"Y년 m월 d일" }}</td>
+                        {% endif %}
+                        <!-- 제품이미지 -->
+                        <td>
+                            <a href="{{ item.get_absolute_url }}">
+                                <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                            </a>
+                        </td>
+                        <!-- 제품명 -->
+                        <td>{{ item.product }}</td>
+                        <!-- 수량 -->
+                        <td>{{ item.quantity }}</td>
+                        <!-- 가격 -->
+                        <td>{{ item.get_cost|floatformat:0|intcomma }}원</td>
+                        {% if forloop.first %}
+                        <td rowspan="{{ order.items.count }}">{{ order.status }}</td>
+                        {% endif %}
+
                     </tr>
-                </thead>
-
-                <tbody>
-                    {% for order in orders %}
-                        <tr>
-                            <td>{{ order.order_date | date:"Y년 m월 d일" }}</td> <!--주문날짜-->
-                                
-                            <td>
-                                {% for item in order.items.all %}
-                                    <li><a href="{{ item.get_absolute_url }}">
-                                        <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-                                    </a>
-                                    </li>
-                                {% endfor %}
-                            </td> <!--제품사진-->
-
-                            <td>
-                                {% for item in order.items.all %}
-                                    <li>{{ item.product }}</li>
-                                {% endfor %}
-                            </td> <!--제품명-->
-                            
-                            <td>{% for item in order.items.all %}
-                                    <li>{{ item.quantity }}</li>
-                                {% endfor %}
-                            </td> <!--수량-->
-
-                            <td>{% for item in order.items.all %}
-                                    <li>{{ item.price | floatformat:0 | intcomma }}원</li>
-                                {% endfor %}
-                            </td> <!--가격-->
-                        
-                            <td>{{ order.status }}</td> <!--배송상태-->
-                        </tr>
                     {% endfor %}
-
-                </tbody>
-
-            </table>
-
+                {% endfor %}
+            </tbody>
+        </table>
     </main>
 
 
