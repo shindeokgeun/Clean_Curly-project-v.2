@@ -101,7 +101,7 @@ class ProfileUpdateForm(forms.ModelForm):
             raise ValidationError('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.')
 
         return cleaned_data
-    
+
 
 class MileageUpdateForm(forms.ModelForm):
     class Meta:
@@ -112,3 +112,5 @@ class MileageUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['mileage'].label = '적립금 추가'
         self.fields['karly_cash'].label = '칼리캐시 추가'
+
+

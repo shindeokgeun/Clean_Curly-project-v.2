@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from carts.cart import Cart
-from shop.models import Product
+from shop.models import Product, Category
 from carts.forms import CartAddProductForm
 
 
@@ -34,10 +34,13 @@ def cart_detail(request): #장바구니의 상세내용을 보여줌
         item['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],
             'override': True})
-    return render(request, 'carts/cart.html', {'cart':cart})
+        
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    return render(request, 'carts/cart.html', {'cart':cart, 'products': products, 'categories': categories})
 
 
 def cart_cart(request): #장바구니 페이지를 보여줌
     return render(request, 'carts/cart.html')
-
 
