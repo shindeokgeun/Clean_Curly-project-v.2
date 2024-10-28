@@ -2,10 +2,15 @@ from django.shortcuts import render
 from orders.models import OrderItem
 from orders.forms import OrderCreateForm
 from carts.cart import Cart
+from shop.models import Product, Category
 
 def order_create(request):
     cart = Cart(request)
     
+    ## 카테고리 ##
+    products = Product.objects.all()
+    categories = Category.objects.all()
+
     if request.method == "POST":
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -25,7 +30,7 @@ def order_create(request):
 
             cart.clear()
             request.session['order_id'] = order.id
-            return render(request, 'orders/order/created.html',{'cart':cart,'form':form})
+            return render(request, 'orders/order/created.html',{'cart':cart,'form':form, 'products': products, 'categories': categories})
 
     
     else:
@@ -41,6 +46,6 @@ def order_create(request):
         else:
             form = OrderCreateForm()
 
-    return render(request, 'orders/order/create.html', {'cart':cart, 'form':form})
+    return render(request, 'orders/order/create.html', {'cart':cart, 'form':form,'products': products, 'categories': categories})
 
 

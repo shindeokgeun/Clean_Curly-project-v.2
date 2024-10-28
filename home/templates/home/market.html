@@ -121,8 +121,6 @@
         <br>
 
         <div class="slider-container">
-            <!-- 이전 버튼 -->
-
             <div class="slider">
                 {% for product in products %}
                 <div class="goods__list">
@@ -141,133 +139,9 @@
                                                                                 '{{ product.id}}')">
                         🛒 담기
                     </button>
-                    <div id="modal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeModal()">&times;</span>
-                            <h3 id="modalProductName"></h3>
-                            <div>
-                                <span id="discountSection" class="price"><span id="discountPrice"></span></span>
-                                <span id="normalPrice" class="price"></span> 
-                                
-                                <!-- 수량 선택 -->
-                                <div class="quantity-container">
-                                    <label for="quantity"></label>
-                                    <select id="quantity" onchange="updateTotalPrice()"></select>
-                                </div>
-                            </div>
-
-                            <!-- 합계 -->
-                            <div class="total-price-container">
-                                <span class="total-label">합계</span>
-                                <span id="totalPrice" class="total-price"></span>
-                            </div> 
-
-                            <!-- 장바구니 담기 -->                           
-                            <form id="addToCartForm" method="post" action="{% url 'carts:cart_add' product.id %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="quantity" id="formQuantity" value="1">
-                                <input type="hidden" name="price" id="formPrice" value="{{ product.price|floatformat:0 }}"> <!-- 가격 정보 추가 -->
-                                <input type="hidden" name="override" value="false">
-                                <button type="submit" class="addToCart">
-                                    장바구니 담기
-                                </button>
-                            </form>
-                            
-                            
-                        </div>
-                    </div>
-
-                    <script>
-                        // 모달 열기 함수
-                        function openModal(name, price, discountPrice, productId) {
-                            const modal = document.getElementById("modal");
-                            modal.style.display = "flex"; // 모달을 표시
-
-                            // body 스크롤 막기
-                            document.body.style.overflow = "hidden";
-
-                            // 상품명 설정
-                            document.getElementById("modalProductName").innerText = name;
-
-                            // 정상 가격 설정
-                            const normalPriceElement = document.getElementById("normalPrice");
-                            normalPriceElement.innerText = price + "원"; // 가격을 문자열로 표시
-
-                            // 할인가가 있는지 확인하고 설정
-                            const discountSection = document.getElementById("discountSection");
-                            const discountPriceElement = document.getElementById("discountPrice");
-        
-                            // 초기화 - 항상 먼저 실행
-                            discountSection.style.display = "none"; // 할인가 섹션 숨김
-                            normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
-                            discountPriceElement.innerText = ''; // 할인 가격 초기화
-                            
-                            let finalPrice = price;  // 기본 가격 설정
-                            
-
-                            if (discountPrice && discountPrice !== 'None') {
-                                document.getElementById("discountPrice").innerText = discountPrice + "원"; // 할인가 표시
-                                discountSection.style.display = "inline"; // 할인가 섹션 표시
-                                normalPriceElement.classList.add("line-through", "gray-text"); // 정상가에 가로줄과 회색 적용
-                                
-                            } else {
-                                discountSection.style.display = "none"; // 할인가가 없으면 숨김
-                                normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
-                            }
-
-                            // formPrice를 최종 가격으로 설정
-                            document.getElementById("formPrice").value = discountPrice && discountPrice !== 'None'
-                                ? parseInt(discountPrice.replace(/,/g, ''))
-                                : parseInt(price.replace(/,/g, '')); // 할인가가 있으면 할인가, 없으면 정상가
+                    
 
 
-                            // 수량 선택 옵션 생성 (1부터 100까지)
-                            const quantitySelect = document.getElementById("quantity");
-                            quantitySelect.innerHTML = ''; // 기존 옵션 초기화
-                            for (let i = 1; i <= 100; i++) {
-                                const option = document.createElement("option");
-                                option.value = i;
-                                option.text = i;
-                                quantitySelect.appendChild(option);
-                            }
-
-                            // 장바구니 폼의 action URL 설정 (productId 활용)
-                            document.getElementById("addToCartForm").action = `/cart/add/${productId}/`;
-
-                            // 초기 합계 업데이트
-                            updateTotalPrice();
-                        }
-
-                        // 총 가격 업데이트
-                        function updateTotalPrice() {
-                            const priceText = document.getElementById("normalPrice").innerText;
-                            const discountPriceText = document.getElementById("discountPrice").innerText;
-                            let price = parseInt(priceText.replace(/,/g, '').replace('원', '')); // 문자열을 숫자로 변환
-
-                            // 할인가가 있으면 할인가로 설정
-                            if (discountPriceText && discountPriceText !== '') {
-                                price = parseInt(discountPriceText.replace(/,/g, '').replace('원', ''));
-                            }
-
-                            // 선택한 수량 가져오기
-                            const quantity = parseInt(document.getElementById("quantity").value);
-
-                            // 총 가격 계산
-                            const totalPrice = price * quantity;
-                            document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + "원"; // 총 가격 표시
-
-                            // 폼에 수량 및 가격 업데이트
-                            document.getElementById("formQuantity").value = quantity;
-                            document.getElementById("formPrice").value = price; // 할인가 혹은 정상가 반영
-                        }
-
-                        // 모달 닫기 함수
-                        function closeModal() {
-                            const modal = document.getElementById("modal");
-                            modal.style.display = "none"; // 모달 숨김
-                            document.body.style.overflow = "auto"; // 배경 스크롤 다시 허용
-                        }
-                    </script>
 
                     <a href="{% url 'shop:product_detail' product.id %}" class="goods__link" title="{{ product.name }} 상세페이지">
                         <dl class="goods__item goods__discount">
@@ -300,13 +174,143 @@
         </div>
     </section>
 
+    <!--모달-->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalProductName"></h3>
+            <div>
+                <span id="discountSection" class="price"><span id="discountPrice"></span></span>
+                <span id="normalPrice" class="price"></span> 
+                
+                <!-- 수량 선택 -->
+                <div class="quantity-container">
+                    <label for="quantity"></label>
+                    <select id="quantity" onchange="updateTotalPrice()"></select>
+                </div>
+            </div>
+
+            <!-- 합계 -->
+            <div class="total-price-container">
+                <span class="total-label">합계</span>
+                <span id="totalPrice" class="total-price"></span>
+            </div> 
+
+            <!-- 장바구니 담기 -->                           
+            <form id="addToCartForm" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" id="formQuantity" value="1">
+                <input type="hidden" name="price" id="formPrice" value=""> <!-- 가격 정보 추가 -->
+                <input type="hidden" name="override" value="false">
+                <button type="submit" class="addToCart">
+                    장바구니 담기
+                </button>
+            </form>                   
+        </div>
+    </div>
+
+    <script>
+        // 모달 열기 함수
+        function openModal(name, price, discountPrice, productId) {
+            const modal = document.getElementById("modal");
+            modal.style.display = "flex"; // 모달을 표시
+
+            // body 스크롤 막기
+            document.body.style.overflow = "hidden";
+
+            // 상품명 설정
+            document.getElementById("modalProductName").innerText = name;
+
+            // 정상 가격 설정
+            const normalPriceElement = document.getElementById("normalPrice");
+            normalPriceElement.innerText = price + "원"; // 가격을 문자열로 표시
+
+            // 할인가가 있는지 확인하고 설정
+            const discountSection = document.getElementById("discountSection");
+            const discountPriceElement = document.getElementById("discountPrice");
+
+            // 초기화 - 항상 먼저 실행
+            discountSection.style.display = "none"; // 할인가 섹션 숨김
+            normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
+            discountPriceElement.innerText = ''; // 할인 가격 초기화
+            
+            let finalPrice = price;  // 기본 가격 설정
+            
+
+            if (discountPrice && discountPrice !== 'None') {
+                document.getElementById("discountPrice").innerText = discountPrice + "원"; // 할인가 표시
+                discountSection.style.display = "inline"; // 할인가 섹션 표시
+                normalPriceElement.classList.add("line-through", "gray-text"); // 정상가에 가로줄과 회색 적용
+                
+            } else {
+                discountSection.style.display = "none"; // 할인가가 없으면 숨김
+                normalPriceElement.classList.remove("line-through", "gray-text"); // 가로줄과 회색 제거
+            }
+
+            // formPrice를 최종 가격으로 설정
+            document.getElementById("formPrice").value = discountPrice && discountPrice !== 'None'
+                ? parseInt(discountPrice.replace(/,/g, ''))
+                : parseInt(price.replace(/,/g, '')); // 할인가가 있으면 할인가, 없으면 정상가
+
+
+            // 수량 선택 옵션 생성 (1부터 100까지)
+            const quantitySelect = document.getElementById("quantity");
+            quantitySelect.innerHTML = ''; // 기존 옵션 초기화
+            for (let i = 1; i <= 100; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                quantitySelect.appendChild(option);
+            }
+
+            // 장바구니 폼의 action URL 설정 (productId 활용)
+            document.getElementById("addToCartForm").action = `/cart/add/${productId}/`;
+
+            // 초기 합계 업데이트
+            updateTotalPrice();
+        }
+
+        // 총 가격 업데이트
+        function updateTotalPrice() {
+            const priceText = document.getElementById("normalPrice").innerText;
+            const discountPriceText = document.getElementById("discountPrice").innerText;
+            let price = parseInt(priceText.replace(/,/g, '').replace('원', '')); // 문자열을 숫자로 변환
+
+            // 할인가가 있으면 할인가로 설정
+            if (discountPriceText && discountPriceText !== '') {
+                price = parseInt(discountPriceText.replace(/,/g, '').replace('원', ''));
+            }
+
+            // 선택한 수량 가져오기
+            const quantity = parseInt(document.getElementById("quantity").value);
+
+            // 총 가격 계산
+            const totalPrice = price * quantity;
+            document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + "원"; // 총 가격 표시
+
+            // 폼에 수량 및 가격 업데이트
+            document.getElementById("formQuantity").value = quantity;
+            document.getElementById("formPrice").value = price; // 할인가 혹은 정상가 반영
+        }
+
+        // 모달 닫기 함수
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            
+            modal.style.display = "none"; // 모달 숨김
+            document.body.style.overflow = "auto"; // 배경 스크롤 다시 허용
+            
+
+        }
+    </script>
+    <div id="slider-container" data-total-items="{{ total_items }}"></div>
     <script>
         const slider = document.querySelector('.slider');
         const prevBtn = document.querySelector('.prev-btn2');
         const nextBtn = document.querySelector('.next-btn2');
 
         let currentPage = 1;  // 현재 페이지 번호
-        const totalItems = 8;  // 총 상품 수
+        const totalItems = parseInt(document.getElementById('slider-container').getAttribute('data-total-items')) || 0;
         const itemsPerPage = 4;  // 한 페이지에 보여줄 상품 수
         const totalPages = Math.ceil(totalItems / itemsPerPage);  // 총 페이지 수 계산
 
@@ -318,6 +322,7 @@
 
         // 다음 버튼 클릭 시 상품 부드럽게 넘기기
         function showNextPage() {
+            const slider = document.querySelector('.slider');
             if (currentPage < totalPages) {
                 currentPage++;  // 다음 페이지로 이동
             } else {
@@ -330,6 +335,7 @@
 
         // 이전 버튼 클릭 시 상품 부드럽게 넘기기
         function showPreviousPage() {
+            const slider = document.querySelector('.slider');
             if (currentPage > 1) {
                 currentPage--;  // 이전 페이지로 이동
             } else {
