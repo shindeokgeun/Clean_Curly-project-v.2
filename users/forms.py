@@ -84,12 +84,13 @@ from django.core.exceptions import ValidationError
 from .models import CustomUser
 
 class ProfileUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label='이메일')
     password = forms.CharField(widget=forms.PasswordInput(), required=False, label='새 비밀번호')  # 비밀번호 필드
     confirm_password = forms.CharField(widget=forms.PasswordInput(), required=False, label='새 비밀번호 확인')  # 확인 비밀번호
 
     class Meta:
         model = CustomUser
-        fields = ['phone_number', 'address', 'date_of_birth', 'profile_picture', 'password', 'confirm_password']
+        fields = ['email','phone_number', 'address', 'date_of_birth', 'profile_picture', 'password', 'confirm_password']
 
     def clean(self):
         cleaned_data = super().clean()
