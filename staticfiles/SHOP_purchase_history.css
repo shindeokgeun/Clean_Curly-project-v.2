@@ -1,0 +1,74 @@
+/* 전체 레이아웃 및 배경 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #444;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* 구매자별 섹션을 감싸는 컨테이너 */
+.buyer-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 구매 내역 리스트 */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+li:nth-child(even) {
+    background-color: #e9e9e9;
+}
+
+/* 상품명, 수량, 총 금액 */
+li span {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+li strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 주문일자 */
+.order-date {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 20px;
+    }
+
+    li {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

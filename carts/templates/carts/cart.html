@@ -96,6 +96,7 @@
                                 <form action="{% url 'carts:cart_add' product.id %}" method="post">
                                     {{ item.update_quantity_form.quantity }}
                                     {{ item.update_quantity_form.override }}
+                                    <input type="hidden" name="price" value="{{ item.price }}">  <!-- 가격 필드 추가 -->
                                     <input type="submit" value="Update">
                                     {% csrf_token %}
                                 </form>                                
@@ -106,7 +107,7 @@
                                     {% csrf_token %}
                                 </form>                                
                             </td> <!--삭제-->                            
-                            <td>{{ item.total_price|intcomma }}원</td> <!--제품총가격-->
+                            <td>{{ item.total_price|floatformat:0|intcomma }}원</td> <!--제품총가격-->
 
                         </tr>
 
@@ -114,14 +115,22 @@
                     {% endfor %}
                     <tr class="total">
                         <td colspan="4">총 가격</td>
-                        <td>{{ cart.get_total_price|intcomma }}원</td>
+                        <td>{{ cart.get_total_price|floatformat:0|intcomma }}원</td>
                     </tr>    
                 </tbody>
             </table>
         </div>
         <p class="text-right">
             <a href="/" class="button light">쇼핑 계속하기</a>
-            <a href="{% url 'orders:order_create' %}" class="button">주문하기</a>
+            
+            {% if cart|length > 0 %}
+                <!-- 장바구니에 상품이 있을 때만 주문하기 버튼을 활성화 -->
+                <a href="{% url 'orders:order_create' %}" class="button">주문하기</a>
+            {% else %}
+                <!-- 장바구니에 상품이 없을 때 버튼을 비활성화하거나 비표시 -->
+                <a href="#" class="button disabled" onclick="return false;">주문하기</a>
+            {% endif %}
+            
         </p>
     </cart>    
 
