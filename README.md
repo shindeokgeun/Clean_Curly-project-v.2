@@ -152,10 +152,9 @@
 ### 실행 방법 ⚙️
 ##### 패키지 설치
 ```
-git clone -b main https://github.com/kgw08003/Clean_coding_final.git myweb
-python -m venv myweb
-cd myweb
-./Scripts/activate
+git clone -b main https://github.com/shindeokgeun/Clean_Curly-project-v.2.git
+python -m venv venv
+./venv/Scripts/activate
 pip install -r requirements.txt
 python manage.py runserver
 ```
